@@ -3,10 +3,10 @@ import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shamagri_latest_flutter_version/domain/auth/auth_failure.dart';
 import 'package:shamagri_latest_flutter_version/domain/auth/user.dart';
+import 'package:shamagri_latest_flutter_version/domain/auth/value_objects.dart';
 
-import 'value_objects.dart';
+// import 'value_objects.dart';
 
-@factoryMethod
 abstract class IAuthFacade {
   Future<Option<User>> getSignedInUser();
   Future<Map<String, dynamic>> getGoogleSignedInUserDetail();

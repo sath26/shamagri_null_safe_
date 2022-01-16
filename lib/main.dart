@@ -18,7 +18,7 @@ Future<void> main() async {
   SimpleBlocObserver();
   await GetStorage.init();
 
-  configureInjection(Environment.prod);
+  await configureInjection(Environment.prod);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

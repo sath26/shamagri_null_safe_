@@ -5,6 +5,5 @@ import 'package:shamagri_latest_flutter_version/injection.config.dart';
 final GetIt getIt = GetIt.instance;
 
 @injectableInit
-void configureInjection(String env) {
-  $initGetIt(getIt, environment: env);
-}
+Future<void> configureInjection(String env) async =>
+    $initGetIt(getIt, environment: env);
