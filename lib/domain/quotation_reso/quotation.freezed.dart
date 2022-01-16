@@ -253,6 +253,22 @@ class _$_Quotation extends _Quotation {
   @override
   _$QuotationCopyWith<_Quotation> get copyWith =>
       __$QuotationCopyWithImpl<_Quotation>(this, _$identity);
+
+  @override
+  operator [](String prop) {
+    switch (prop) {
+      case 'title':
+        return title!.value.fold((l) => l, (r) => r);
+      case 'rate':
+        return rate!.value.fold((l) => l, (r) => r);
+      case 'quantity':
+        return quantity!.value.fold((l) => l, (r) => r);
+      case 'measuremntUnit':
+        return measuremntUnit!.value.fold((l) => l, (r) => r);
+      default:
+        throw ArgumentError('Property `$prop` does not exist on QUotation.');
+    }
+  }
 }
 
 abstract class _Quotation extends Quotation {
