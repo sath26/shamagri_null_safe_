@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "803082167987",
+    "firebase_url": "https://shamagri-demo.firebaseio.com",
+    "project_id": "shamagri-demo",
+    "storage_bucket": "shamagri-demo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803082167987:android:a281b16dfbba2fc97ff2c6",
+        "android_client_info": {
+          "package_name": "com.shamagri.shamagri26"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "803082167987-8nqkhiq4pero9n81957g5d5gtb7g6vfa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shamagri.shamagri26",
+            "certificate_hash": "90acbb95aa7bc82bba142eb6a0c9ec4c7d7a182a"
+          }
+        },
+        {
+          "client_id": "803082167987-ef0q93obfj26hgl9ujbr4j1ub7f8l2sd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shamagri.shamagri26",
+            "certificate_hash": "4707f1a7f34d50eb968e756e87fbd0caa2b9ec06"
+          }
+        },
+        {
+          "client_id": "803082167987-qfndspi61h2i9jrph50qb0gjos18p99t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7OasrlJPcUItbpyGp6kI84yLM7PNTTJs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "803082167987-qfndspi61h2i9jrph50qb0gjos18p99t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "803082167987-9kic15jeldcalgudfrl9dblp7660bth4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.shamagri.shamagri26"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
