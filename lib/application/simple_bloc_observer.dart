@@ -15,11 +15,22 @@ class SimpleBlocObserver extends BlocObserver {
   }
 
   @override
+  void onChange(BlocBase bloc, Change change) {
+    super.onChange(bloc, change);
+    logger.d('${bloc.runtimeType} $change');
+  }
+
+  var i = 0;
+  @override
   void onTransition(Bloc bloc, Transition transition) {
     // logger.i(transition.currentState.toString());
-    logger.i("1 currentState: " + transition.currentState.toString());
-    logger.i("2 event:   " + transition.event.toString());
-    logger.i("3 nextState:  " + transition.nextState.toString());
+    i++;
+    logger.i(i.toString() +
+        " 1 currentState: " +
+        transition.currentState.toString());
+    logger.i(i.toString() + "  2 event:   " + transition.event.toString());
+    logger
+        .i(i.toString() + "  3 nextState:  " + transition.nextState.toString());
 
     super.onTransition(bloc, transition);
   }
