@@ -15,7 +15,7 @@ import 'application/simple_bloc_observer.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SimpleBlocObserver();
+
   await GetStorage.init();
 
   await configureInjection(Environment.prod);
@@ -24,11 +24,21 @@ Future<void> main() async {
   );
   FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
   // FirebaseFirestore.instance.settings = Settings(persistenceEnabled: false);
-
-  runZonedGuarded(() {
+  runZonedGuarded(() async {
+    await BlocOverrides.runZoned(
+      () async => runApp(AppWidget()),
+      blocObserver: SimpleBlocObserver(),
+    );
+  }, (error, stackTrace) {
+    print('runZonedGuarded: Caught error in my root zone.');
+    FirebaseCrashlytics.instance.recordError(error, stackTrace);
+  }
+      // (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
+      );
+  /*  runZonedGuarded(() {
     runApp(AppWidget());
   }, (error, stackTrace) {
     print('runZonedGuarded: Caught error in my root zone.');
     FirebaseCrashlytics.instance.recordError(error, stackTrace);
-  });
+  }); */
 }
