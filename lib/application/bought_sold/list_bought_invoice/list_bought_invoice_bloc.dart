@@ -7,7 +7,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/kt.dart';
 import 'package:meta/meta.dart';
-// import 'package:mobile_shamagri_bloc/domain/list_bought/i_list_bought_repository.dart';
+// import 'package:shamagri_latest_flutter_version/domain/list_bought/i_list_bought_repository.dart';
 
 import 'package:shamagri_latest_flutter_version/domain/list_bought/list_bought.dart';
 import 'package:shamagri_latest_flutter_version/domain/list_bought/list_bought_failure.dart';

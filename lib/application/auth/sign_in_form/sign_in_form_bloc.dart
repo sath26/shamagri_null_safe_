@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
 import 'package:meta/meta.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:dartz/dartz.dart';
@@ -19,9 +20,68 @@ part 'sign_in_form_bloc.freezed.dart';
 @injectable
 class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
   final IAuthFacade _authFacade;
-  SignInFormBloc(this._authFacade) : super(SignInFormState.initial());
+  Logger logger = Logger();
 
-  @override
+  SignInFormBloc(this._authFacade) : super(SignInFormState.initial()) {
+    on<_$EmailChanged>(_onEmailChanged);
+    on<_$PasswordChanged>(_onPasswordChanged);
+    on<_$RegisterWithEmailAndPasswordPressed>(
+        _onRegisterWithEmailAndPasswordPressed);
+    on<_$SignInWithEmailAndPasswordPressed>(
+        _onSignInWithEmailAndPasswordPressed);
+    on<_$SignInWithGooglePressed>(_onSignInWithGooglePressed);
+  }
+  FutureOr<void> _onEmailChanged(
+      EmailChanged event, Emitter<SignInFormState> emit) async {
+    emit(state.copyWith(
+      emailAddress: EmailAddress(event.emailStr!),
+      authFailureOrSuccessOption: none(),
+    ));
+    // emit(const AuthState.unauthenticated());
+  }
+
+  FutureOr<void> _onPasswordChanged(
+      PasswordChanged e, Emitter<SignInFormState> emit) async {
+    emit(state.copyWith(
+      password: Password(e.passwordStr!),
+      authFailureOrSuccessOption: none(),
+    ));
+    // emit(const AuthState.unauthenticated());
+  }
+
+  FutureOr<void> _onRegisterWithEmailAndPasswordPressed(
+      RegisterWithEmailAndPasswordPressed event,
+      Emitter<SignInFormState> emit) async {
+    _performActionOnAuthFacadeWithEmailAndPassword(
+      _authFacade.registerWithEmailAndPassword,
+    );
+    // emit(const AuthState.unauthenticated());
+  }
+
+  FutureOr<void> _onSignInWithEmailAndPasswordPressed(
+      SignInWithEmailAndPasswordPressed event,
+      Emitter<SignInFormState> emit) async {
+    _performActionOnAuthFacadeWithEmailAndPassword(
+      _authFacade.signInWithEmailAndPassword,
+    );
+    // emit(const AuthState.unauthenticated());
+  }
+
+  FutureOr<void> _onSignInWithGooglePressed(
+      SignInWithGooglePressed event, Emitter<SignInFormState> emit) async {
+    emit(state.copyWith(
+      isSubmitting: true,
+      authFailureOrSuccessOption: none(),
+    ));
+    final failureOrSuccess = await _authFacade.signInWithGoogle();
+    emit(state.copyWith(
+      isSubmitting: false,
+      authFailureOrSuccessOption: some(failureOrSuccess),
+    ));
+    // emit(const AuthState.unauthenticated());
+  }
+
+  /* @override
   Stream<SignInFormState> mapEventToState(
     SignInFormEvent event,
   ) async* {
@@ -60,7 +120,7 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
         );
       },
     );
-  }
+  } */
 
   Stream<SignInFormState> _performActionOnAuthFacadeWithEmailAndPassword(
     Future<Either<AuthFailure, Unit>> Function({

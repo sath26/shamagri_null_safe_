@@ -5,7 +5,7 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 // import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logger/logger.dart';
-//import 'package:mobile_shamagri_bloc/infrastructure/auth/model/models.dart';
+//import 'package:shamagri_latest_flutter_version/infrastructure/auth/model/models.dart';
 import 'package:meta/meta.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shamagri_latest_flutter_version/domain/auth/i_auth_facade.dart';
@@ -18,10 +18,11 @@ part 'auth_bloc.freezed.dart';
 @injectable
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final IAuthFacade _authFacade;
+  Logger logger = Logger();
 
   AuthBloc(this._authFacade) : super(AuthState.initial()) {
     on<_$AuthCheckRequested>(_onAuthCheckRequested);
-    on<_$SignedOut>(_onEvent, transformer: sequential());
+    on<_$SignedOut>(_onSignedOut);
   }
   FutureOr<void> _onAuthCheckRequested(
       AuthCheckRequested event, Emitter<AuthState> emit) async {
@@ -34,8 +35,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
   }
 
-  Logger logger = Logger();
-  FutureOr<void> _onEvent(AuthEvent event, Emitter<AuthState> emit) async* {
+  FutureOr<void> _onSignedOut(SignedOut event, Emitter<AuthState> emit) async {
+    await _authFacade.signOut();
+    emit(const AuthState.unauthenticated());
+  }
+
+  /* FutureOr<void> _onEvent(AuthEvent event, Emitter<AuthState> emit) async* {
     emit(AuthState.initial());
     addError(Exception('increment error!'), StackTrace.current);
     yield* event.map(
@@ -52,5 +57,5 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(const AuthState.unauthenticated());
       },
     );
-  }
+  } */
 }

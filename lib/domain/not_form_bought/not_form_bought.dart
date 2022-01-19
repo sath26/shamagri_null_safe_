@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kt_dart/collection.dart';
-// import 'package:mobile_shamagri_bloc/application/bought_sold/quotation_primitive/quotation_item_presentation_classes.dart';
+// import 'package:shamagri_latest_flutter_version/application/bought_sold/quotation_primitive/quotation_item_presentation_classes.dart';
 import 'package:shamagri_latest_flutter_version/domain/core/failures.dart';
 import 'package:shamagri_latest_flutter_version/domain/core/value_objects.dart';
 // import 'package:shamagri_latest_flutter_version/domain/list_Bought/value_objects.dart';

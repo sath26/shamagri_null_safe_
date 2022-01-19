@@ -4,7 +4,7 @@ import 'package:kt_dart/kt.dart';
 import 'package:shamagri_latest_flutter_version/domain/core/failures.dart';
 import 'package:shamagri_latest_flutter_version/domain/core/value_objects.dart';
 import 'package:shamagri_latest_flutter_version/domain/core/value_validators.dart';
-// import 'package:mobile_shamagri_bloc/domain/quotation_reso/quotation.dart';
+// import 'package:shamagri_latest_flutter_version/domain/quotation_reso/quotation.dart';
 
 class List3<T> extends ValueObject<KtList<T>> {
   @override

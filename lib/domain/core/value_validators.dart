@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'package:dartz/dartz.dart';
 import 'package:kt_dart/kt.dart';
-// import 'package:mobile_shamagri_bloc/domain/auth/value_objects.dart';
+// import 'package:shamagri_latest_flutter_version/domain/auth/value_objects.dart';
 import 'package:shamagri_latest_flutter_version/domain/core/failures.dart';
 
 Either<ValueFailure<String>, String> validateMaxStringLength(

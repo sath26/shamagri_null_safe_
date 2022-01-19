@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shamagri_latest_flutter_version/domain/list_bought/list_bought.dart';
 
-class ErrorListBoughtInvoiceCard extends StatelessWidget {
+class ErrorListBoughtCard extends StatelessWidget {
   final ListBought? listBought;
 
-  const ErrorListBoughtInvoiceCard({
+  const ErrorListBoughtCard({
     Key? key,
     @required this.listBought,
   }) : super(key: key);

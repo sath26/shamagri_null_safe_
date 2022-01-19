@@ -73,10 +73,11 @@ class UserRepository implements IUserRepository {
           .recordError(e, s, reason: 'user_repository: watchAll');
     }).catchError((e) {
       if (e is FirebaseException && e.message!.contains('PERMISSION_DENIED')) {
-        return left(const UserFailure.insufficientPermission());
+        return left<UserFailure, List<User>>(
+            const UserFailure.insufficientPermission());
       } else {
         log(e.toString());
-        return left(const UserFailure.unexpected());
+        return left<UserFailure, List<User>>(const UserFailure.unexpected());
       }
     });
   }
@@ -97,10 +98,11 @@ class UserRepository implements IUserRepository {
           .recordError(e, s, reason: 'user_repository: watchUncompleted');
     }).catchError((e) {
       if (e is FirebaseException && e.message!.contains('PERMISSION_DENIED')) {
-        return left(const UserFailure.insufficientPermission());
+        return left<UserFailure, KtList<User>>(
+            const UserFailure.insufficientPermission());
       } else {
         // log.error(e.toString());
-        return left(const UserFailure.unexpected());
+        return left<UserFailure, KtList<User>>(const UserFailure.unexpected());
       }
     });
   }
