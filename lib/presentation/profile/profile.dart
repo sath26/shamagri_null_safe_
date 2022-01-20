@@ -98,9 +98,10 @@ class _ProfilePageState extends State<ProfilePage> {
             child: ThemeSwitchingArea(
               child: Builder(
                 builder: (context) => WillPopScope(
-                  onWillPop: () {
+                  onWillPop: () async {
                     // ExtendedNavigator.of(context).replace(Routes.homeScreen);
-                    // Navigator.pop(context);
+                    bool? result = await context.router.pop(context);
+                    return result;
                   },
                   child: Scaffold(
                     appBar: buildAppBar(context),

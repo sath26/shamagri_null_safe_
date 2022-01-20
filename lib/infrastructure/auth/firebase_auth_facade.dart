@@ -12,6 +12,7 @@ import 'package:shamagri_latest_flutter_version/domain/auth/value_objects.dart';
 import 'package:shamagri_latest_flutter_version/domain/user_reso/i_user_repository.dart';
 import './firebase_user_mapper.dart';
 
+@Named("impl1")
 @LazySingleton(as: IAuthFacade)
 class FirebaseAuthFacade implements IAuthFacade {
   final FirebaseAuth _firebaseAuth;

@@ -35,7 +35,7 @@ class HomeScreenState extends State<HomeScreen>
   HomeScreenState({Key? key});
 // Create a tab controller
   TabController? controller;
-  StreamSubscription? iosSubscription;
+  Future<String?>? iosSubscription;
   final FirebaseMessaging? _fcm = FirebaseMessaging.instance;
   final FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
@@ -133,63 +133,13 @@ class HomeScreenState extends State<HomeScreen>
     logger.i("registerNotification called");
 
     if (Platform.isIOS) {
-      iosSubscription = _fcm!.onIosSettingsRegistered.listen((data) {
-        // save the token  OR subscribe to a topic here
-      });
+      iosSubscription = _fcm!.getAPNSToken();
 
-      _fcm!.requestNotificationPermissions(IosNotificationSettings());
+      // _fcm!.requestNotificationPermissions(IosNotificationSettings());
     }
-    _fcm!.requestNotificationPermissions();
-
-    _fcm!.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        logger.i("onMessage: $message");
-        if (message['notification']['sold_and_bought_Id']) {
-          ExtendedNavigator.of(context).pushFromNotificationBoughtBill(
-              soldAndboughtId: message['notification']['sold_and_bought_Id'],
-              soldInvoiceAndBoughtInvoiceId: message['notification']
-                  ['soldInvoice_boughtInvoice_Id']);
-        } else {
-          ExtendedNavigator.of(context).pushFromNotificationBoughtBill(
-              soldAndboughtId: message['notification']['bought_and_sold_Id'],
-              soldInvoiceAndBoughtInvoiceId: message['notification']
-                  ['boughtInvoice_soldInvoice_Id']);
-        }
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            content: ListTile(
-              title: Text(message['notification']['title']),
-              subtitle: Text(message['notification']['body']),
-            ),
-            actions: <Widget>[
-              FlatButton(
-                child: Text('Ok'),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-            ],
-          ),
-        );
-        Platform.isAndroid
-            ? showNotification(message['notification'])
-            : showNotification(message['aps']['alert']);
-      },
-      // onBackgroundMessage: myBackgroundMessageHandler,
-      onLaunch: (Map<String, dynamic> message) async {
-        logger.i("onLaunch: $message");
-        // TODO optional
-        Platform.isAndroid
-            ? showNotification(message['notification'])
-            : showNotification(message['aps']['alert']);
-      },
-      onResume: (Map<String, dynamic> message) async {
-        logger.i("onResume: $message");
-        // TODO optional
-        Platform.isAndroid
-            ? showNotification(message['notification'])
-            : showNotification(message['aps']['alert']);
-      },
-    );
+    _fcm!.getNotificationSettings();
+    _fcm!.getInitialMessage();
+    FirebaseMessaging.onMessage;
   }
 
   Future<dynamic> myBackgroundMessageHandler(
@@ -247,9 +197,9 @@ class HomeScreenState extends State<HomeScreen>
   void dispose() {
     // Dispose of the Tab Controller
     controller!.dispose();
-    if (Platform.isIOS) {
-      iosSubscription!.cancel();
-    }
+    /* if (Platform.isIOS) {
+      // iosSubscription!.cancel();
+    } */
     super.dispose();
   }
 
@@ -317,14 +267,14 @@ class HomeScreenState extends State<HomeScreen>
               // ExtendedNavigator.of(context).replace(Routes.selectBillScreen);
               String now = dateFormat.format(DateTime.now());
 
-              await _firebaseAnalytics.logEvent(
+              await _firebaseAnalytics!.logEvent(
                 name: 'create_bill',
                 parameters: {
                   'clicked_time': now,
                 },
               );
-              ExtendedNavigator.of(context)
-                  .pushSelectBillScreen(afterSelectSoldOption: null);
+              AutoRouter.of(context)
+                  .push(SelectBillScreenRoute(afterSelectSoldOption: null));
             },
             icon: Icon(
               Icons.add,
@@ -361,7 +311,7 @@ class HomeScreenState extends State<HomeScreen>
                   // color: Colors.white,
                 ),
                 onPressed: () {
-                  ExtendedNavigator.of(context).replace(Routes.profilePage);
+                  AutoRouter.of(context).replace(ProfilePageRoute());
                 },
               ),
             ],
