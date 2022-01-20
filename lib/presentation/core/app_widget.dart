@@ -34,8 +34,7 @@ class AppWidget extends StatelessWidget {
         )
       ],
       child: ThemeProvider(
-        initTheme:
-            user.isDarkMode ?? true ? MyThemes.darkTheme : MyThemes.darkTheme,
+        initTheme: ThemeData.dark(),
         child: Builder(
           builder: (context) => MaterialApp(
             title: 'Shamagri - bill sharing app',

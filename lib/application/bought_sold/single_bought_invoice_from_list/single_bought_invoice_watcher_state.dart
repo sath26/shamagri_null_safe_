@@ -7,13 +7,13 @@ abstract class SingleBoughtInvoiceWatcherState
       Option<Sold> afterSelectSoldOption) = _Initialized; */
 
   const factory SingleBoughtInvoiceWatcherState({
-    @required BoughtNotForm bill,
-    @required bool showErrorMessages,
-    @required bool navigationWork,
-    @required bool isEditing,
-    @required bool isSaving,
+    @required BoughtNotForm? bill,
+    @required bool? showErrorMessages,
+    @required bool? navigationWork,
+    @required bool? isEditing,
+    @required bool? isSaving,
     @required
-        Option<Either<BoughtNotFormFailure, BoughtNotForm>>
+        Option<Either<BoughtNotFormFailure, BoughtNotForm>>?
             saveFailureOrSuccessOption,
   }) = _SingleBoughtInvoiceWatcherState;
   /*  const factory SingleInvoiceWatcherState.loadBillAfterEdit({

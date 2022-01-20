@@ -24,7 +24,7 @@ class QuotationBloc extends Bloc<QuotationEvent, QuotationState> {
   ) async* {
     yield* event.map(
       initialized: (e) async* {
-        yield e.initialQuotationOption.fold(
+        yield e.initialQuotationOption!.fold(
           () => state,
           (initialQuotation) => state.copyWith(
             quotation: initialQuotation,
@@ -35,28 +35,28 @@ class QuotationBloc extends Bloc<QuotationEvent, QuotationState> {
       titleChanged: (e) async* {
         yield state.copyWith(
           quotation:
-              state.quotation.copyWith(title: QuotationTitle(e.titleStr)),
+              state.quotation!.copyWith(title: QuotationTitle(e.titleStr!)),
           saveFailureOrSuccessOption: none(),
         );
       },
       rateChanged: (e) async* {
         yield state.copyWith(
-          quotation: state.quotation.copyWith(rate: QuotationRate(e.rateStr)),
+          quotation: state.quotation!.copyWith(rate: QuotationRate(e.rateStr!)),
           saveFailureOrSuccessOption: none(),
         );
       },
       unitChanged: (e) async* {
         yield state.copyWith(
-          quotation: state.quotation
-              .copyWith(measuremntUnit: QuotationUnit(e.unitStr)),
+          quotation: state.quotation!
+              .copyWith(measuremntUnit: QuotationUnit(e.unitStr!)),
           isEditing: false,
           saveFailureOrSuccessOption: none(),
         );
       },
       quantityChanged: (e) async* {
         yield state.copyWith(
-          quotation: state.quotation
-              .copyWith(quantity: QuotationQuantity(e.quantityStr)),
+          quotation: state.quotation!
+              .copyWith(quantity: QuotationQuantity(e.quantityStr!)),
           saveFailureOrSuccessOption: none(),
         );
       },
@@ -69,8 +69,8 @@ class QuotationBloc extends Bloc<QuotationEvent, QuotationState> {
                       .copyWith(isSelected: e.isSelected))),
         ); */
             state.copyWith(
-          quotation: state.quotation
-              .copyWith(isSelected: QuotationSelected(e.isSelected)),
+          quotation: state.quotation!
+              .copyWith(isSelected: QuotationSelected(e.isSelected!)),
           saveFailureOrSuccessOption: none(),
         );
         // yield state.copyWith(isSelected: e.isSelected);
@@ -83,10 +83,10 @@ class QuotationBloc extends Bloc<QuotationEvent, QuotationState> {
           saveFailureOrSuccessOption: none(),
         );
 
-        if (state.quotation.failureOption.isNone()) {
-          failureOrSuccess = state.isEditing
-              ? await _quotationRepository.update(state.quotation)
-              : await _quotationRepository.create(state.quotation);
+        if (state.quotation!.failureOption.isNone()) {
+          failureOrSuccess = state.isEditing!
+              ? await _quotationRepository.update(state.quotation!)
+              : await _quotationRepository.create(state.quotation!);
         }
 
         yield state.copyWith(

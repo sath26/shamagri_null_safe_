@@ -26,7 +26,7 @@ abstract class ListSold implements _$ListSold {
     // ListSoldSelected isSelected,
     // ListSoldIndex index
     // @required List3<TodoItem> todos,
-    @required @ServerTimestampConverter() FieldValue updatedAt,
+    @required @ServerTimestampConverter() FieldValue? updatedAt,
   }) = _ListSold;
 
   factory ListSold.empty() => ListSold(

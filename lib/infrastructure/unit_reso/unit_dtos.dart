@@ -14,17 +14,17 @@ abstract class UnitDto implements _$UnitDto {
   const UnitDto._();
 
   const factory UnitDto({
-    @JsonKey(ignore: true) String id1,
-    @required String unitHere,
+    @JsonKey(ignore: true) String? id1,
+    @required String? unitHere,
     // @required int color,
     // @required List<TodoItemDto> todos,
-    @required @ServerTimestampConverter() FieldValue createdAt,
+    @required @ServerTimestampConverter() FieldValue? createdAt,
   }) = _UnitDto;
 
   factory UnitDto.fromDomain(Measuremnt unit) {
     return UnitDto(
-      id1: unit.id.getOrCrash(),
-      unitHere: unit.title.getOrCrash(),
+      id1: unit.id!.getOrCrash(),
+      unitHere: unit.title!.getOrCrash(),
       /*  color: unit.color.getOrCrash().value,
       //todos: Unit.todos
           .getOrCrash()
@@ -38,8 +38,8 @@ abstract class UnitDto implements _$UnitDto {
 
   Measuremnt toDomain() {
     return Measuremnt(
-        id: UniqueId.fromUniqueString(id1),
-        title: UnitBody(unitHere),
+        id: UniqueId.fromUniqueString(id1!),
+        title: UnitBody(unitHere!),
         isEditing: false
         /*  color: MeasuremntColor(Color(color)),
       //todos: List3(todos.map((dto) => dto.toDomain()).toImmutableList()), */
@@ -50,18 +50,19 @@ abstract class UnitDto implements _$UnitDto {
       _$UnitDtoFromJson(json);
 
   factory UnitDto.fromFirestore(DocumentSnapshot doc) {
-    return UnitDto.fromJson(doc.data()).copyWith(id1: doc.id);
+    return UnitDto.fromJson(doc.data() as Map<String, dynamic>)
+        .copyWith(id1: doc.id);
   }
 }
 
-class ServerTimestampConverter implements JsonConverter<FieldValue, Object> {
+class ServerTimestampConverter implements JsonConverter<FieldValue?, Object?> {
   const ServerTimestampConverter();
 
   @override
-  FieldValue fromJson(Object json) {
+  FieldValue fromJson(Object? json) {
     return FieldValue.serverTimestamp();
   }
 
   @override
-  Object toJson(FieldValue fieldValue) => fieldValue;
+  Object? toJson(FieldValue? fieldValue) => fieldValue;
 }

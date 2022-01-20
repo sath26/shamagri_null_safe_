@@ -17,9 +17,10 @@ import 'package:shamagri_latest_flutter_version/presentation/vendor/add/select.d
 import 'package:shamagri_latest_flutter_version/presentation/vendor/add/selected_quotation_edit/selected_quotation_form.dart';
 import 'package:shamagri_latest_flutter_version/presentation/vendor/sold/invoice.dart';
 import 'package:shamagri_latest_flutter_version/presentation/vendor/sold_bill.dart';
+import 'package:shamagri_latest_flutter_version/presentation/both/home.dart';
 import '../splash/splash.dart';
 import '../sign_in/sign_in_page.dart';
-import '../both/home.dart';
+// import '../both/home.dart';
 
 /* @MaterialAutoRouter(
   generateNavigationHelperExtension: true,
@@ -35,20 +36,20 @@ class $Router {} */
   // generateNavigationHelperExtension: true,
   routes: <AutoRoute>[
     MaterialRoute(page: SplashScreen, initial: true),
-    // MaterialRoute(page: HomeScreen),
-    // MaterialRoute(page: SelectBillScreen),
+    MaterialRoute(page: HomeScreen),
+    MaterialRoute(page: SelectBillScreen),
     MaterialRoute(page: SignInPage),
-    // MaterialRoute(page: AddEditQuotationScreen),
-    // MaterialRoute(page: ListEditDeleteUnit),
-    // MaterialRoute(page: AddEditMeasurementScreen),
-    // MaterialRoute(page: AfterSelect),
-    // MaterialRoute(page: SelectedQuotationForm),
-    // MaterialRoute(page: SoldInvoice),
+    MaterialRoute(page: AddEditQuotationScreen),
+    MaterialRoute(page: ListEditDeleteUnit),
+    MaterialRoute(page: AddEditMeasurementScreen),
+    MaterialRoute(page: AfterSelect),
+    MaterialRoute(page: SelectedQuotationForm),
+    MaterialRoute(page: SoldInvoice),
     MaterialRoute(page: BoughtInvoice),
-    // MaterialRoute(page: SingleSoldBill),
-    // MaterialRoute(page: SingleBoughtBill),
-    // MaterialRoute(page: ProfilePage),
-    // MaterialRoute(page: FromNotificationBoughtBill),
+    MaterialRoute(page: SingleSoldBill),
+    MaterialRoute(page: SingleBoughtBill),
+    MaterialRoute(page: ProfilePage),
+    MaterialRoute(page: FromNotificationBoughtBill),
     //FromNotificationBoughtBill
     // MaterialRoute(page: SingleBoughtBill),
 

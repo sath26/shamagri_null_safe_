@@ -21,7 +21,7 @@ class RateOfflineHook extends HookWidget {
     return BlocListener<SelectedWatcherBloc, SelectedWatcherState>(
         listenWhen: (p, c) => p.isEditing != c.isEditing,
         listener: (context, state) {
-          textEditingController.text = state.bill.quotations
+          textEditingController.text = state.bill!.quotations!
               .getOrCrash()
               .get(this.quotationIndex!)
               .rate!
@@ -47,11 +47,11 @@ class RateOfflineHook extends HookWidget {
                 return context.watch<SelectedWatcherBloc>().add(
                     SelectedWatcherEvent.rateChanged(
                         billQuotations:
-                            List3Sold(this.bill!.quotations.getOrCrash()),
+                            List3Sold(this.bill!.quotations!.getOrCrash()),
                         billQuotationRate: num.tryParse(value)!,
                         entry: this
                             .bill!
-                            .quotations
+                            .quotations!
                             .getOrCrash()
                             .get(this.quotationIndex!)));
               },
@@ -66,8 +66,8 @@ class RateOfflineHook extends HookWidget {
               validator: (_) => context
                   .watch<SelectedWatcherBloc>()
                   .state
-                  .bill
-                  .quotations
+                  .bill!
+                  .quotations!
                   .getOrCrash()
                   .get(this.quotationIndex!)
                   .rate!

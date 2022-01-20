@@ -22,7 +22,7 @@ class RateInputHook extends HookWidget {
         listenWhen: (p, c) => p.isEditing != c.isEditing,
         listener: (context, state) {
           textEditingController.text =
-              state.quotation.rate!.getOrCrash().toString();
+              state.quotation!.rate!.getOrCrash().toString();
         },
         child: Padding(
             padding: const EdgeInsets.all(10),
@@ -45,7 +45,7 @@ class RateInputHook extends HookWidget {
               validator: (_) => context
                   .watch<QuotationBloc>()
                   .state
-                  .quotation
+                  .quotation!
                   .rate!
                   .value
                   .fold(

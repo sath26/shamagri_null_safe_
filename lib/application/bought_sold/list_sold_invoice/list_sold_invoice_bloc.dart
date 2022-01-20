@@ -42,7 +42,7 @@ class ListSoldInvoiceBloc
         yield const ListSoldInvoiceState.loadInProgress();
         await _listSoldStreamSubscription?.cancel();
         _listSoldStreamSubscription = _soldRepository
-            .firstTen(e.soldId)
+            .firstTen(e.soldId!)
             .asStream()
             .listen((failureOrSold) {
           failureOrSold.fold((f) => null, (listSold) {
@@ -73,7 +73,7 @@ class ListSoldInvoiceBloc
         });
       },
       listSoldReceived: (e) async* {
-        yield e.failureOrSold.fold(
+        yield e.failureOrSold!.fold(
           (f) => ListSoldInvoiceState.loadFailure(f),
           (soldInvoice) {
             soldInvoiceAll = soldInvoiceAll + soldInvoice;

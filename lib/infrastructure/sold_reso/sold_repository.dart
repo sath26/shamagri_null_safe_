@@ -286,9 +286,9 @@ class SoldRepository implements ISoldRepository {
       final soldDto = sd.SoldDto.fromDomain(
           sold,
           sellerUserDetail,
-          sold.buyerUserId.getOrCrash(),
-          sold.buyerDisplayName.getOrCrash(),
-          sold.buyerPhotoUrl.getOrCrash());
+          sold.buyerUserId!.getOrCrash(),
+          sold.buyerDisplayName!.getOrCrash(),
+          sold.buyerPhotoUrl!.getOrCrash());
 
       await _firestore
           .collection("users")
@@ -352,7 +352,7 @@ await _firestore.soldCollection
   Future<Either<SoldFailure, Sold>> delete(Sold sold) async {
     try {
       // final userDoc = await _firestore.userDocument();
-      final soldId = sold.id.getOrCrash();
+      final soldId = sold.id!.getOrCrash();
 
       await _firestore.soldCollection.doc(soldId).delete();
 

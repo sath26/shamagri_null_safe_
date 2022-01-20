@@ -60,7 +60,7 @@ class SelectedListRenderer extends StatelessWidget {
                     .id
                     .toString()), */
 
-                Text(state.bill.quotations
+                Text(state.bill!.quotations!
                     .getOrCrash()
                     .get(index)
                     .index!
@@ -74,7 +74,7 @@ class SelectedListRenderer extends StatelessWidget {
             constraints: BoxConstraints.tight(Size(36, 36)),
           );
         },
-        itemCount: state.bill.quotations.length,
+        itemCount: state.bill!.quotations!.length,
       );
     });
   }

@@ -37,7 +37,7 @@ class ListSoldInvoiceCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                listSold!.total.getOrCrash().toString(),
+                listSold!.total!.getOrCrash().toString(),
                 style: const TextStyle(fontSize: 18),
               ),
               /*  if (listSold.todos.length > 0) ...[
@@ -68,7 +68,7 @@ class ListSoldInvoiceCard extends StatelessWidget {
         return AlertDialog(
           title: const Text('Selected listSold:'),
           content: Text(
-            listSold!.total.getOrCrash().toString(),
+            listSold!.total!.getOrCrash().toString(),
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
           ),

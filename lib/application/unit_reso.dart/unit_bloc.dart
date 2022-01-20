@@ -27,7 +27,7 @@ class UnitBloc extends Bloc<UnitEvent, UnitState> {
     UnitEvent event,
   ) async* {
     yield* event.map(initialized: (e) async* {
-      yield e.initialUnitOption.fold(
+      yield e.initialUnitOption!.fold(
         () => state,
         (initialUnit) => state.copyWith(
           unit: initialUnit,
@@ -36,7 +36,7 @@ class UnitBloc extends Bloc<UnitEvent, UnitState> {
       );
     }, unitChanged: (e) async* {
       yield state.copyWith(
-        unit: state.unit.copyWith(title: UnitBody(e.bodyStr)),
+        unit: state.unit!.copyWith(title: UnitBody(e.bodyStr!)),
         saveFailureOrSuccessOption: none(),
       );
     },
@@ -63,10 +63,10 @@ class UnitBloc extends Bloc<UnitEvent, UnitState> {
         saveFailureOrSuccessOption: none(),
       );
 
-      if (state.unit.failureOption.isNone()) {
-        failureOrSuccess = state.isEditing
-            ? await _unitRepository.update(state.unit)
-            : await _unitRepository.create(state.unit);
+      if (state.unit!.failureOption.isNone()) {
+        failureOrSuccess = state.isEditing!
+            ? await _unitRepository.update(state.unit!)
+            : await _unitRepository.create(state.unit!);
       }
 
       yield state.copyWith(
@@ -76,7 +76,7 @@ class UnitBloc extends Bloc<UnitEvent, UnitState> {
       );
     }, showsInputForEdit: (e) async* {
       yield state.copyWith(
-        unit: state.unit.copyWith(isEditing: e.isEditing),
+        unit: state.unit!.copyWith(isEditing: e.isEditing),
         isEditing: e.isEditing,
         saveFailureOrSuccessOption: none(),
       );

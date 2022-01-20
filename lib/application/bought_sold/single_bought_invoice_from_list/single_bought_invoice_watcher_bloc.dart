@@ -48,7 +48,7 @@ class SingleBoughtInvoiceWatcherBloc extends Bloc<
       );
     }, isApprovedChanged: (e) async* {
       yield state.copyWith(
-          bill: state.bill.copyWith(isApproved: BoughtApproved(e.isApproved)));
+          bill: state.bill!.copyWith(isApproved: BoughtApproved(e.isApproved)));
     }, updated: (e) async* {
       Either<BoughtNotFormFailure, BoughtNotForm>? failureOrSuccess;
 
@@ -57,10 +57,10 @@ class SingleBoughtInvoiceWatcherBloc extends Bloc<
         saveFailureOrSuccessOption: none(),
       );
 
-      if (state.bill.failureOption.isNone()) {
+      if (state.bill!.failureOption.isNone()) {
         // failureOrSuccess = state.isEditing
         // ? await _soldRepository.update(state.bill)
-        failureOrSuccess = await _boughtRepository.update(state.bill);
+        failureOrSuccess = await _boughtRepository.update(state.bill!);
       }
 
       yield state.copyWith(

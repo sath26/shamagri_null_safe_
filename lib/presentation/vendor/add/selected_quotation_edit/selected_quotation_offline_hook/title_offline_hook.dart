@@ -16,7 +16,7 @@ class TitleOfflineHook extends HookWidget {
     return BlocListener<SelectedWatcherBloc, SelectedWatcherState>(
       listenWhen: (p, c) => p.isEditing != c.isEditing,
       listener: (context, state) {
-        textEditingController.text = state.bill.quotations
+        textEditingController.text = state.bill!.quotations!
             .getOrCrash()
             .get(this.quotationIndex!)
             .title!
@@ -24,7 +24,7 @@ class TitleOfflineHook extends HookWidget {
       },
       child: Text(this
           .bill!
-          .quotations
+          .quotations!
           .getOrCrash()
           .get(this.quotationIndex!)
           .title!

@@ -18,19 +18,19 @@ abstract class SoldNotForm implements _$SoldNotForm {
   const SoldNotForm._();
 
   const factory SoldNotForm({
-    @required UniqueId id,
-    @required SoldTotalHere total,
-    @required EmailAddressBought buyerEmail,
+    @required UniqueId? id,
+    @required SoldTotalHere? total,
+    @required EmailAddressBought? buyerEmail,
     // @required SoldColor color,
-    @required List3Sold<Quotation> quotations,
-    @required EmailAddressSold sellerEmail,
-    @required UserIdSold sellerUserId,
-    @required UserIdSold buyerUserId,
-    @required UserDisplayNameSold sellerDisplayName,
-    @required UserDisplayNameSold buyerDisplayName,
-    @required UserPhotoUrlSold sellerPhotoUrl,
-    @required UserPhotoUrlSold buyerPhotoUrl,
-    @required SoldApproved isApproved,
+    @required List3Sold<Quotation>? quotations,
+    @required EmailAddressSold? sellerEmail,
+    @required UserIdSold? sellerUserId,
+    @required UserIdSold? buyerUserId,
+    @required UserDisplayNameSold? sellerDisplayName,
+    @required UserDisplayNameSold? buyerDisplayName,
+    @required UserPhotoUrlSold? sellerPhotoUrl,
+    @required UserPhotoUrlSold? buyerPhotoUrl,
+    @required SoldApproved? isApproved,
   }) = _SoldNotForm;
 
   factory SoldNotForm.empty() => SoldNotForm(
@@ -53,16 +53,16 @@ abstract class SoldNotForm implements _$SoldNotForm {
 
   Option<ValueFailure<dynamic>> get failureOption {
     // body.failureOrUnit
-    return total.failureOrUnit
-        .andThen(buyerEmail.failureOrUnit)
-        .andThen(sellerUserId.failureOrUnit)
-        .andThen(buyerUserId.failureOrUnit)
-        .andThen(sellerDisplayName.failureOrUnit)
-        .andThen(buyerDisplayName.failureOrUnit)
-        .andThen(sellerPhotoUrl.failureOrUnit)
-        .andThen(buyerPhotoUrl.failureOrUnit)
+    return total!.failureOrUnit
+        .andThen(buyerEmail!.failureOrUnit)
+        .andThen(sellerUserId!.failureOrUnit)
+        .andThen(buyerUserId!.failureOrUnit)
+        .andThen(sellerDisplayName!.failureOrUnit)
+        .andThen(buyerDisplayName!.failureOrUnit)
+        .andThen(sellerPhotoUrl!.failureOrUnit)
+        .andThen(buyerPhotoUrl!.failureOrUnit)
         .andThen(
-          quotations
+          quotations!
               .getOrCrash()
               // Getting the failureOption from the TodoItem ENTITY - NOT a failureOrUnit from a VALUE OBJECT
               .map((quotationItem) => quotationItem.failureOption)

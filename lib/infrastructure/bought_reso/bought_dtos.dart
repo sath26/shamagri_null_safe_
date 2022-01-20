@@ -70,21 +70,21 @@ abstract class BoughtDto implements _$BoughtDto {
 
   BoughtNotForm toDomain() {
     return BoughtNotForm(
-      id: UniqueId.fromUniqueString(boughtId),
-      buyerEmail: bought.EmailAddressBought(buyerEmail),
-      quotations: bought.List3Bought(quotations
+      id: UniqueId.fromUniqueString(boughtId!),
+      buyerEmail: bought.EmailAddressBought(buyerEmail!),
+      quotations: bought.List3Bought(quotations!
           .map((dto) => dto.toDomain())
           .toImmutableList()), //todo: map out like for note
-      total: bought.BoughtTotalHere(total),
-      sellerEmail: bought.EmailAddressBought(sellerEmail),
+      total: bought.BoughtTotalHere(total!),
+      sellerEmail: bought.EmailAddressBought(sellerEmail!),
 
-      sellerUserId: bought.UserIdBought(sellerUserId),
-      buyerUserId: bought.UserIdBought(buyerUserId),
-      sellerDisplayName: bought.UserDisplayNameBought(sellerDisplayName),
-      buyerDisplayName: bought.UserDisplayNameBought(buyerDisplayName),
-      sellerPhotoUrl: bought.UserPhotoUrlBought(sellerPhotoUrl),
-      buyerPhotoUrl: bought.UserPhotoUrlBought(buyerPhotoUrl),
-      isApproved: bought.BoughtApproved(isApproved),
+      sellerUserId: bought.UserIdBought(sellerUserId!),
+      buyerUserId: bought.UserIdBought(buyerUserId!),
+      sellerDisplayName: bought.UserDisplayNameBought(sellerDisplayName!),
+      buyerDisplayName: bought.UserDisplayNameBought(buyerDisplayName!),
+      sellerPhotoUrl: bought.UserPhotoUrlBought(sellerPhotoUrl!),
+      buyerPhotoUrl: bought.UserPhotoUrlBought(buyerPhotoUrl!),
+      isApproved: bought.BoughtApproved(isApproved!),
     );
   }
 
@@ -97,16 +97,16 @@ abstract class BoughtDto implements _$BoughtDto {
   }
 }
 
-class ServerTimestampConverter implements JsonConverter<FieldValue, Object> {
+class ServerTimestampConverter implements JsonConverter<FieldValue?, Object?> {
   const ServerTimestampConverter();
 
   @override
-  FieldValue fromJson(Object json) {
+  FieldValue fromJson(Object? json) {
     return FieldValue.serverTimestamp();
   }
 
   @override
-  Object toJson(FieldValue fieldValue) => fieldValue;
+  Object? toJson(FieldValue? fieldValue) => fieldValue;
 }
 
 @freezed
@@ -114,14 +114,14 @@ abstract class BoughtQuotationDto implements _$BoughtQuotationDto {
   const BoughtQuotationDto._();
 
   const factory BoughtQuotationDto({
-    @required String id,
-    @required String title,
-    @required String measuremntUnit,
-    @required num rate,
-    @required num quantity,
-    @required String userID,
-    @required bool isSelected,
-    @required num index,
+    @required String? id,
+    @required String? title,
+    @required String? measuremntUnit,
+    @required num? rate,
+    @required num? quantity,
+    @required String? userID,
+    @required bool? isSelected,
+    @required num? index,
     // @required int color,
     // @required List<TodoItemDto> todos,
   }) = _BoughtQuotationDto;
@@ -148,13 +148,13 @@ abstract class BoughtQuotationDto implements _$BoughtQuotationDto {
 
   Quotation toDomain() {
     return Quotation(
-      id: UniqueId.fromUniqueString(id),
-      title: QuotationTitle(title),
-      measuremntUnit: QuotationUnit(measuremntUnit),
-      quantity: QuotationQuantity(quantity),
-      rate: QuotationRate(rate),
-      isSelected: QuotationSelected(isSelected),
-      index: QuotationIndex(index),
+      id: UniqueId.fromUniqueString(id!),
+      title: QuotationTitle(title!),
+      measuremntUnit: QuotationUnit(measuremntUnit!),
+      quantity: QuotationQuantity(quantity!),
+      rate: QuotationRate(rate!),
+      isSelected: QuotationSelected(isSelected!),
+      index: QuotationIndex(index!),
 
       // isEditing: false
       /*  color: QuotationColor(Color(color)),

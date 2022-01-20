@@ -26,14 +26,14 @@ class ListSoldOverviewBody extends StatelessWidget {
               return ListView.builder(
                 controller: this.scrollController,
                 itemBuilder: (context, index) {
-                  final listSold = state.listSold[index];
+                  final listSold = (state.listSold as List)[index];
                   if (listSold.failureOption.isSome()) {
                     return ErrorListSoldCard(listSold: listSold);
                   } else {
                     return ListSoldCard(listSold: listSold);
                   }
                 },
-                itemCount: state.listSold.length,
+                itemCount: state.listSold!.length,
               );
             }
           },

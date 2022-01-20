@@ -50,15 +50,15 @@ abstract class ListBoughtDto implements _$ListBoughtDto {
 
   ListBought toDomain() {
     return ListBought(
-      id: UniqueId.fromUniqueString(boughtId),
-      sellerDisplayName: UserDisplayName(sellerDisplayName),
-      buyerDisplayName: UserDisplayName(buyerDisplayName),
-      sellerPhotoUrl: UserPhotoUrl(sellerPhotoUrl),
-      buyerPhotoUrl: UserPhotoUrl(buyerPhotoUrl),
-      total: BoughtTotal(total),
+      id: UniqueId.fromUniqueString(boughtId!),
+      sellerDisplayName: UserDisplayName(sellerDisplayName!),
+      buyerDisplayName: UserDisplayName(buyerDisplayName!),
+      sellerPhotoUrl: UserPhotoUrl(sellerPhotoUrl!),
+      buyerPhotoUrl: UserPhotoUrl(buyerPhotoUrl!),
+      total: BoughtTotal(total!),
       updatedAt: updatedAt,
-      buyerUserId: UserIdListBought(buyerUserId),
-      sellerUserId: UserIdListBought(sellerUserId),
+      buyerUserId: UserIdListBought(buyerUserId!),
+      sellerUserId: UserIdListBought(sellerUserId!),
     );
   }
 

@@ -28,10 +28,10 @@ class Proceed extends StatelessWidget {
         } */
 
         // if (state is Loaded) {
-        if (state.bill.quotations.length == 0) {
+        if (state.bill!.quotations!.length == 0) {
           return ElevatedButton.icon(
             onPressed: null,
-            label: Text("Proceed (${state.bill.quotations.length})"),
+            label: Text("Proceed (${state.bill!.quotations!.length})"),
             icon: Icon(Icons.arrow_forward, size: 18),
           );
         } else {
@@ -51,7 +51,7 @@ class Proceed extends StatelessWidget {
               AutoRouter.of(context)
                   .replace(AfterSelectRoute(afterSelectSoldOption: state.bill));
             },
-            label: Text("Proceed (${state.bill.quotations.length})"),
+            label: Text("Proceed (${state.bill!.quotations!.length})"),
             icon: Icon(Icons.arrow_forward, size: 18),
           );
           // }

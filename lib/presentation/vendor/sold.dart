@@ -92,7 +92,8 @@ class Sold extends StatelessWidget {
               listener: (context, state) {
                 state.maybeMap(
                   unauthenticated: (_) =>
-                      ExtendedNavigator.of(context).replace(Routes.signInPage),
+                      // ExtendedNavigator.of(context).replace(Routes.signInPage),
+                      AutoRouter.of(context).replace(SignInPageRoute()),
                   orElse: () {},
                 );
                 /*   */
@@ -117,7 +118,7 @@ class Sold extends StatelessWidget {
                     initial: (initial) => null,
                     loadInProgress: (loadInProgress) => null,
                     loadSuccess: (state) {
-                      if (!(state.watchAfterTenCountIsZeroToNine)) {
+                      if (!(state.watchAfterTenCountIsZeroToNine!)) {
                         print('called loadsuccess');
                         return BlocProvider.of<ListSoldBloc>(context)
                             .add(ListSoldEvent.watchAfterTen());

@@ -34,7 +34,7 @@ class SingleInvoiceWatcherBloc
   ) async* {
     yield* event.map(
       initialized: (e) async* {
-        yield e.afterSelectSoldOption.fold(
+        yield e.afterSelectSoldOption!.fold(
           () => state,
           (initialSold) => state.copyWith(
             bill: initialSold,

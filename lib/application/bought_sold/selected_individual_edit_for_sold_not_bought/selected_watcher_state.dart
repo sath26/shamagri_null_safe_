@@ -6,12 +6,12 @@ abstract class SelectedWatcherState with _$SelectedWatcherState {
       Option<Sold> afterSelectSoldOption) = _Initialized; */
 
   const factory SelectedWatcherState({
-    @required Sold bill,
-    @required bool showErrorMessages,
-    @required bool navigationWork,
-    @required bool isEditing,
-    @required bool isSaving,
-    @required Option<Either<SoldFailure, Unit>> saveFailureOrSuccessOption,
+    @required Sold? bill,
+    @required bool? showErrorMessages,
+    @required bool? navigationWork,
+    @required bool? isEditing,
+    @required bool? isSaving,
+    @required Option<Either<SoldFailure, Unit>>? saveFailureOrSuccessOption,
   }) = _SelectedWatcherState;
   /*  const factory SelectedWatcherState.loadBillAfterEdit({
     @required Sold bill,

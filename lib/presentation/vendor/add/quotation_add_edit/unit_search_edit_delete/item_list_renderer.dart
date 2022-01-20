@@ -52,10 +52,10 @@ class ItemListRenderer extends StatelessWidget {
                         ) */
                         // isEditing is true or false
 
-                        entry?.isEditing
+                        entry!.isEditing!
                             ? TextFormField(
                                 // controller: textEditingController,
-                                initialValue: entry!.title!.getOrCrash(),
+                                initialValue: entry.title!.getOrCrash(),
                                 maxLength: UnitBody.maxLength,
                                 onChanged: (value) =>
                                     BlocProvider.of<UnitBloc>(context)
@@ -63,8 +63,8 @@ class ItemListRenderer extends StatelessWidget {
                                 validator: (_) =>
                                     BlocProvider.of<UnitBloc>(context)
                                         .state
-                                        .unit
-                                        .title
+                                        .unit!
+                                        .title!
                                         .value
                                         .fold(
                                           (f) => f.maybeMap(
@@ -131,7 +131,7 @@ class ItemListRenderer extends StatelessWidget {
                                     final unitActorBloc =
                                         BlocProvider.of<UnitActorBloc>(context);
                                     _showDeletionDialog(
-                                        context, unitActorBloc, entry!);
+                                        context, unitActorBloc, entry);
                                     //the above object can replace any other object before edit
                                   },
                                 ),

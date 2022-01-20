@@ -23,7 +23,7 @@ class ListSoldBloc extends Bloc<ListSoldEvent, ListSoldState> {
 
   ListSoldBloc(this._listSoldRepository) : super(const ListSoldState.initial());
 
-  StreamSubscription<Either<ListSoldFailure, List<ListSold>>>
+  StreamSubscription<Either<ListSoldFailure, List<ListSold>>?>?
       _listSoldStreamSubscription;
   List<ListSold> soldAll = [];
   Logger logger = new Logger();
@@ -59,7 +59,7 @@ class ListSoldBloc extends Bloc<ListSoldEvent, ListSoldState> {
         await _listSoldStreamSubscription?.cancel();
         _listSoldStreamSubscription =
             _listSoldRepository.afterTen().asStream().listen((failureOrNotes) {
-          failureOrNotes.fold((f) => null, (listBought) {
+          failureOrNotes!.fold((f) => null, (listBought) {
             if (listBought.length >= 0 || listBought.length < 10) {
               return add(ListSoldEvent.listSoldReceived(failureOrNotes,
                   firstTenCountIsZero: false, afterTenCountIsZeroToNine: true));
@@ -70,7 +70,7 @@ class ListSoldBloc extends Bloc<ListSoldEvent, ListSoldState> {
         });
       },
       listSoldReceived: (e) async* {
-        yield e.failureOrListSold.fold(
+        yield e.failureOrListSold!.fold(
           (f) => ListSoldState.loadFailure(f),
           (sold) {
             soldAll = soldAll + sold;

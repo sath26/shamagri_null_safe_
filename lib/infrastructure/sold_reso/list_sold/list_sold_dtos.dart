@@ -23,14 +23,14 @@ abstract class ListSoldDto implements _$ListSoldDto {
 
   const factory ListSoldDto({
     @JsonKey(ignore: true) String? soldId,
-    @Default(0) int? total,
+    @Default(0) num? total,
     @required String? sellerUserId,
     @required String? sellerDisplayName,
     @required String? sellerPhotoUrl,
     @required String? buyerUserId,
     @required String? buyerDisplayName,
     @required String? buyerPhotoUrl,
-    @required @ServerTimestampConverter() FieldValue updatedAt,
+    @required @ServerTimestampConverter() FieldValue? updatedAt,
   }) = _ListSoldDto;
 //? only for update and delete not create
   factory ListSoldDto.fromDomain(ListSold listSold) {

@@ -21,7 +21,7 @@ class QuantityInputHook extends HookWidget {
         listenWhen: (p, c) => p.isEditing != c.isEditing,
         listener: (context, state) {
           textEditingController.text =
-              state.quotation.quantity!.getOrCrash().toString();
+              state.quotation!.quantity!.getOrCrash().toString();
         },
         child: Padding(
             padding: const EdgeInsets.all(10),
@@ -44,7 +44,7 @@ class QuantityInputHook extends HookWidget {
               validator: (_) => context
                   .watch<QuotationBloc>()
                   .state
-                  .quotation
+                  .quotation!
                   .quantity!
                   .value
                   .fold(

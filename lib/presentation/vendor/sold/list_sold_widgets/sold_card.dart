@@ -23,7 +23,7 @@ class ListSoldCard extends StatelessWidget {
           /* ExtendedNavigator.of(context)
               .pushSoldInvoice(soldId: listSold!.id.getOrCrash()); */
           AutoRouter.of(context)
-              .replace(SoldInvoiceRoute(soldId: listSold!.id.getOrCrash()));
+              .replace(SoldInvoiceRoute(soldId: listSold!.id!.getOrCrash()));
         },
         onLongPress: () {
           // final ListSoldBloc = context.bloc<ListSoldBloc>();
@@ -35,11 +35,11 @@ class ListSoldCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                listSold!.buyerDisplayName.getOrCrash().toString(),
+                listSold!.buyerDisplayName!.getOrCrash().toString(),
                 style: const TextStyle(fontSize: 18),
               ),
               Text(
-                listSold!.total.getOrCrash().toString(),
+                listSold!.total!.getOrCrash().toString(),
                 style: const TextStyle(fontSize: 18),
               ),
 
@@ -71,7 +71,7 @@ class ListSoldCard extends StatelessWidget {
         return AlertDialog(
           title: const Text('Selected listSold:'),
           content: Text(
-            listSold!.total.getOrCrash().toString(),
+            listSold!.total!.getOrCrash().toString(),
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
           ),

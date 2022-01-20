@@ -27,14 +27,14 @@ class InvoiceSoldOverviewBody extends StatelessWidget {
             } else {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final listSold = state.sold[index];
+                  final listSold = (state.sold as List)[index];
                   if (listSold.failureOption.isSome()) {
                     return ErrorListSoldInvoiceCard(listSold: listSold);
                   } else {
                     return ListSoldInvoiceCard(listSold: listSold);
                   }
                 },
-                itemCount: state.sold.length,
+                itemCount: state.sold!.length,
               );
             }
           },

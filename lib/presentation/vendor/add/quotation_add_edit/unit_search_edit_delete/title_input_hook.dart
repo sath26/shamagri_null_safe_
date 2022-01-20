@@ -19,7 +19,7 @@ class TitleInputHook extends HookWidget {
     return BlocListener<UnitBloc, UnitState>(
         listenWhen: (p, c) => p.isEditing != c.isEditing,
         listener: (context, state) {
-          textEditingController.text = state.unit.title.getOrCrash();
+          textEditingController.text = state.unit!.title!.getOrCrash();
         },
         child: Padding(
             padding: const EdgeInsets.all(10),
@@ -37,8 +37,8 @@ class TitleInputHook extends HookWidget {
               validator: (_) => context
                   .watch<UnitBloc>()
                   .state
-                  .unit
-                  .title
+                  .unit!
+                  .title!
                   .value
                   .fold(
                     (f) => f.maybeMap(

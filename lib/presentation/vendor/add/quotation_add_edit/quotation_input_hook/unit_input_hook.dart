@@ -33,7 +33,7 @@ class UnitDropDownHook extends HookWidget {
       listenWhen: (p, c) => p.isEditing != c.isEditing,
       listener: (context, state) {
         // log(state.quotation.measuremntUnit.getOrCrash());
-        text = state.quotation.measuremntUnit!.getOrCrash();
+        text = state.quotation!.measuremntUnit!.getOrCrash();
       },
       child: Padding(
         padding: const EdgeInsets.all(10),
@@ -50,7 +50,7 @@ class UnitDropDownHook extends HookWidget {
                       // showSelectedItem: true,
                       showSearchBox: true,
                       /* onFind: , */
-                      items: state.units.map((e) {
+                      items: state.units!.map((e) {
                         return e.title!.getOrCrash().toString();
                       }).toList(),
                       label: "Search Unit",
@@ -62,7 +62,7 @@ class UnitDropDownHook extends HookWidget {
                       validator: (_) => context
                           .read<QuotationBloc>()
                           .state
-                          .quotation
+                          .quotation!
                           .measuremntUnit!
                           .value
                           .fold(

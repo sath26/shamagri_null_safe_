@@ -31,8 +31,8 @@ class BuyerInputHook extends HookWidget {
           String validMessage = context
               .watch<SelectedWatcherBloc>()
               .state
-              .bill
-              .buyerEmail
+              .bill!
+              .buyerEmail!
               .value
               .fold(
                 (f) => f.maybeMap(

@@ -41,10 +41,10 @@ class SelectedWatcherBloc
         final user = userOption.getOrElse(() => throw NotAuthenticatedError());
         // userID = user.id.getOrCrash();
 
-        yield e.afterSelectSoldOption.fold(
+        yield e.afterSelectSoldOption!.fold(
           () => state,
           (initialSold) => state.copyWith(
-            bill: state.bill.copyWith(
+            bill: state.bill!.copyWith(
               sellerUserId: UserIdSold(user.id!.getOrCrash()),
               sellerDisplayName: UserDisplayNameSold(user.displayName!),
               sellerPhotoUrl: UserPhotoUrlSold(user.photoUrl!),
@@ -63,47 +63,48 @@ class SelectedWatcherBloc
       },
       selected: (e) async* {
         yield state.copyWith(
-          bill: state.bill.copyWith(
+          bill: state.bill!.copyWith(
             quotations:
-                List3Sold(e.items.map((primitive) => primitive.toDomain())),
+                List3Sold(e.items!.map((primitive) => primitive.toDomain())),
           ),
           // saveFailureOrSuccessOption: none(),
         );
         add(SelectedWatcherEvent.calculateTotal(e.items));
       },
       rateChanged: (e) async* {
-        final KtList<Quotation> bill = e.billQuotations
+        final KtList<Quotation> bill = e.billQuotations!
             .getOrCrash()
-            .map((d) => d.id == e.entry.id
-                ? d.copyWith(rate: QuotationRate(e.billQuotationRate))
+            .map((d) => d.id == e.entry!.id
+                ? d.copyWith(rate: QuotationRate(e.billQuotationRate!))
                 : d.copyWith())
             .toList();
         // e.billQuotations.minusElement(e.entry);
         yield state.copyWith(
-            bill: state.bill.copyWith(quotations: List3Sold(bill)),
+            bill: state.bill!.copyWith(quotations: List3Sold(bill)),
             isEditing: true);
         // yield SelectedWatcherState.loadBillAfterEdit(bill: bill);
         // yield state.copyWith(bill: state.bill.copyWith(quotations:quotations));
       },
       emailValidated: (e) async* {
         yield state.copyWith(
-            bill: state.bill
-                .copyWith(buyerEmail: EmailAddressBought(e.buyerEmail, true)));
+            bill: state.bill!
+                .copyWith(buyerEmail: EmailAddressBought(e.buyerEmail!, true)));
       },
 
       buyerUserIdValidated: (e) async* {
         yield state.copyWith(
-            bill: state.bill.copyWith(buyerUserId: UserIdSold(e.buyerUserId)));
+            bill:
+                state.bill!.copyWith(buyerUserId: UserIdSold(e.buyerUserId!)));
       },
       buyerDisplayNameValidated: (e) async* {
         yield state.copyWith(
-            bill: state.bill.copyWith(
-                buyerDisplayName: UserDisplayNameSold(e.buyerDisplayName)));
+            bill: state.bill!.copyWith(
+                buyerDisplayName: UserDisplayNameSold(e.buyerDisplayName!)));
       },
       buyerPhotoUrlValidated: (e) async* {
         yield state.copyWith(
-            bill: state.bill
-                .copyWith(buyerPhotoUrl: UserPhotoUrlSold(e.buyerPhotoUrl)));
+            bill: state.bill!
+                .copyWith(buyerPhotoUrl: UserPhotoUrlSold(e.buyerPhotoUrl!)));
       },
       emailChanged: (e) async* {
         //validate string as email
@@ -116,15 +117,15 @@ class SelectedWatcherBloc
         String findFailure;
 
         yield state.copyWith(
-            bill: state.bill
-                .copyWith(buyerEmail: EmailAddressBought(e.buyerEmail, false)));
-        findFailure = state.bill.buyerEmail.value.fold(
+            bill: state.bill!.copyWith(
+                buyerEmail: EmailAddressBought(e.buyerEmail!, false)));
+        findFailure = state.bill!.buyerEmail!.value.fold(
           (f) => f.maybeMap(
             empty: (f) => 'Cannot be empty',
             invalidEmail: (f) => 'Please provide valid email address',
             notSignedUp: (f) {
               _soldStreamSubscription = _soldRepository
-                  .userExistOrFail(e.buyerEmail)
+                  .userExistOrFail(e.buyerEmail!)
                   .asStream()
                   .listen((failureOrUnit) {
                 // add(UnitWatcherEvent.unitsReceived(failureOrUnit)),
@@ -138,7 +139,7 @@ class SelectedWatcherBloc
                     (r) {
                   logger.wtf("failureOrUnit buyerEmail  right " + r.toString());
                   if (r.isNotEmpty) {
-                    logger.v("ok its here " + e.buyerEmail);
+                    logger.v("ok its here " + e.buyerEmail!);
 //todo: call emailCHnaged again for state update
                     // findFailure = "validated";
                     add(SelectedWatcherEvent.emailValidated(e.buyerEmail));
@@ -158,7 +159,7 @@ class SelectedWatcherBloc
                   }
                 });
               });
-              return;
+              return "";
             },
             orElse: () => "",
           ),
@@ -173,31 +174,31 @@ class SelectedWatcherBloc
             (findFailure != null)) { */
       },
       quantityChanged: (e) async* {
-        final KtList<Quotation> bill = e.billQuotations
+        final KtList<Quotation> bill = e.billQuotations!
             .getOrCrash()
-            .map((d) => d.id == e.entry.id
+            .map((d) => d.id == e.entry!.id
                 ? d.copyWith(
-                    quantity: QuotationQuantity(e.billQUotationQuantity))
+                    quantity: QuotationQuantity(e.billQUotationQuantity!))
                 : d.copyWith())
             .toList();
         // e.billQuotations.minusElement(e.entry);
         yield state.copyWith(
-            bill: state.bill.copyWith(quotations: List3Sold(bill)),
+            bill: state.bill!.copyWith(quotations: List3Sold(bill)),
             isEditing: true);
       },
       individualQuotationEdited: (e) async* {
-        if (e.billQuotations
+        if (e.billQuotations!
             .getOrCrash()
-            .get(e.quotationIndex)
+            .get(e.quotationIndex!)
             .failureOption
             .isNone()) {
           num total = 0;
-          e.billQuotations.getOrCrash().map((item) {
+          e.billQuotations!.getOrCrash().map((item) {
             return total =
                 total + item.rate!.getOrCrash() * item.quantity!.getOrCrash();
           });
           yield state.copyWith(
-              bill: state.bill.copyWith(
+              bill: state.bill!.copyWith(
                 total: SoldTotalHere(total),
                 // saveFailureOrSuccessOption: none(),
               ),
@@ -210,11 +211,11 @@ class SelectedWatcherBloc
       },
       calculateTotalAfterEdit: (e) async* {
         num total = 0;
-        e.billQuotations.map((item) {
+        e.billQuotations!.map((item) {
           return total = total + item.rate!.getOrCrash();
         });
         yield state.copyWith(
-            bill: state.bill.copyWith(
+            bill: state.bill!.copyWith(
               total: SoldTotalHere(total),
               // saveFailureOrSuccessOption: none(),
             ),
@@ -231,12 +232,12 @@ class SelectedWatcherBloc
     }
          */
         num total = 0;
-        e.items.map((item) {
+        e.items!.map((item) {
           return total = total + item.rate! * item.quantity!;
         });
         //todo: get quantity and rate from quotation  and sum up
         yield state.copyWith(
-            bill: state.bill.copyWith(
+            bill: state.bill!.copyWith(
           total: SoldTotalHere(total),
           // saveFailureOrSuccessOption: none(),
         ));
@@ -250,10 +251,10 @@ class SelectedWatcherBloc
           saveFailureOrSuccessOption: none(),
         );
 
-        if (state.bill.failureOption.isNone()) {
+        if (state.bill!.failureOption.isNone()) {
           // failureOrSuccess = state.isEditing
           // ? await _soldRepository.update(state.bill)
-          failureOrSuccess = await _soldRepository.create(state.bill);
+          failureOrSuccess = await _soldRepository.create(state.bill!);
         }
 
         yield state.copyWith(

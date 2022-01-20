@@ -48,24 +48,25 @@ abstract class SoldDto implements _$SoldDto {
   factory SoldDto.fromDomain(Sold? sold, User? sellerDetail, String? buyerID,
       String? buyerDisplayName, String? buyerPhotoUrl) {
     return SoldDto(
-      soldId:
-          sold!.sellerUserId.getOrCrash() + "-" + sold.buyerUserId.getOrCrash(),
-      quotations: sold.quotations
+      soldId: sold!.sellerUserId!.getOrCrash() +
+          "-" +
+          sold.buyerUserId!.getOrCrash(),
+      quotations: sold.quotations!
           .getOrCrash()
           .map((quotation) => SoldQuotationDto.fromDomain(
               quotation, sellerDetail!.id!.getOrCrash()))
           .asList(),
-      total: sold.total.getOrCrash(),
+      total: sold.total!.getOrCrash(),
       sellerUserId: sellerDetail!.id!.getOrCrash(),
-      buyerUserId: sold.buyerUserId.getOrCrash(),
-      sellerDisplayName: sold.sellerDisplayName.getOrCrash(),
-      buyerDisplayName: sold.buyerDisplayName.getOrCrash(),
-      sellerPhotoUrl: sold.sellerPhotoUrl.getOrCrash(),
-      buyerPhotoUrl: sold.buyerPhotoUrl.getOrCrash(),
-      buyerEmail: sold.buyerEmail.getOrCrash(),
-      sellerEmail: sold.sellerEmail.getOrCrash(),
+      buyerUserId: sold.buyerUserId!.getOrCrash(),
+      sellerDisplayName: sold.sellerDisplayName!.getOrCrash(),
+      buyerDisplayName: sold.buyerDisplayName!.getOrCrash(),
+      sellerPhotoUrl: sold.sellerPhotoUrl!.getOrCrash(),
+      buyerPhotoUrl: sold.buyerPhotoUrl!.getOrCrash(),
+      buyerEmail: sold.buyerEmail!.getOrCrash(),
+      sellerEmail: sold.sellerEmail!.getOrCrash(),
       createdAt: FieldValue.serverTimestamp(),
-      isApproved: sold.isApproved.getOrCrash(),
+      isApproved: sold.isApproved!.getOrCrash(),
     );
   }
 
@@ -117,14 +118,14 @@ abstract class SoldQuotationDto implements _$SoldQuotationDto {
   const SoldQuotationDto._();
 
   const factory SoldQuotationDto({
-    @required String id,
-    @required String title,
-    @required String measuremntUnit,
-    @required num rate,
-    @required num quantity,
-    @required String userID,
-    @required bool isSelected,
-    @required num index,
+    @required String? id,
+    @required String? title,
+    @required String? measuremntUnit,
+    @required num? rate,
+    @required num? quantity,
+    @required String? userID,
+    @required bool? isSelected,
+    @required num? index,
     // @required int color,
     // @required List<TodoItemDto> todos,
   }) = _SoldQuotationDto;
@@ -151,13 +152,13 @@ abstract class SoldQuotationDto implements _$SoldQuotationDto {
 
   Quotation toDomain() {
     return Quotation(
-      id: UniqueId.fromUniqueString(id),
-      title: QuotationTitle(title),
-      measuremntUnit: QuotationUnit(measuremntUnit),
-      quantity: QuotationQuantity(quantity),
-      rate: QuotationRate(rate),
-      isSelected: QuotationSelected(isSelected),
-      index: QuotationIndex(index),
+      id: UniqueId.fromUniqueString(id!),
+      title: QuotationTitle(title!),
+      measuremntUnit: QuotationUnit(measuremntUnit!),
+      quantity: QuotationQuantity(quantity!),
+      rate: QuotationRate(rate!),
+      isSelected: QuotationSelected(isSelected!),
+      index: QuotationIndex(index!),
 
       // isEditing: false
       /*  color: QuotationColor(Color(color)),
