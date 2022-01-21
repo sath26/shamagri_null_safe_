@@ -778,6 +778,10 @@ class _$_Initial implements _Initial {
     }
     return orElse();
   }
+
+  @override
+  // TODO: implement items
+  List<Quotation> get items => [];
 }
 
 abstract class _Initial implements QuotationWatcherState {
@@ -895,6 +899,10 @@ class _$_LoadInProgress implements _LoadInProgress {
     }
     return orElse();
   }
+
+  @override
+  // TODO: implement items
+  List<Quotation> get items => [];
 }
 
 abstract class _LoadInProgress implements QuotationWatcherState {
@@ -1036,6 +1044,10 @@ class _$_LoadSuccess implements _LoadSuccess {
     }
     return orElse();
   }
+
+  @override
+  // TODO: implement items
+  List<Quotation> get items => units;
 }
 
 abstract class _LoadSuccess implements QuotationWatcherState {
@@ -1192,6 +1204,10 @@ class _$_LoadFailure implements _LoadFailure {
     }
     return orElse();
   }
+
+  @override
+  // TODO: implement items
+  List<Quotation> get items => [];
 }
 
 abstract class _LoadFailure implements QuotationWatcherState {

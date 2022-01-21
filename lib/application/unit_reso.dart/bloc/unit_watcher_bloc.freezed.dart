@@ -549,6 +549,10 @@ class _$_Initial implements _Initial {
     }
     return orElse();
   }
+
+  @override
+  // TODO: implement items
+  List<Measuremnt> get items => [];
 }
 
 abstract class _Initial implements UnitWatcherState {
@@ -666,6 +670,10 @@ class _$_LoadInProgress implements _LoadInProgress {
     }
     return orElse();
   }
+
+  @override
+  // TODO: implement items
+  List<Measuremnt> get items => [];
 }
 
 abstract class _LoadInProgress implements UnitWatcherState {
@@ -807,6 +815,10 @@ class _$_LoadSuccess implements _LoadSuccess {
     }
     return orElse();
   }
+
+  @override
+  // TODO: implement items
+  List<Measuremnt> get items => units;
 }
 
 abstract class _LoadSuccess implements UnitWatcherState {
