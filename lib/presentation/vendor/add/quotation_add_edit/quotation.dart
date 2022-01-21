@@ -239,7 +239,8 @@ class QuotationFormPageScaffold extends StatelessWidget {
               builder: (context, state) {
                 return Form(
                   key: _formKey,
-                  autovalidateMode: state.showErrorMessages,
+                  autovalidateMode: AutovalidateMode.always,
+                  // autovalidateMode: state.showErrorMessages,
                   child: SingleChildScrollView(
                     physics: ClampingScrollPhysics(),
                     child: Padding(

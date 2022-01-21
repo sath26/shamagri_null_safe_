@@ -181,7 +181,8 @@ class SelectedQuotationForm extends StatelessWidget {
                             ],
                           ),
                           body: Form(
-                            autovalidateMode: showError,
+                            autovalidateMode: AutovalidateMode.always,
+                            // autovalidateMode: showError,
                             child: SingleChildScrollView(
                               physics: ClampingScrollPhysics(),
                               child: Padding(

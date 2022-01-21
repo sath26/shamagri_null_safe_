@@ -83,7 +83,7 @@ class _SelectBillScreenState extends State<SelectBillScreen> {
             listener: (context, state) {
               state.maybeMap(
                 unauthenticated: (_) =>
-                    ExtendedNavigator.of(context).replace(Routes.signInPage),
+                    AutoRouter.of(context).replace(SignInPageRoute()),
                 orElse: () {},
               );
               /*   */
@@ -95,8 +95,10 @@ class _SelectBillScreenState extends State<SelectBillScreen> {
           ), */
         ],
         child: WillPopScope(
-          onWillPop: () {
-            ExtendedNavigator.of(context).replace(Routes.homeScreen);
+          onWillPop: () async {
+            bool? result =
+                await AutoRouter.of(context).replace(HomeScreenRoute());
+            return result!;
           },
           child: Scaffold(
             appBar: AppBar(
@@ -106,7 +108,7 @@ class _SelectBillScreenState extends State<SelectBillScreen> {
                   onPressed: () {
                     // Write some code to control things, when user press back button in AppBar
                     //Navigator.pop(context, true);
-                    ExtendedNavigator.of(context).replace(Routes.homeScreen);
+                    AutoRouter.of(context).replace(HomeScreenRoute());
                   }),
               actions: <Widget>[
                 IconButton(
@@ -125,8 +127,8 @@ class _SelectBillScreenState extends State<SelectBillScreen> {
                         'clicked_time': now,
                       },
                     );
-                    ExtendedNavigator.of(context)
-                        .pushAddEditQuotationScreen(quotation: null);
+                    AutoRouter.of(context)
+                        .push(AddEditQuotationScreenRoute(quotation: null));
                   },
                 )
               ],

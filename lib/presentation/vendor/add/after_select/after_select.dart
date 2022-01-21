@@ -147,7 +147,7 @@ class AfterSelect extends StatelessWidget {
                                   bloc.state.showErrorMessages!);
                           return Container(
                               child: Form(
-                            autovalidateMode: showError,
+                            autovalidateMode: AutovalidateMode.always,
                             child: BuyerInputHook(),
                           ));
                         }),
