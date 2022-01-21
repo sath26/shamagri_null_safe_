@@ -818,7 +818,7 @@ class _$_LoadSuccess implements _LoadSuccess {
 
   @override
   // TODO: implement items
-  List<Measuremnt> get items => units;
+  List<Measuremnt> get items => units!;
 }
 
 abstract class _LoadSuccess implements UnitWatcherState {
@@ -979,6 +979,10 @@ class _$_LoadFailure implements _LoadFailure {
     }
     return orElse();
   }
+
+  @override
+  // TODO: implement items
+  List<Measuremnt> get items => [];
 }
 
 abstract class _LoadFailure implements UnitWatcherState {

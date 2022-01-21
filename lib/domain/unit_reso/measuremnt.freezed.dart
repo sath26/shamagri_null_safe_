@@ -160,6 +160,22 @@ class _$_Measuremnt extends _Measuremnt {
   @override
   _$MeasuremntCopyWith<_Measuremnt> get copyWith =>
       __$MeasuremntCopyWithImpl<_Measuremnt>(this, _$identity);
+
+  @override
+  operator [](String prop) {
+    // TODO: implement []
+    switch (prop) {
+      case 'title':
+        return title!.value.fold((l) => l, (r) => r);
+        break;
+      case 'isEditing':
+        return isEditing;
+      case 'id':
+        return id!.value.fold((l) => l, (r) => r);
+      default:
+        throw ArgumentError('Property `$prop` does not exist on Measurment.');
+    }
+  }
 }
 
 abstract class _Measuremnt extends Measuremnt {
