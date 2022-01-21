@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -49,7 +50,8 @@ extension FirestoreX on FirebaseFirestore {
         'token': fcmToken,
         'createdAt': FieldValue.serverTimestamp(), // optional
         'platform': Platform.operatingSystem // optional
-      });
+      }).catchError((error, stackTrace) =>
+          FlushbarHelper.createError(message: error!.message.toString()));
     }
   }
 

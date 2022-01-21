@@ -3,6 +3,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+// import 'package:another_flushbar/flushbar.dart';
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -36,7 +38,7 @@ class HomeScreenState extends State<HomeScreen>
 // Create a tab controller
   TabController? controller;
   Future<String?>? iosSubscription;
-  final FirebaseMessaging? _fcm = FirebaseMessaging.instance;
+  final FirebaseMessaging? firebaseMessaging = FirebaseMessaging.instance;
   final FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   // Logger logger = new Logger();
@@ -119,27 +121,49 @@ class HomeScreenState extends State<HomeScreen>
   }
 
   void configLocalNotification() {
-    logger.i("configLocalNotification called");
-    var initializationSettingsAndroid =
-        new AndroidInitializationSettings('ic_launcher');
-    var initializationSettingsIOS = new IOSInitializationSettings();
-    var initializationSettings = new InitializationSettings(
+    AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('app_icon');
+    IOSInitializationSettings initializationSettingsIOS =
+        IOSInitializationSettings();
+    InitializationSettings initializationSettings = InitializationSettings(
         android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
     flutterLocalNotificationsPlugin!.initialize(initializationSettings);
   }
 
   Logger logger = Logger();
   void registerNotification() {
+    firebaseMessaging!.requestPermission();
     logger.i("registerNotification called");
 
-    if (Platform.isIOS) {
-      iosSubscription = _fcm!.getAPNSToken();
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('onMessage: $message');
+      if (message.notification != null) {
+        showNotification(message.notification!);
+      }
+      return;
+    });
+    firebaseMessaging!.getToken().then((fcmToken) {
+      final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-      // _fcm!.requestNotificationPermissions(IosNotificationSettings());
-    }
-    _fcm!.getNotificationSettings();
-    _fcm!.getInitialMessage();
-    FirebaseMessaging.onMessage;
+      print('push token: $fcmToken');
+      if (fcmToken != null) {
+        var tokens;
+        tokens = _db
+            .collection('users')
+            .doc(userID)
+            .collection('tokens')
+            .doc(fcmToken);
+
+        tokens.set({
+          'token': fcmToken,
+          'createdAt': FieldValue.serverTimestamp(), // optional
+          'platform': Platform.operatingSystem // optional
+        }).catchError((error, stackTrace) =>
+            FlushbarHelper.createError(message: error!.message.toString()));
+      }
+    }).catchError((err) {
+      FlushbarHelper.createError(message: err.message.toString());
+    });
   }
 
   Future<dynamic> myBackgroundMessageHandler(
@@ -162,33 +186,34 @@ class HomeScreenState extends State<HomeScreen>
     // Or do other work.
   }
 
-  void showNotification(message) async {
-    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+  void showNotification(RemoteNotification remoteNotification) async {
+    AndroidNotificationDetails androidPlatformChannelSpecifics =
+        AndroidNotificationDetails(
       Platform.isAndroid
-          ? 'com.shamagri.shamagri26'
+          ? 'com.dfa.flutterchatdemo'
           : 'com.duytq.flutterchatdemo',
-      'Shamagri',
+      'Flutter chat demo',
+      // 'your channel description',
       playSound: true,
       enableVibration: true,
       importance: Importance.max,
       priority: Priority.high,
     );
-    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
-    var platformChannelSpecifics = new NotificationDetails(
+    IOSNotificationDetails iOSPlatformChannelSpecifics =
+        IOSNotificationDetails();
+    NotificationDetails platformChannelSpecifics = NotificationDetails(
         android: androidPlatformChannelSpecifics,
         iOS: iOSPlatformChannelSpecifics);
 
-    logger.i('notification message $message');
-//    print(message['body'].toString());
-//    print(json.encode(message));
+    print(remoteNotification);
 
-    await flutterLocalNotificationsPlugin!.show(0, message['title'].toString(),
-        message['body'].toString(), platformChannelSpecifics,
-        payload: json.encode(message));
-
-//    await flutterLocalNotificationsPlugin.show(
-//        0, 'plain title', 'plain body', platformChannelSpecifics,
-//        payload: 'item x');
+    await flutterLocalNotificationsPlugin!.show(
+      0,
+      remoteNotification.title,
+      remoteNotification.body,
+      platformChannelSpecifics,
+      payload: null,
+    );
   }
 
   /// Get the token, save it to the database for current user
