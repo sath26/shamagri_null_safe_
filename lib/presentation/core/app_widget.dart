@@ -34,7 +34,8 @@ class AppWidget extends StatelessWidget {
         )
       ],
       child: ThemeProvider(
-        initTheme: ThemeData.dark(),
+        initTheme:
+            user.isDarkMode ?? true ? MyThemes.darkTheme : MyThemes.lightTheme,
         child: Builder(
           builder: (context) => MaterialApp(
             title: 'Shamagri - bill sharing app',
@@ -53,7 +54,7 @@ class AppWidget extends StatelessWidget {
               //   FirebaseAnalyticsObserver(analytics: analytics),
               // ],
             ),
-            theme: ThemeData.dark(),
+            theme: Theme.of(context),
             navigatorObservers: [
               FirebaseAnalyticsObserver(analytics: analytics),
             ],

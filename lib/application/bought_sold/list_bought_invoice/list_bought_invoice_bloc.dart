@@ -27,72 +27,126 @@ class ListBoughtInvoiceBloc
   final IBoughtRepository _boughtRepository;
 
   ListBoughtInvoiceBloc(this._boughtRepository)
-      : super(const ListBoughtInvoiceState.initial());
+      : super(const ListBoughtInvoiceState.initial()) {
+    on<_WatchFirstTen>(_watchFirstTen);
+    on<_WatchAfterTen>(_watchAfterTen);
+    on<_ListBoughtReceived>(_listBoughtReceived);
+  }
+  FutureOr<void> _watchFirstTen(
+      _WatchFirstTen e, Emitter<ListBoughtInvoiceState> emit) async {
+    emit(const ListBoughtInvoiceState.loadInProgress());
+    await _listBoughtStreamSubscription?.cancel();
+    _listBoughtStreamSubscription = _boughtRepository
+        .firstTen(e.boughtId!)
+        .asStream()
+        .listen((failureOrBought) {
+      failureOrBought.fold((f) => null, (listBought) {
+        // if (listBought.length >= 0 || listBought.length < 10) {
+        //* not required because only if its 0 different ui has to be shown
+        if (listBought.length == 0) {
+          return add(ListBoughtInvoiceEvent.listBoughtReceived(failureOrBought,
+              firstTenCountIsZero: true, afterTenCountIsZeroToNine: false));
+        }
+        return add(ListBoughtInvoiceEvent.listBoughtReceived(failureOrBought,
+            firstTenCountIsZero: false, afterTenCountIsZeroToNine: false));
+      });
+    });
+  }
+
+  FutureOr<void> _watchAfterTen(
+      _WatchAfterTen e, Emitter<ListBoughtInvoiceState> emit) async {
+    emit(const ListBoughtInvoiceState.loadInProgress());
+    await _listBoughtStreamSubscription?.cancel();
+    _listBoughtStreamSubscription =
+        _boughtRepository.afterTen().asStream().listen((failureOrBought) {
+      failureOrBought.fold((f) => null, (listBought) {
+        if (listBought.length >= 0 || listBought.length < 10) {
+          return add(ListBoughtInvoiceEvent.listBoughtReceived(failureOrBought,
+              firstTenCountIsZero: true, afterTenCountIsZeroToNine: false));
+        }
+        return add(ListBoughtInvoiceEvent.listBoughtReceived(failureOrBought,
+            firstTenCountIsZero: false, afterTenCountIsZeroToNine: false));
+      });
+    });
+  }
+
+  FutureOr<void> _listBoughtReceived(
+      _ListBoughtReceived e, Emitter<ListBoughtInvoiceState> emit) async {
+    e.failureOrBought!.fold(
+      (f) => emit(ListBoughtInvoiceState.loadFailure(f)),
+      (boughtInvoice) {
+        boughtInvoiceAll = boughtInvoiceAll + boughtInvoice;
+        return emit(ListBoughtInvoiceState.loadSuccess(boughtInvoiceAll,
+            watchFirstTenCountIsZero: e.firstTenCountIsZero,
+            watchAfterTenCountIsZeroToNine: e.afterTenCountIsZeroToNine));
+      },
+    );
+  }
 
   StreamSubscription<Either<BoughtNotFormFailure, List<BoughtNotForm>>>?
       _listBoughtStreamSubscription;
   List<BoughtNotForm> boughtInvoiceAll = [];
 
-  @override
-  Stream<ListBoughtInvoiceState> mapEventToState(
-    ListBoughtInvoiceEvent event,
-  ) async* {
-    yield* event.map(
-      watchFirstTen: (e) async* {
-        yield const ListBoughtInvoiceState.loadInProgress();
-        await _listBoughtStreamSubscription?.cancel();
-        _listBoughtStreamSubscription = _boughtRepository
-            .firstTen(e.boughtId!)
-            .asStream()
-            .listen((failureOrBought) {
-          failureOrBought.fold((f) => null, (listBought) {
-            // if (listBought.length >= 0 || listBought.length < 10) {
-            //* not required because only if its 0 different ui has to be shown
-            if (listBought.length == 0) {
-              return add(ListBoughtInvoiceEvent.listBoughtReceived(
-                  failureOrBought,
-                  firstTenCountIsZero: true,
-                  afterTenCountIsZeroToNine: false));
-            }
-            return add(ListBoughtInvoiceEvent.listBoughtReceived(
-                failureOrBought,
-                firstTenCountIsZero: false,
-                afterTenCountIsZeroToNine: false));
-          });
-        });
-      },
-      watchAfterTen: (e) async* {
-        yield const ListBoughtInvoiceState.loadInProgress();
-        await _listBoughtStreamSubscription?.cancel();
-        _listBoughtStreamSubscription =
-            _boughtRepository.afterTen().asStream().listen((failureOrBought) {
-          failureOrBought.fold((f) => null, (listBought) {
-            if (listBought.length >= 0 || listBought.length < 10) {
-              return add(ListBoughtInvoiceEvent.listBoughtReceived(
-                  failureOrBought,
-                  firstTenCountIsZero: true,
-                  afterTenCountIsZeroToNine: false));
-            }
-            return add(ListBoughtInvoiceEvent.listBoughtReceived(
-                failureOrBought,
-                firstTenCountIsZero: false,
-                afterTenCountIsZeroToNine: false));
-          });
-        });
-      },
-      listBoughtReceived: (e) async* {
-        yield e.failureOrBought!.fold(
-          (f) => ListBoughtInvoiceState.loadFailure(f),
-          (boughtInvoice) {
-            boughtInvoiceAll = boughtInvoiceAll + boughtInvoice;
-            return ListBoughtInvoiceState.loadSuccess(boughtInvoiceAll,
-                watchFirstTenCountIsZero: e.firstTenCountIsZero,
-                watchAfterTenCountIsZeroToNine: e.afterTenCountIsZeroToNine);
-          },
-        );
-      },
-    );
-  }
+  // @override
+  // Stream<ListBoughtInvoiceState> mapEventToState(
+  //   ListBoughtInvoiceEvent event,
+  // ) async* {
+  //   yield* event.map(
+  //     watchFirstTen: (e) async* {
+  //       yield const ListBoughtInvoiceState.loadInProgress();
+  //       await _listBoughtStreamSubscription?.cancel();
+  //       _listBoughtStreamSubscription = _boughtRepository
+  //           .firstTen(e.boughtId!)
+  //           .asStream()
+  //           .listen((failureOrBought) {
+  //         failureOrBought.fold((f) => null, (listBought) {
+  //           // if (listBought.length >= 0 || listBought.length < 10) {
+  //           //* not required because only if its 0 different ui has to be shown
+  //           if (listBought.length == 0) {
+  //             return add(ListBoughtInvoiceEvent.listBoughtReceived(
+  //                 failureOrBought,
+  //                 firstTenCountIsZero: true,
+  //                 afterTenCountIsZeroToNine: false));
+  //           }
+  //           return add(ListBoughtInvoiceEvent.listBoughtReceived(
+  //               failureOrBought,
+  //               firstTenCountIsZero: false,
+  //               afterTenCountIsZeroToNine: false));
+  //         });
+  //       });
+  //     },
+  //     watchAfterTen: (e) async* {
+  //       yield const ListBoughtInvoiceState.loadInProgress();
+  //       await _listBoughtStreamSubscription?.cancel();
+  //       _listBoughtStreamSubscription =
+  //           _boughtRepository.afterTen().asStream().listen((failureOrBought) {
+  //         failureOrBought.fold((f) => null, (listBought) {
+  //           if (listBought.length >= 0 || listBought.length < 10) {
+  //             return add(ListBoughtInvoiceEvent.listBoughtReceived(
+  //                 failureOrBought,
+  //                 firstTenCountIsZero: true,
+  //                 afterTenCountIsZeroToNine: false));
+  //           }
+  //           return add(ListBoughtInvoiceEvent.listBoughtReceived(
+  //               failureOrBought,
+  //               firstTenCountIsZero: false,
+  //               afterTenCountIsZeroToNine: false));
+  //         });
+  //       });
+  //     },
+  //     listBoughtReceived: (e) async* {
+  //       yield e.failureOrBought!.fold(
+  //         (f) => ListBoughtInvoiceState.loadFailure(f),
+  //         (boughtInvoice) {
+  //           boughtInvoiceAll = boughtInvoiceAll + boughtInvoice;
+  //           return ListBoughtInvoiceState.loadSuccess(boughtInvoiceAll,
+  //               watchFirstTenCountIsZero: e.firstTenCountIsZero,
+  //               watchAfterTenCountIsZeroToNine: e.afterTenCountIsZeroToNine);
+  //         },
+  //       );
+  //     },
+  //   );
+  // }
 
   @override
   Future<void> close() async {

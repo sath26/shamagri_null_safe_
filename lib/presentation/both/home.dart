@@ -51,7 +51,7 @@ class HomeScreenState extends State<HomeScreen>
     _logAppOpen();
     // widget.selectedPage = 0;
     // Initialize the Tab Controller
-    num = widget.selectedPage!;
+    num = widget.selectedPage;
 
     // logger.i("selectedpage num  " + num.toString());
     controller = TabController(initialIndex: num ?? 0, length: 2, vsync: this);

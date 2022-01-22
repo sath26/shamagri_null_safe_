@@ -75,7 +75,7 @@ class BoughtRepository implements IListBoughtRepository {
     }
   };
   @override
-  Future<Either<ListBoughtFailure, List<ListBought>>> firstTen() async {
+  Stream<Either<ListBoughtFailure, List<ListBought>>> firstTen() async* {
     final userOption = await getIt<IAuthFacade>().getSignedInUser();
     logger.i("BOught userOption " + userOption.toString());
 
@@ -90,7 +90,7 @@ class BoughtRepository implements IListBoughtRepository {
     }); */
     // _boughtId = boughtId;
 
-    return _firestore
+    yield* _firestore
         .collection("users")
         .doc(userID)
         .collection("bought")
@@ -103,12 +103,12 @@ class BoughtRepository implements IListBoughtRepository {
         .where("buyerUserId", isEqualTo: userID)
         .orderBy('updatedAt', descending: true)
         .limit(10)
-        .get()
-        .then(_listener)
-        .onError((e, s) {
+        .snapshots()
+        .map(_listener)
+        .doOnError((e, s) {
       throw FirebaseCrashlytics.instance
           .recordError(e, s, reason: 'list_bought_repository: firstTen');
-    }).catchError((e) {
+    }).onErrorReturnWith((e, s) {
       if (e is FirebaseException && e.message!.contains('PERMISSION_DENIED')) {
         return left(const ListBoughtFailure.insufficientPermission());
       } else if (e.toString().contains('RangeError (index)')) {
@@ -123,7 +123,7 @@ class BoughtRepository implements IListBoughtRepository {
   }
 
   @override
-  Future<Either<ListBoughtFailure, List<ListBought>>> afterTen() async {
+  Stream<Either<ListBoughtFailure, List<ListBought>>> afterTen() async* {
     final userOption = await getIt<IAuthFacade>().getSignedInUser();
     final user = userOption.getOrElse(() => throw NotAuthenticatedError());
     userID = user.id!.getOrCrash();
@@ -134,7 +134,7 @@ class BoughtRepository implements IListBoughtRepository {
       userID = documentSnapshot.data()['id'].toString();
       //log(userID);
     }); */
-    return _firestore
+    yield* _firestore
         .collection("users")
         .doc(userID)
         .collection("bought")
@@ -148,8 +148,8 @@ class BoughtRepository implements IListBoughtRepository {
         .orderBy('updatedAt', descending: true)
         .startAfterDocument(_lastDocument!)
         .limit(10)
-        .get()
-        .then(
+        .snapshots()
+        .map(
       (snapshot) {
         // log("here:  " + snapshot.docs.first.data().toString());
         if (snapshot.docs.length == 10) {
@@ -164,10 +164,10 @@ class BoughtRepository implements IListBoughtRepository {
               .toList(),
         );
       },
-    ).onError((e, s) {
+    ).doOnError((e, s) {
       throw FirebaseCrashlytics.instance
           .recordError(e, s, reason: 'list_bought_repository: firstTen');
-    }).catchError((e) {
+    }).onErrorReturnWith((e, s) {
       if (e is FirebaseException && e.message!.contains('PERMISSION_DENIED')) {
         return left(const ListBoughtFailure.insufficientPermission());
       } else if (e.toString().contains('RangeError (index)')) {

@@ -31,7 +31,7 @@ class SignInForm extends StatelessWidget {
             (_) {
               // AutoRouter.of(context).replace(Home);
               context
-                  .watch<AuthBloc>()
+                  .read<AuthBloc>()
                   .add(const AuthEvent.authCheckRequested());
             },
           ),
@@ -130,7 +130,7 @@ class SignInForm extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   context
-                      .watch<SignInFormBloc>()
+                      .read<SignInFormBloc>()
                       .add(const SignInFormEvent.signInWithGooglePressed());
                 },
                 style: ElevatedButton.styleFrom(

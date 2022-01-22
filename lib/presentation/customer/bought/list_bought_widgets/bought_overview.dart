@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:shamagri_latest_flutter_version/application/bought_sold/list_bought/list_bought_bloc.dart';
+import 'package:shamagri_latest_flutter_version/domain/list_bought/i_list_bought_repository.dart';
+import 'package:shamagri_latest_flutter_version/domain/list_bought/list_bought.dart';
 import 'package:shamagri_latest_flutter_version/domain/list_bought/list_bought_failure.dart';
 import 'package:shamagri_latest_flutter_version/presentation/customer/critical_failure_display_widget.dart';
 import 'package:shamagri_latest_flutter_version/presentation/customer/bought/list_bought_widgets/error_bought_card_widget.dart';
@@ -9,7 +11,9 @@ import 'package:shamagri_latest_flutter_version/presentation/customer/bought/lis
 
 class ListBoughtOverviewBody extends StatelessWidget {
   ScrollController? scrollController;
-  ListBoughtOverviewBody({Key? key, this.scrollController});
+  final IListBoughtRepository? listBoughtRepository;
+  ListBoughtOverviewBody(
+      {Key? key, this.scrollController, this.listBoughtRepository});
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ListBoughtBloc, ListBoughtState>(
@@ -33,6 +37,8 @@ class ListBoughtOverviewBody extends StatelessWidget {
               return ListView.builder(
                 controller: this.scrollController,
                 itemBuilder: (context, index) {
+                  // snapshot.hasData;
+                  // final listBought = snapshot.data as ListBought;
                   final listBought = state.listBought[index];
                   if (listBought.failureOption.isSome()) {
                     // listBought.failureOption.map((a) => null)
@@ -42,19 +48,19 @@ class ListBoughtOverviewBody extends StatelessWidget {
                     return ListBoughtCard(listBought: listBought);
                   } else {
                     return /* index >= state.listBought.length
-                          ? Container(
-                              alignment: Alignment.center,
-                              child: Center(
-                                child: SizedBox(
-                                  width: 33,
-                                  height: 33,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 1.5,
+                              ? Container(
+                                  alignment: Alignment.center,
+                                  child: Center(
+                                    child: SizedBox(
+                                      width: 33,
+                                      height: 33,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 1.5,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            )
-                          : */
+                                )
+                              : */
                         ListBoughtCard(listBought: listBought);
                   }
                 },

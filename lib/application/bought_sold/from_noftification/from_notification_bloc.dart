@@ -29,11 +29,36 @@ class FromNotificationBloc
   final IBoughtRepository _boughtRepository;
 
   FromNotificationBloc(this._boughtRepository)
-      : super(FromNotificationState.initial());
+      : super(FromNotificationState.initial()) {
+    on<_$_BoughtNotFormReceived>(_boughtNotFormReceived);
+    on<_$_From_notification>(_fromNotification);
+  }
+  FutureOr<void> _boughtNotFormReceived(
+      _BoughtNotFormReceived e, Emitter<FromNotificationState> emit) async {
+    e.failureOrFromNotificationBought.fold(
+      (f) => emit(FromNotificationState.loadFailure(f)),
+      (boughtNotForm) => emit(FromNotificationState.loadSuccess(boughtNotForm)),
+    );
+  }
+
+  FutureOr<void> _fromNotification(
+      _From_notification e, Emitter<FromNotificationState> emit) async {
+    emit(const FromNotificationState.loadInProgress());
+    await _listBoughtBoughtNotFormStreamSubscription?.cancel();
+    _listBoughtBoughtNotFormStreamSubscription = _boughtRepository
+        .from_notification(e.sold_and_bought_Id, e.soldInvoice_boughtInvoice_Id)
+        .listen(
+      (failureOrFromNotificationBought) {
+        return add(FromNotificationEvent.boughtNotFormReceived(
+            failureOrFromNotificationBought));
+      },
+    );
+  }
+
   // StreamSubscription<Either<SoldNotFormFailure, bool>> _soldStreamSubscription;
   StreamSubscription<Either<BoughtNotFormFailure, List<BoughtNotForm>>>?
       _listBoughtBoughtNotFormStreamSubscription;
-  @override
+  /*  @override
   Stream<FromNotificationState> mapEventToState(
     FromNotificationEvent event,
   ) async* {
@@ -58,5 +83,5 @@ class FromNotificationBloc
         );
       },
     );
-  }
+  } */
 }

@@ -46,7 +46,7 @@ AppBar buildAppBar(BuildContext context) {
                       onTap: () {
                         // Navigator.pop(context);
                         context
-                            .watch<AuthBloc>()
+                            .read<AuthBloc>()
                             .add(const AuthEvent.signedOut());
                       },
                     ),

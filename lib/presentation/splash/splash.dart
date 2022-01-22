@@ -21,8 +21,8 @@ class SplashScreen extends StatelessWidget {
             },
             authenticated: (_) => {
                   logger.i('authenticated'),
+                  AutoRouter.of(context).replace(HomeScreenRoute()),
                 },
-            // ExtendedNavigator.of(context).replace(Routes.homeScreen),
             unauthenticated: (_) {
               logger.i('unauthenticated');
 

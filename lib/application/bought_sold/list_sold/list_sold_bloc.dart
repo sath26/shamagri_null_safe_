@@ -21,8 +21,18 @@ part 'list_sold_bloc.freezed.dart';
 class ListSoldBloc extends Bloc<ListSoldEvent, ListSoldState> {
   final IListSoldRepository _listSoldRepository;
 
-  ListSoldBloc(this._listSoldRepository) : super(const ListSoldState.initial());
-
+  ListSoldBloc(this._listSoldRepository)
+      : super(const ListSoldState.initial()) {
+    on<_WatchFirstTen>(_watchFirstTen);
+    on<_WatchAfterTen>(_watchAfterTen);
+    on<_ListSoldReceived>(_listSoldReceived);
+  }
+  FutureOr<void> _watchFirstTen(
+      _WatchFirstTen e, Emitter<ListSoldState> emit) async {}
+  FutureOr<void> _watchAfterTen(
+      _WatchAfterTen e, Emitter<ListSoldState> emit) async {}
+  FutureOr<void> _listSoldReceived(
+      _ListSoldReceived e, Emitter<ListSoldState> emit) async {}
   StreamSubscription<Either<ListSoldFailure, List<ListSold>>?>?
       _listSoldStreamSubscription;
   List<ListSold> soldAll = [];
