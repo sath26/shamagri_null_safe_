@@ -33,7 +33,7 @@ class ListSoldRepository implements IListSoldRepository {
   String? userID;
   DocumentSnapshot? _lastDocument;
   @override
-  Future<Either<ListSoldFailure, List<ListSold>>> firstTen() async {
+  Stream<Either<ListSoldFailure, List<ListSold>>> firstTen() async* {
     final userOption = await getIt<IAuthFacade>().getSignedInUser();
     logger.i("Sold userOption " + userOption.toString());
     final user = userOption.getOrElse(() => throw NotAuthenticatedError());
@@ -49,15 +49,15 @@ class ListSoldRepository implements IListSoldRepository {
       userID = documentSnapshot.data()['id'].toString();
       //log(userID);
     }); */
-    return _firestore
+    yield* _firestore
         .collection("users")
         .doc(userID)
         .collection("sold")
         .where("sellerUserId", isEqualTo: userID)
         .orderBy('updatedAt', descending: true)
         .limit(10)
-        .get()
-        .then(
+        .snapshots()
+        .map(
       (snapshot) {
         logger.i("snapshot list_sold_repository  " + snapshot.docs.toString());
 
@@ -76,11 +76,11 @@ class ListSoldRepository implements IListSoldRepository {
               const ListSoldFailure.isEmpty());
         }
       },
-    ).onError((e, s) {
+    ).doOnError((e, s) {
       throw FirebaseCrashlytics.instance
           .recordError(e, s, reason: 'list_sold_repository: firstTen');
-    }).catchError((e) {
-      log(e + "list_sold_repository");
+    }).onErrorReturnWith((e, s) {
+      log(e.toString() + "list_sold_repository");
       if (e is FirebaseException && e.message!.contains('PERMISSION_DENIED')) {
         return left(const ListSoldFailure.insufficientPermission());
       } else if (e.toString().contains('RangeError (index)')) {
@@ -95,7 +95,7 @@ class ListSoldRepository implements IListSoldRepository {
   }
 
   @override
-  Future<Either<ListSoldFailure, List<ListSold>>?> afterTen() async {
+  Stream<Either<ListSoldFailure, List<ListSold>>?> afterTen() async* {
     final userOption = await getIt<IAuthFacade>().getSignedInUser();
     final user = userOption.getOrElse(() => throw NotAuthenticatedError());
     userID = user.id!.getOrCrash();
@@ -106,7 +106,7 @@ class ListSoldRepository implements IListSoldRepository {
       userID = documentSnapshot.data()['id'].toString();
       //log(userID);
     }); */
-    return _firestore
+    yield* _firestore
         .collection("users")
         .doc(userID)
         .collection("sold")
@@ -119,8 +119,8 @@ class ListSoldRepository implements IListSoldRepository {
         .startAfterDocument(_lastDocument!)
         .limit(10)
         .where("sellerUserId", isEqualTo: userID)
-        .get()
-        .then(
+        .snapshots()
+        .map(
       (snapshot) {
         // log("here:  " + snapshot.docs.first.data().toString());
         _lastDocument = snapshot.docs[snapshot.docs.length - 1];
@@ -134,10 +134,10 @@ class ListSoldRepository implements IListSoldRepository {
           );
         }
       },
-    ).onError((e, s) {
+    ).doOnError((e, s) {
       FirebaseCrashlytics.instance
           .recordError(e, s, reason: 'list_sold_repository: userExistOrFail');
-    }).catchError((e) {
+    }).onErrorReturnWith((e, s) {
       if (e is FirebaseException && e.message!.contains('PERMISSION_DENIED')) {
         return left(const ListSoldFailure.insufficientPermission());
       } else {

@@ -75,7 +75,35 @@ class ListBoughtInvoiceBloc
     e.failureOrBought!.fold(
       (f) => emit(ListBoughtInvoiceState.loadFailure(f)),
       (boughtInvoice) {
+        // boughtInvoiceAll = boughtInvoiceAll + boughtInvoice;
+        bool? firstLoad = false;
+        if (boughtInvoiceAll.length == 0) firstLoad = true;
         boughtInvoiceAll = boughtInvoiceAll + boughtInvoice;
+
+        bool? here = false;
+        for (int j = 0; j < boughtInvoice.length; j++) {
+          for (int i = 0; i < boughtInvoiceAll.length; i++) {
+            if (boughtInvoiceAll[i].id == boughtInvoice[j].id) {
+              boughtInvoiceAll[i] = boughtInvoice[j];
+              if (!firstLoad) here = true;
+              // firstLoad = true;
+            }
+          }
+        }
+        if (here!) {
+          for (int j = 0; j < boughtInvoice.length; j++) {
+            // boughtInvoiceAll[i] = boughtInvoice[j];
+            final index = boughtInvoiceAll.indexOf(boughtInvoice[j], 2);
+            boughtInvoiceAll.removeAt(index);
+          }
+        }
+
+        //   //* first load removed all values from soldAll
+
+        // }
+        // soldAll.sortBy((element) => element.updatedAt);
+        /*  boughtInvoiceAll.sort(
+            (a, b) => a.updatedAt.toString().compareTo(b.updatedAt.toString())); */
         return emit(ListBoughtInvoiceState.loadSuccess(boughtInvoiceAll,
             watchFirstTenCountIsZero: e.firstTenCountIsZero,
             watchAfterTenCountIsZeroToNine: e.afterTenCountIsZeroToNine));

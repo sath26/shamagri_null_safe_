@@ -5,8 +5,8 @@ import 'package:shamagri_latest_flutter_version/domain/list_sold/list_sold.dart'
 import 'package:shamagri_latest_flutter_version/domain/list_sold/list_sold_failure.dart';
 
 abstract class IListSoldRepository {
-  Future<Either<ListSoldFailure, List<ListSold>>> firstTen();
-  Future<Either<ListSoldFailure, List<ListSold>>?> afterTen();
+  Stream<Either<ListSoldFailure, List<ListSold>>> firstTen();
+  Stream<Either<ListSoldFailure, List<ListSold>>?> afterTen();
   // Future<Either<ListSoldFailure, Quotation>> create(Quotation quotation);
   Future<Either<ListSoldFailure, ListSold>> update(ListSold listSold);
   Future<Either<ListSoldFailure, ListSold>> delete(ListSold listSold);

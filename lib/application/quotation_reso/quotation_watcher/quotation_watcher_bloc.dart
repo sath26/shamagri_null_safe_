@@ -19,9 +19,45 @@ class QuotationWatcherBloc
     extends Bloc<QuotationWatcherEvent, QuotationWatcherState> {
   final IQuotationRepository _quotationRepository;
   QuotationWatcherBloc(this._quotationRepository)
-      : super(const QuotationWatcherState.initial());
+      : super(const QuotationWatcherState.initial()) {
+    on<_Started>(_started);
+    on<_QuotationsReceived>(_quotationsReceived);
+    on<_ChangeSelected>(_changeSelected);
+  }
   StreamSubscription<Either<QuotationFailure, List<Quotation>>>?
       _quotationStreamSubscription;
+  FutureOr<void> _started(
+      _Started e, Emitter<QuotationWatcherState> emit) async {
+    emit(const QuotationWatcherState.loadInProgress());
+    await _quotationStreamSubscription?.cancel();
+    _quotationStreamSubscription = _quotationRepository
+        .watchAll()
+        .asStream()
+        .listen(
+          (failureOrquotation) =>
+              add(QuotationWatcherEvent.quotationsReceived(failureOrquotation)),
+        );
+  }
+
+  FutureOr<void> _quotationsReceived(
+      _QuotationsReceived e, Emitter<QuotationWatcherState> emit) async {
+    return e.failureOrQuotation.fold(
+      (f) => emit(QuotationWatcherState.loadFailure(f)),
+      (quotations) => emit(QuotationWatcherState.loadSuccess(quotations)),
+    );
+  }
+
+  FutureOr<void> _changeSelected(
+      _ChangeSelected e, Emitter<QuotationWatcherState> emit) async {
+    final List<Quotation> list = e.items
+        .map((d) => d.id == e.entry.id
+            ? d.copyWith(isSelected: QuotationSelected(e.value))
+            : d.copyWith())
+        .toList();
+
+    emit(QuotationWatcherState.loadSuccess(list));
+  }
+/* 
   @override
   Stream<QuotationWatcherState> mapEventToState(
     QuotationWatcherEvent event,
@@ -51,5 +87,5 @@ class QuotationWatcherBloc
 
       yield QuotationWatcherState.loadSuccess(list);
     });
-  }
+  } */
 }

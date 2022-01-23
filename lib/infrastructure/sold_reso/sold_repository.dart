@@ -13,6 +13,8 @@ import 'package:injectable/injectable.dart';
 import 'package:dartz/dartz.dart';
 import 'package:kt_dart/kt.dart';
 import 'package:logger/logger.dart';
+import 'package:rxdart/src/transformers/do.dart';
+import 'package:rxdart/src/transformers/on_error_resume.dart';
 import 'package:shamagri_latest_flutter_version/domain/auth/i_auth_facade.dart';
 import 'package:shamagri_latest_flutter_version/domain/auth/user.dart' as a;
 import 'package:shamagri_latest_flutter_version/domain/core/errors.dart';
@@ -91,8 +93,8 @@ class SoldRepository implements ISoldRepository {
   DocumentSnapshot? _lastDocument;
   String? _soldId;
   @override
-  Future<Either<SoldNotFormFailure, List<SoldNotForm>>> firstTen(
-      String soldId) async {
+  Stream<Either<SoldNotFormFailure, List<SoldNotForm>>> firstTen(
+      String soldId) async* {
     final userOption = await getIt<IAuthFacade>().getSignedInUser();
     final user = userOption.getOrElse(() => throw NotAuthenticatedError());
     userID = user.id!.getOrCrash();
@@ -104,7 +106,7 @@ class SoldRepository implements ISoldRepository {
       //log(userID);
     }); */
     _soldId = soldId;
-    return _firestore
+    yield* _firestore
         .collection("users")
         .doc(userID)
         .collection("sold")
@@ -118,8 +120,8 @@ class SoldRepository implements ISoldRepository {
         .where("sellerUserId", isEqualTo: userID)
         .orderBy('createdAt', descending: true)
         .limit(10)
-        .get()
-        .then(
+        .snapshots()
+        .map(
       (snapshot) {
         snapshot.docChanges.isNotEmpty;
         // log("here:  " + snapshot.docs.first.data().toString());
@@ -152,10 +154,10 @@ class SoldRepository implements ISoldRepository {
               const SoldNotFormFailure.isEmpty());
         }
       },
-    ).onError((e, s) {
+    ).doOnError((e, s) {
       throw FirebaseCrashlytics.instance
           .recordError(e, s, reason: 'sold_repository: firstTen');
-    }).catchError((e) {
+    }).onErrorReturnWith((e, s) {
       if (e is FirebaseException && e.message!.contains('PERMISSION_DENIED')) {
         return left<SoldNotFormFailure, List<SoldNotForm>>(
             const SoldNotFormFailure.insufficientPermission());
@@ -168,7 +170,7 @@ class SoldRepository implements ISoldRepository {
   }
 
   @override
-  Future<Either<SoldNotFormFailure, List<SoldNotForm>>> afterTen() async {
+  Stream<Either<SoldNotFormFailure, List<SoldNotForm>>> afterTen() async* {
     final userOption = await getIt<IAuthFacade>().getSignedInUser();
     final user = userOption.getOrElse(() => throw NotAuthenticatedError());
     userID = user.id!.getOrCrash();
@@ -179,7 +181,7 @@ class SoldRepository implements ISoldRepository {
       userID = documentSnapshot.data()['id'].toString();
       //log(userID);
     }); */
-    return _firestore
+    yield* _firestore
         .collection("users")
         .doc(userID)
         .collection("sold")
@@ -194,8 +196,8 @@ class SoldRepository implements ISoldRepository {
         .orderBy('createdAt', descending: true)
         .startAfterDocument(_lastDocument!)
         .limit(10)
-        .get()
-        .then(
+        .snapshots()
+        .map(
       (snapshot) {
         // log("here:  " + snapshot.docs.first.data().toString());
         _lastDocument = snapshot.docs[snapshot.docs.length - 1];
@@ -206,10 +208,10 @@ class SoldRepository implements ISoldRepository {
               .toList(),
         );
       },
-    ).onError((e, s) {
+    ).doOnError((e, s) {
       throw FirebaseCrashlytics.instance
           .recordError(e, s, reason: 'sold_repository: afterTen');
-    }).catchError((e) {
+    }).onErrorReturnWith((e, s) {
       if (e is FirebaseException && e.message!.contains('PERMISSION_DENIED')) {
         return left<SoldNotFormFailure, List<SoldNotForm>>(
             const SoldNotFormFailure.insufficientPermission());

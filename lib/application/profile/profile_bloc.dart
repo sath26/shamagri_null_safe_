@@ -19,8 +19,27 @@ part 'profile_bloc.freezed.dart';
 @injectable
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final IUserRepository _userRepository;
-  ProfileBloc(this._userRepository) : super(const ProfileState.initial());
+  ProfileBloc(this._userRepository) : super(const ProfileState.initial()) {
+    on<_Started>(_started);
+    on<_UsersReceived>(_usersReceived);
+  }
   StreamSubscription<Either<UserFailure, List<User>>>? _userStreamSubscription;
+  FutureOr<void> _started(_Started e, Emitter<ProfileState> emit) async {
+    emit(const ProfileState.loadInProgress());
+    await _userStreamSubscription?.cancel();
+    _userStreamSubscription = _userRepository.watchAll().asStream().listen(
+          (failureOrUser) => add(ProfileEvent.usersReceived(failureOrUser)),
+        );
+  }
+
+  FutureOr<void> _usersReceived(
+      _UsersReceived e, Emitter<ProfileState> emit) async {
+    emit(e.failureOrUser.fold(
+      (f) => ProfileState.loadFailure(f),
+      (users) => ProfileState.loadSuccess(users),
+    ));
+  }
+/* 
   @override
   Stream<ProfileState> mapEventToState(
     ProfileEvent event,
@@ -41,5 +60,5 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         );
       },
     );
-  }
+  } */
 }

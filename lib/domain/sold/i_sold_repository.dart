@@ -12,8 +12,8 @@ import 'package:shamagri_latest_flutter_version/domain/user_reso/user.dart'
 abstract class ISoldRepository {
   Future<Either<UserFailure, List<u.User>>> userExistOrFail(String buyerEmail);
   // Stream<Either<SoldFailure, KtList<Sold>>> watchUncompleted();
-  Future<Either<SoldNotFormFailure, List<SoldNotForm>>> afterTen();
-  Future<Either<SoldNotFormFailure, List<SoldNotForm>>> firstTen(String soldId);
+  Stream<Either<SoldNotFormFailure, List<SoldNotForm>>> afterTen();
+  Stream<Either<SoldNotFormFailure, List<SoldNotForm>>> firstTen(String soldId);
   Future<Either<SoldFailure, Unit>> create(Sold sold);
   Future<Either<SoldFailure, Unit>> createTest(
       Sold sold, User sellerUserDetail);

@@ -28,16 +28,90 @@ class ListSoldBloc extends Bloc<ListSoldEvent, ListSoldState> {
     on<_ListSoldReceived>(_listSoldReceived);
   }
   FutureOr<void> _watchFirstTen(
-      _WatchFirstTen e, Emitter<ListSoldState> emit) async {}
+      _WatchFirstTen e, Emitter<ListSoldState> emit) async {
+    emit(const ListSoldState.loadInProgress());
+    await _listSoldStreamSubscription?.cancel();
+    _listSoldStreamSubscription =
+        _listSoldRepository.firstTen().listen((failureOrNotes) {
+      logger.v("null on receiver:    " + failureOrNotes.toString());
+      failureOrNotes.fold((f) => {logger.i("this is called")}, (listBought) {
+        // if (listBought.length >= 0 || listBought.length < 10) {
+        //* not required because only if its 0 different ui has to be shown
+        if (listBought.length == 0) {
+          return add(ListSoldEvent.listSoldReceived(failureOrNotes,
+              firstTenCountIsZero: true, afterTenCountIsZeroToNine: false));
+        }
+      });
+      return add(ListSoldEvent.listSoldReceived(failureOrNotes,
+          firstTenCountIsZero: false, afterTenCountIsZeroToNine: false));
+      //* whether its inside fold or outside its same because
+      //* return wont allow to run code further!!
+    });
+  }
+
   FutureOr<void> _watchAfterTen(
-      _WatchAfterTen e, Emitter<ListSoldState> emit) async {}
+      _WatchAfterTen e, Emitter<ListSoldState> emit) async {
+    emit(const ListSoldState.loadInProgress());
+    await _listSoldStreamSubscription?.cancel();
+    _listSoldStreamSubscription =
+        _listSoldRepository.afterTen().listen((failureOrNotes) {
+      failureOrNotes!.fold((f) => null, (listBought) {
+        if (listBought.length >= 0 || listBought.length < 10) {
+          return add(ListSoldEvent.listSoldReceived(failureOrNotes,
+              firstTenCountIsZero: false, afterTenCountIsZeroToNine: true));
+        }
+        return add(ListSoldEvent.listSoldReceived(failureOrNotes,
+            firstTenCountIsZero: false, afterTenCountIsZeroToNine: false));
+      });
+    });
+  }
+
   FutureOr<void> _listSoldReceived(
-      _ListSoldReceived e, Emitter<ListSoldState> emit) async {}
+      _ListSoldReceived e, Emitter<ListSoldState> emit) async {
+    return e.failureOrListSold!.fold(
+      (f) => emit(ListSoldState.loadFailure(f)),
+      (sold) {
+        bool? firstLoad = false;
+        if (soldAll.length == 0) firstLoad = true;
+        soldAll = soldAll + sold;
+
+        bool? here = false;
+        for (int j = 0; j < sold.length; j++) {
+          for (int i = 0; i < soldAll.length; i++) {
+            if (soldAll[i].id == sold[j].id) {
+              soldAll[i] = sold[j];
+              if (!firstLoad) here = true;
+              // firstLoad = true;
+            }
+          }
+        }
+        if (here!) {
+          for (int j = 0; j < sold.length; j++) {
+            // soldAll[i] = sold[j];
+            final index = soldAll.indexOf(sold[j], 2);
+            soldAll.removeAt(index);
+          }
+        }
+
+        //   //* first load removed all values from soldAll
+
+        // }
+        // soldAll.sortBy((element) => element.updatedAt);
+        soldAll.sort(
+            (a, b) => a.updatedAt.toString().compareTo(b.updatedAt.toString()));
+        // soldAll = soldAll + sold;
+        return emit(ListSoldState.loadSuccess(soldAll,
+            watchFirstTenCountIsZero: e.firstTenCountIsZero,
+            watchAfterTenCountIsZeroToNine: e.afterTenCountIsZeroToNine));
+      },
+    );
+  }
+
   StreamSubscription<Either<ListSoldFailure, List<ListSold>>?>?
       _listSoldStreamSubscription;
   List<ListSold> soldAll = [];
   Logger logger = new Logger();
-
+/* 
   @override
   Stream<ListSoldState> mapEventToState(
     ListSoldEvent event,
@@ -47,12 +121,12 @@ class ListSoldBloc extends Bloc<ListSoldEvent, ListSoldState> {
         yield const ListSoldState.loadInProgress();
         await _listSoldStreamSubscription?.cancel();
         _listSoldStreamSubscription =
-            _listSoldRepository.firstTen().asStream().listen((failureOrNotes) {
+            _listSoldRepository.firstTen().asStream().listen((failureOrsold) {
           logger.v("null on receiver:    " + failureOrNotes.toString());
           failureOrNotes.fold((f) => {logger.i("this is called")},
               (listBought) {
             // if (listBought.length >= 0 || listBought.length < 10) {
-            //* not required because only if its 0 different ui has to be shown
+            // not required because only if its 0 different ui has to be shown
             if (listBought.length == 0) {
               return add(ListSoldEvent.listSoldReceived(failureOrNotes,
                   firstTenCountIsZero: true, afterTenCountIsZeroToNine: false));
@@ -60,8 +134,8 @@ class ListSoldBloc extends Bloc<ListSoldEvent, ListSoldState> {
           });
           return add(ListSoldEvent.listSoldReceived(failureOrNotes,
               firstTenCountIsZero: false, afterTenCountIsZeroToNine: false));
-          //* whether its inside fold or outside its same because
-          //* return wont allow to run code further!!
+          // whether its inside fold or outside its same because
+          //return wont allow to run code further!!
         });
       },
       watchAfterTen: (e) async* {
@@ -91,7 +165,7 @@ class ListSoldBloc extends Bloc<ListSoldEvent, ListSoldState> {
         );
       },
     );
-  }
+  } */
 
   @override
   Future<void> close() async {
