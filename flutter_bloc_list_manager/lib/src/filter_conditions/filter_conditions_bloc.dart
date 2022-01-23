@@ -115,6 +115,27 @@ class FilterConditionsBloc<T extends ItemSourceState>
         availableConditions: availableConditions,
       ));
     });
+    on<RefreshConditions>(_refreshConditions);
+    on<AddCondition>(_addCondition);
+    on<RemoveCondition>(_removeCondition);
+  }
+  FutureOr<void> _addCondition(
+      AddCondition event, Emitter<FilterConditionsState> emit) {
+    _addConditionToActiveConditions(event);
+  }
+
+  FutureOr<void> _removeCondition(
+      RemoveCondition event, Emitter<FilterConditionsState> emit) {
+    _removeConditionFromActiveConditions(event);
+  }
+
+  FutureOr<void> _refreshConditions(
+      RefreshConditions event, Emitter<FilterConditionsState> emit) {
+    emit(ConditionsInitialized(
+      activeAndConditions: event.activeAndConditions,
+      activeOrConditions: event.activeOrConditions,
+      availableConditions: event.availableConditions,
+    ));
   }
 
   @override

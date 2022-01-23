@@ -81,7 +81,7 @@ class ListManager<I extends ItemClassWithAccessor, T extends ItemSourceState,
 
   @override
   Widget build(BuildContext context) {
-    final _sourceBloc = sourceBloc ?? context.watch<B>();
+    final _sourceBloc = sourceBloc ?? context.read<B>();
 
     return MultiBlocProvider(
       providers: [
@@ -97,8 +97,8 @@ class ListManager<I extends ItemClassWithAccessor, T extends ItemSourceState,
         BlocProvider<ItemListBloc>(
           create: (context) => ItemListBloc<I, T>(
             sourceBloc: _sourceBloc,
-            filterConditionsBloc: context.watch<FilterConditionsBloc>(),
-            searchQueryCubit: context.watch<SearchQueryCubit>(),
+            filterConditionsBloc: context.read<FilterConditionsBloc>(),
+            searchQueryCubit: context.read<SearchQueryCubit>(),
             searchProperties: searchProperties,
           ),
         )

@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc_list_manager/src/item_list/item_list_event.dart';
 import 'package:meta/meta.dart';
-
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import '../filter_conditions/filter_conditions_bloc.dart';
 import '../item_source.dart';
 import '../search_query/search_query.dart';
@@ -56,7 +57,7 @@ class ItemListBloc<I extends ItemClassWithAccessor, T extends ItemSourceState>
         _sourceBloc = sourceBloc,
         _searchProperties = searchProperties,
         super(NoSourceItems()) {
-    on((event, emit) {
+    /*  on((event, emit) {
       add(_itemListEvent.filterConditionsUpdated);
     });
 
@@ -66,7 +67,39 @@ class ItemListBloc<I extends ItemClassWithAccessor, T extends ItemSourceState>
 
     on((event, emit) {
       add(_itemListEvent.sourceUpdated);
-    });
+    }); */
+    on<_itemListEvent>(_onEvent, transformer: sequential());
+  }
+  FutureOr<void> _onEvent(
+      _itemListEvent event, Emitter<ItemListState> emit) async* {
+    if (_filterConditionsBloc?.state is! ConditionsInitialized ||
+        _sourceBloc?.state is! T) {
+      yield NoSourceItems();
+      return;
+    }
+    if (event == _itemListEvent.filterConditionsUpdated) {
+      add(_itemListEvent.filterConditionsUpdated);
+    } else if (event == _itemListEvent.searchQueryUpdated) {
+      add(_itemListEvent.searchQueryUpdated);
+    } else {
+      add(_itemListEvent.sourceUpdated);
+    }
+    if (event != _itemListEvent.sourceUpdated &&
+        event != _itemListEvent.filterConditionsUpdated &&
+        event != _itemListEvent.searchQueryUpdated) {
+      return;
+    }
+
+    final items = (_sourceBloc?.state as T).items;
+    final filterResults = _filterSource(items);
+    final searchResults =
+        _searchSource(_searchQueryCubit!.state, filterResults);
+
+    if (searchResults.isEmpty) {
+      yield ItemEmptyState();
+    } else {
+      yield ItemResults(searchResults.toList());
+    }
   }
 
   @override
