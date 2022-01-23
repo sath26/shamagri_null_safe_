@@ -30,7 +30,50 @@ class SingleBoughtInvoiceWatcherBloc extends Bloc<
   final IBoughtRepository _boughtRepository;
 
   SingleBoughtInvoiceWatcherBloc(this._boughtRepository)
-      : super(SingleBoughtInvoiceWatcherState.initial());
+      : super(SingleBoughtInvoiceWatcherState.initial()) {
+    on<_Initialized>(initialized);
+    on<_IsApprovedChanged>(isApprovedChanged);
+    on<_Updated>(updated);
+  }
+  FutureOr<void> initialized(
+      _Initialized e, Emitter<SingleBoughtInvoiceWatcherState> emit) {
+    return e.afterSelectBoughtOption.fold(
+      () => emit(state),
+      (initialBought) => emit(state.copyWith(
+        bill: initialBought,
+        isEditing: true,
+      )),
+    );
+  }
+
+  FutureOr<void> isApprovedChanged(
+      _IsApprovedChanged e, Emitter<SingleBoughtInvoiceWatcherState> emit) {
+    emit(state.copyWith(
+        bill: state.bill!.copyWith(isApproved: BoughtApproved(e.isApproved))));
+  }
+
+  FutureOr<void> updated(
+      _Updated e, Emitter<SingleBoughtInvoiceWatcherState> emit) async {
+    Either<BoughtNotFormFailure, BoughtNotForm>? failureOrSuccess;
+
+    emit(state.copyWith(
+      isSaving: true,
+      saveFailureOrSuccessOption: none(),
+    ));
+
+    if (state.bill!.failureOption.isNone()) {
+      // failureOrSuccess = state.isEditing
+      // ? await _soldRepository.update(state.bill)
+      failureOrSuccess = await _boughtRepository.update(state.bill!);
+    }
+
+    emit(state.copyWith(
+      isSaving: false,
+      showErrorMessages: true,
+      saveFailureOrSuccessOption: optionOf(failureOrSuccess),
+    ));
+  }
+
   // StreamSubscription<Either<SoldNotFormFailure, bool>> _soldStreamSubscription;
   StreamSubscription<Either<BoughtNotFormFailure, List<BoughtNotForm>>>?
       _listBoughtBoughtNotFormStreamSubscription;

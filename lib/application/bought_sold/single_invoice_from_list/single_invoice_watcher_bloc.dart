@@ -26,9 +26,22 @@ class SingleInvoiceWatcherBloc
   final ISoldRepository _soldRepository;
 
   SingleInvoiceWatcherBloc(this._soldRepository)
-      : super(SingleInvoiceWatcherState.initial());
+      : super(SingleInvoiceWatcherState.initial()) {
+    on<_Initialized>(_initialized);
+  }
+  FutureOr<void> _initialized(
+      _Initialized e, Emitter<SingleInvoiceWatcherState> emit) async {
+    e.afterSelectSoldOption!.fold(
+      () => emit(state),
+      (initialSold) => emit(state.copyWith(
+        bill: initialSold,
+        isEditing: true,
+      )),
+    );
+  }
+
   // StreamSubscription<Either<SoldNotFormFailure, bool>> _soldStreamSubscription;
-  @override
+  /* @override
   Stream<SingleInvoiceWatcherState> mapEventToState(
     SingleInvoiceWatcherEvent event,
   ) async* {
@@ -43,5 +56,5 @@ class SingleInvoiceWatcherBloc
         );
       },
     );
-  }
+  } */
 }
