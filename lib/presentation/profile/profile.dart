@@ -99,9 +99,9 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Builder(
                 builder: (context) => WillPopScope(
                   onWillPop: () async {
-                    // ExtendedNavigator.of(context).replace(Routes.homeScreen);
-                    bool? result = await context.router.pop(context);
-                    return result;
+                    bool? result =
+                        await AutoRouter.of(context).replace(HomeScreenRoute());
+                    return result!;
                   },
                   child: Scaffold(
                     appBar: buildAppBar(context),

@@ -87,8 +87,9 @@ class ItemListRenderer extends StatelessWidget {
                           print("state item no: " +
                               state.items.indexOf(entry).toString());
 
-                          BlocProvider.of<QuotationWatcherBloc>(context).add(
-                              QuotationWatcherEvent.changeSelected(
+                          BlocProvider.of<QuotationWatcherBloc>(context,
+                                  listen: false)
+                              .add(QuotationWatcherEvent.changeSelected(
                                   state.items, value!, entry));
                           /*  BlocProvider.of<QuotationBloc>(context).add(
                               QuotationEvent.isSelectedOrNot(
@@ -99,7 +100,8 @@ class ItemListRenderer extends StatelessWidget {
                           logger.i('entry plus' + entry.toString());
                           logger.i('entry condition' + value.toString());
 
-                          BlocProvider.of<SelectedWatcherBloc>(context)
+                          BlocProvider.of<SelectedWatcherBloc>(context,
+                                  listen: false)
                               .add(SelectedWatcherEvent.selected(
                                   //entry, value, state.items.indexOf(entry) + 1));
                                   context.formQuotations));
@@ -110,15 +112,17 @@ class ItemListRenderer extends StatelessWidget {
                           BlocProvider.of<QuotationBloc>(context).add(
                               QuotationEvent.isSelectedOrNot(
                                   m.optionOf(entry), value)); */
-                          BlocProvider.of<QuotationWatcherBloc>(context).add(
-                              QuotationWatcherEvent.changeSelected(
+                          BlocProvider.of<QuotationWatcherBloc>(context,
+                                  listen: false)
+                              .add(QuotationWatcherEvent.changeSelected(
                                   state.items, value!, entry));
                           context.formQuotations = context.formQuotations
                               .minusElement(SelectedItemPrimitive.fromDomain(
                                   entry, (state.items.indexOf(entry)) + 1));
                           logger.i('entry minus' + entry.toString());
                           logger.i('entry condition   ' + value.toString());
-                          BlocProvider.of<SelectedWatcherBloc>(context)
+                          BlocProvider.of<SelectedWatcherBloc>(context,
+                                  listen: false)
                               .add(SelectedWatcherEvent.selected(
                                   //entry, value, state.items.indexOf(entry) + 1));
                                   context.formQuotations));
