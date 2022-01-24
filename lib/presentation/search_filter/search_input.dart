@@ -15,7 +15,7 @@ class SearchInput extends StatelessWidget {
             ),
             textInputAction: TextInputAction.search,
             onChanged: (value) =>
-                context.watch<SearchQueryCubit>().setQuery(value),
+                context.read<SearchQueryCubit>().setQuery(value),
           ),
         );
       },
