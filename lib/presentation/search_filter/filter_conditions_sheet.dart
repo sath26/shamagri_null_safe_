@@ -45,10 +45,10 @@ class FilterConditionsSheet extends StatelessWidget {
             // rendering title or option rows.
             return ListView.builder(
               padding: const EdgeInsets.all(8),
-              itemCount: state.availableConditions!.length,
+              itemCount: state.availableConditions.length,
               itemBuilder: (_, index) {
                 final condition =
-                    state.availableConditions!.entries.elementAt(index);
+                    state.availableConditions.entries.elementAt(index);
                 return FilterConditionGroup(
                   condition: condition,
                   isOptionActive: _isOptionActive,

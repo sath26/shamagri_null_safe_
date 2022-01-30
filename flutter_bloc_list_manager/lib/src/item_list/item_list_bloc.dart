@@ -56,7 +56,7 @@ class ItemListBloc<I extends ItemClassWithAccessor, T extends ItemSourceState>
         _searchQueryCubit = searchQueryCubit,
         _sourceBloc = sourceBloc,
         _searchProperties = searchProperties,
-        super(NoSourceItems()) {
+        super(const NoSourceItems()) {
     /*  on((event, emit) {
       add(_itemListEvent.filterConditionsUpdated);
     });
@@ -79,7 +79,7 @@ class ItemListBloc<I extends ItemClassWithAccessor, T extends ItemSourceState>
     _sourceSubscription = _sourceBloc.stream.listen((_) {
       add(_ExternalDataUpdated());
     });
-    on<_ExternalDataUpdated>(_onEvent, transformer: sequential());
+    on<_ExternalDataUpdated>(_onEvent);
   }
   _onEvent(_ExternalDataUpdated event, Emitter<ItemListState> emit) {
     if (_filterConditionsBloc.state is! ConditionsInitialized ||
@@ -94,11 +94,11 @@ class ItemListBloc<I extends ItemClassWithAccessor, T extends ItemSourceState>
     } else {
       add(_itemListEvent.sourceUpdated);
     } */
-    if (event != _itemListEvent.sourceUpdated &&
+    /* if (event != _itemListEvent.sourceUpdated &&
         event != _itemListEvent.filterConditionsUpdated &&
         event != _itemListEvent.searchQueryUpdated) {
       return;
-    }
+    } */
 
     // final items = (_sourceBloc.state as T).items;
     final filterResults = _filterSource(_sourceBloc.state.items);

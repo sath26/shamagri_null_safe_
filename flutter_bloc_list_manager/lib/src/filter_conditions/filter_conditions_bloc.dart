@@ -120,17 +120,15 @@ class FilterConditionsBloc<T extends ItemSourceState>
     on<AddCondition>(_addCondition);
     on<RemoveCondition>(_removeCondition);
   }
-  FutureOr<void> _addCondition(
-      AddCondition event, Emitter<FilterConditionsState> emit) {
-    _addConditionToActiveConditions(event);
+  _addCondition(AddCondition event, Emitter<FilterConditionsState> emit) {
+    emit(_addConditionToActiveConditions(event));
   }
 
-  FutureOr<void> _removeCondition(
-      RemoveCondition event, Emitter<FilterConditionsState> emit) {
-    _removeConditionFromActiveConditions(event);
+  _removeCondition(RemoveCondition event, Emitter<FilterConditionsState> emit) {
+    emit(_removeConditionFromActiveConditions(event));
   }
 
-  FutureOr<void> _refreshConditions(
+  _refreshConditions(
       RefreshConditions event, Emitter<FilterConditionsState> emit) {
     emit(ConditionsInitialized(
       activeAndConditions: event.activeAndConditions,
