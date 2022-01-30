@@ -56,15 +56,15 @@ class ListManager<I extends ItemClassWithAccessor, T extends ItemSourceState,
     B extends Bloc> extends StatelessWidget {
   /// The widget to be rendered. The build context will have access to all
   /// of the blocs created by this widget to manage your list.
-  final Widget? child;
+  final Widget child;
 
   /// A [List] of property keys that should be used
   /// by the [FilterConditionsBloc] when generating available conditions.
-  final List<String>? filterProperties;
+  final List<String> filterProperties;
 
   /// A [List] of property keys that should be used
   /// by the [ItemListBloc] while searching against the active query.
-  final List<String>? searchProperties;
+  final List<String> searchProperties;
 
   /// [Bloc] that will contain an [ItemSourceState]. If one is not provided
   /// the current [BuildContext] will be used to look it up.
@@ -72,13 +72,14 @@ class ListManager<I extends ItemClassWithAccessor, T extends ItemSourceState,
 
   /// {@macro listmanager}
   ListManager({
-    @required this.child,
-    @required this.filterProperties,
-    this.searchProperties,
+    required this.child,
+    // required this.filterProperties,
+    this.filterProperties = const [],
+    // this.searchProperties,
+    this.searchProperties = const [],
     this.sourceBloc,
-  })  : assert(child != null),
-        assert(filterProperties != null);
-
+    Key? key,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final _sourceBloc = sourceBloc ?? context.read<B>();
@@ -103,7 +104,7 @@ class ListManager<I extends ItemClassWithAccessor, T extends ItemSourceState,
           ),
         )
       ],
-      child: child!,
+      child: child,
     );
   }
 }

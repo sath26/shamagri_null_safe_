@@ -33,25 +33,25 @@ enum _itemListEvent {
 /// in order to render your list UI however you see fit.
 /// {@endtemplate}
 class ItemListBloc<I extends ItemClassWithAccessor, T extends ItemSourceState>
-    extends Bloc<_itemListEvent, ItemListState> {
-  final FilterConditionsBloc? _filterConditionsBloc;
-  final SearchQueryCubit? _searchQueryCubit;
-  final Bloc? _sourceBloc;
-  final List<String>? _searchProperties;
+    extends Bloc<_ItemListEvent, ItemListState> {
+  final FilterConditionsBloc _filterConditionsBloc;
+  final SearchQueryCubit _searchQueryCubit;
+  final Bloc _sourceBloc;
+  final List<String> _searchProperties;
 
-  StreamSubscription? _filterConditionsSubscription;
-  StreamSubscription? _searchQuerySubscription;
-  StreamSubscription? _sourceSubscription;
+  late StreamSubscription _filterConditionsSubscription;
+  late StreamSubscription _searchQuerySubscription;
+  late StreamSubscription _sourceSubscription;
 
   /// {@macro itemlistbloc}
   ItemListBloc({
-    @required FilterConditionsBloc? filterConditionsBloc,
-    @required SearchQueryCubit? searchQueryCubit,
-    @required Bloc? sourceBloc,
-    List<String>? searchProperties,
-  })  : assert(filterConditionsBloc != null),
+    required FilterConditionsBloc filterConditionsBloc,
+    required SearchQueryCubit searchQueryCubit,
+    required Bloc sourceBloc,
+    List<String> searchProperties = const [],
+  })  : /*  assert(filterConditionsBloc != null),
         assert(searchQueryCubit != null),
-        assert(sourceBloc != null),
+        assert(sourceBloc != null), */
         _filterConditionsBloc = filterConditionsBloc,
         _searchQueryCubit = searchQueryCubit,
         _sourceBloc = sourceBloc,
@@ -68,40 +68,53 @@ class ItemListBloc<I extends ItemClassWithAccessor, T extends ItemSourceState>
     on((event, emit) {
       add(_itemListEvent.sourceUpdated);
     }); */
-    on<_itemListEvent>(_onEvent, transformer: sequential());
+    _filterConditionsSubscription = _filterConditionsBloc.stream.listen((_) {
+      add(_ExternalDataUpdated());
+    });
+
+    _searchQuerySubscription = _searchQueryCubit.stream.listen((_) {
+      add(_ExternalDataUpdated());
+    });
+
+    _sourceSubscription = _sourceBloc.stream.listen((_) {
+      add(_ExternalDataUpdated());
+    });
+    on<_ExternalDataUpdated>(_onEvent, transformer: sequential());
   }
-  FutureOr<void> _onEvent(
-      _itemListEvent event, Emitter<ItemListState> emit) async* {
-    if (_filterConditionsBloc?.state is! ConditionsInitialized ||
-        _sourceBloc?.state is! T) {
-      yield NoSourceItems();
-      return;
+  _onEvent(_ExternalDataUpdated event, Emitter<ItemListState> emit) {
+    if (_filterConditionsBloc.state is! ConditionsInitialized ||
+        _sourceBloc.state is! T) {
+      return emit(const NoSourceItems());
+      // return;
     }
-    if (event == _itemListEvent.filterConditionsUpdated) {
+    /* if (event == _itemListEvent.filterConditionsUpdated) {
       add(_itemListEvent.filterConditionsUpdated);
     } else if (event == _itemListEvent.searchQueryUpdated) {
       add(_itemListEvent.searchQueryUpdated);
     } else {
       add(_itemListEvent.sourceUpdated);
-    }
+    } */
     if (event != _itemListEvent.sourceUpdated &&
         event != _itemListEvent.filterConditionsUpdated &&
         event != _itemListEvent.searchQueryUpdated) {
       return;
     }
 
-    final items = (_sourceBloc?.state as T).items;
-    final filterResults = _filterSource(items);
-    final searchResults =
-        _searchSource(_searchQueryCubit!.state, filterResults);
+    // final items = (_sourceBloc.state as T).items;
+    final filterResults = _filterSource(_sourceBloc.state.items);
+    final searchResults = _searchSource(_searchQueryCubit.state, filterResults);
 
-    if (searchResults.isEmpty) {
+    /* if (searchResults.isEmpty) {
       yield ItemEmptyState();
     } else {
       yield ItemResults(searchResults.toList());
-    }
+    } */
+    return emit(searchResults.isEmpty
+        ? const ItemEmptyState()
+        : ItemResults(searchResults.toList()));
   }
 
+/* 
   @override
   Stream<ItemListState> mapEventToState(
     _itemListEvent event,
@@ -128,20 +141,20 @@ class ItemListBloc<I extends ItemClassWithAccessor, T extends ItemSourceState>
     } else {
       yield ItemResults(searchResults.toList());
     }
-  }
-
-  Iterable<ItemClassWithAccessor> _filterSource(
-      List<ItemClassWithAccessor> items) {
-    final filterState = (_filterConditionsBloc!.state as ConditionsInitialized);
+  } */
+/* Iterable<ItemClassWithAccessor> _filterSource(
+      List<ItemClassWithAccessor> items) { */
+  Iterable<I> _filterSource(List<I> items) {
+    final filterState = (_filterConditionsBloc.state as ConditionsInitialized);
     final activeAndConditions = filterState.activeAndConditions;
     final activeOrConditions = filterState.activeOrConditions;
 
-    if (activeAndConditions!.isEmpty && activeOrConditions!.isEmpty) {
+    if (activeAndConditions.isEmpty && activeOrConditions.isEmpty) {
       return items;
     }
 
     return items.where((item) {
-      final hasMatchedOrConditions = activeOrConditions!.isEmpty
+      final hasMatchedOrConditions = activeOrConditions.isEmpty
           ? true
           : activeOrConditions.any(
               (conditionKey) => _evaluateFilterCondition(item, conditionKey));
@@ -159,15 +172,16 @@ class ItemListBloc<I extends ItemClassWithAccessor, T extends ItemSourceState>
     });
   }
 
-  Iterable<ItemClassWithAccessor> _searchSource(
-      String searchQuery, Iterable<ItemClassWithAccessor> items) {
+  // Iterable<ItemClassWithAccessor> _searchSource(
+  Iterable<I> _searchSource(String searchQuery, Iterable<I> items) {
+    // String searchQuery, Iterable<ItemClassWithAccessor> items) {
     if (searchQuery.isEmpty) {
       return items;
     }
 
     // Search queries are stored lowercase, so we want to match
     // against a lowercase value as well.
-    return items.where((item) => _searchProperties!.any((property) {
+    return items.where((item) => _searchProperties.any((property) {
           final value = item[property];
           return value is String
               ? value.toLowerCase().contains(searchQuery)
@@ -175,8 +189,8 @@ class ItemListBloc<I extends ItemClassWithAccessor, T extends ItemSourceState>
         }));
   }
 
-  bool _evaluateFilterCondition(
-      ItemClassWithAccessor item, String conditionKey) {
+  bool _evaluateFilterCondition(I item, String conditionKey) {
+    // ItemClassWithAccessor item, String conditionKey) {
     final parsedConditionKey = splitConditionKey(conditionKey);
 
     final property = parsedConditionKey[0];
@@ -192,10 +206,14 @@ class ItemListBloc<I extends ItemClassWithAccessor, T extends ItemSourceState>
 
   @override
   Future<void> close() async {
-    await _filterConditionsSubscription?.cancel();
-    await _searchQuerySubscription?.cancel();
-    await _sourceSubscription?.cancel();
+    await _filterConditionsSubscription.cancel();
+    await _searchQuerySubscription.cancel();
+    await _sourceSubscription.cancel();
 
     return super.close();
   }
 }
+
+class _ExternalDataUpdated extends _ItemListEvent {}
+
+abstract class _ItemListEvent {}
