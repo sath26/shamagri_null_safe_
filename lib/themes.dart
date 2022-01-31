@@ -3,6 +3,9 @@
 import 'package:flutter/material.dart';
 
 class MyThemes {
+  static ThemeData lightTheme1 = ThemeData.light();
+
+  static ThemeData darkTheme1 = ThemeData.dark();
   static final primary = Colors.white;
   static final primaryColor = Colors.green.shade300;
 
@@ -19,6 +22,8 @@ class MyThemes {
     primaryColor: primaryColor,
     colorScheme: ColorScheme.light(primary: primary),
     dividerColor: Colors.black,
+    backgroundColor: Colors.black,
+    iconTheme: IconThemeData(color: Colors.black),
   );
 
   static final hideBillButton = true;

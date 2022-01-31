@@ -7,7 +7,8 @@ import 'package:shamagri_latest_flutter_version/presentation/profile/utils/user_
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 AppBar buildAppBar(BuildContext context) {
-  final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+  final isDarkMode = ThemeModelInheritedNotifier.of(context).theme.brightness ==
+      Brightness.dark;
   final icon = CupertinoIcons.moon_stars;
 
   return AppBar(
@@ -15,8 +16,8 @@ AppBar buildAppBar(BuildContext context) {
     backgroundColor: Colors.transparent,
     elevation: 0,
     actions: [
-      ThemeSwitcher(
-        builder: (context) => IconButton(
+      /* ThemeSwitcher(
+        builder: (context) => new IconButton(
           icon: Icon(icon),
           onPressed: () {
             final theme = isDarkMode ? MyThemes.lightTheme : MyThemes.darkTheme;
@@ -26,11 +27,11 @@ AppBar buildAppBar(BuildContext context) {
             switcher.changeTheme(theme: theme);
           },
         ),
-      ),
+      ), */
       IconButton(
-        icon: Icon(
+        icon: new Icon(
           Icons.menu,
-          // color: Colors.white,
+          color: Colors.white,
         ),
         onPressed: () {
           // do something

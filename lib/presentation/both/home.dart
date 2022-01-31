@@ -263,7 +263,7 @@ class HomeScreenState extends State<HomeScreen>
 
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Shamagri'),
+          title: Text('Shamagri'),
           actions: [
             /* IconButton(
                 icon: Icon(

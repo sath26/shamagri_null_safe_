@@ -3,14 +3,14 @@ class UserModel {
   final String? name;
   final String? email;
   final String? about;
-  final bool? isDarkMode;
+  bool isDarkMode = true;
   final bool? billButtonIsVisbile;
 
-  const UserModel(
+  UserModel(
       {this.imagePath,
       this.name,
       this.email,
       this.about,
-      this.isDarkMode,
+      required this.isDarkMode,
       this.billButtonIsVisbile});
 }

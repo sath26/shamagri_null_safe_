@@ -21,6 +21,8 @@ class AppWidget extends StatelessWidget {
   FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   // FirebaseAnalytics analytics = FirebaseAnalytics.instanceFor(app: app);
   final _appRouter = app_router.Router();
+  static final primary = Colors.white;
+  static final primaryColor = Colors.green.shade300;
   @override
   Widget build(BuildContext context) {
     // FlutterUxcam.optIntoSchematicRecordings();
@@ -34,31 +36,28 @@ class AppWidget extends StatelessWidget {
         )
       ],
       child: ThemeProvider(
-        initTheme:
-            user.isDarkMode ?? true ? MyThemes.darkTheme : MyThemes.lightTheme,
-        child: Builder(
-          builder: (context) => MaterialApp(
-            title: 'Shamagri - bill sharing app',
-            debugShowCheckedModeBanner: false,
-            home: MaterialApp.router(
-              routerDelegate: _appRouter.delegate(
-                  // initialRoutes: [AutoRouter.of(context).SplashScreenRoute()],
-                  // navigatorObservers: [
-                  //   FirebaseAnalyticsObserver(analytics: analytics),
-                  // ]
-                  ),
-              routeInformationParser: _appRouter.defaultRouteParser(),
-              // navigatorKey: navigatorKey,
-              // router: app_router.Router(),
-              // observers: [
-              //   FirebaseAnalyticsObserver(analytics: analytics),
-              // ],
-            ),
-            theme: Theme.of(context),
-            navigatorObservers: [
-              FirebaseAnalyticsObserver(analytics: analytics),
-            ],
+        initTheme: user.isDarkMode ? MyThemes.darkTheme1 : MyThemes.lightTheme1,
+        builder: (context, myTheme) => MaterialApp(
+          title: 'Shamagri - bill sharing app',
+          debugShowCheckedModeBanner: false,
+          home: MaterialApp.router(
+            theme: myTheme,
+            routerDelegate: _appRouter.delegate(
+                // initialRoutes: [AutoRouter.of(context).SplashScreenRoute()],
+                // navigatorObservers: [
+                //   FirebaseAnalyticsObserver(analytics: analytics),
+                // ]
+                ),
+            routeInformationParser: _appRouter.defaultRouteParser(),
+            // navigatorKey: navigatorKey,
+            // router: app_router.Router(),
+            // observers: [
+            //   FirebaseAnalyticsObserver(analytics: analytics),
+            // ],
           ),
+          navigatorObservers: [
+            FirebaseAnalyticsObserver(analytics: analytics),
+          ],
         ),
       ),
     );
