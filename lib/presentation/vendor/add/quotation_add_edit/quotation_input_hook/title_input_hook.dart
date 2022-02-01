@@ -43,7 +43,7 @@ class TitleInputHook extends HookWidget {
                     .add(QuotationEvent.titleChanged(value));
               },
               validator: (_) => context
-                  .watch<QuotationBloc>()
+                  .read<QuotationBloc>()
                   .state
                   .quotation!
                   .title!

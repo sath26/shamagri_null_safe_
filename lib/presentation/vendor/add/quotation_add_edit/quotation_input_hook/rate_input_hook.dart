@@ -40,10 +40,10 @@ class RateInputHook extends HookWidget {
               maxLines: 1,
               minLines: 1,
               onChanged: (value) => context
-                  .watch<QuotationBloc>()
+                  .read<QuotationBloc>()
                   .add(QuotationEvent.rateChanged(num.tryParse(value))),
               validator: (_) => context
-                  .watch<QuotationBloc>()
+                  .read<QuotationBloc>()
                   .state
                   .quotation!
                   .rate!
