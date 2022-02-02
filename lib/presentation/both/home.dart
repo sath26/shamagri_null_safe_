@@ -142,6 +142,20 @@ class HomeScreenState extends State<HomeScreen>
       }
       return;
     });
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      if (message.data['notification']['sold_and_bought_Id']) {
+        AutoRouter.of(context).push(FromNotificationBoughtBillRoute(
+            soldAndboughtId: message.data['notification']['sold_and_bought_Id'],
+            soldInvoiceAndBoughtInvoiceId: message.data['notification']
+                ['soldInvoice_boughtInvoice_Id']));
+      } else {
+        //this shoudl have pushfromnotificaitonsoldbill
+        AutoRouter.of(context).push(FromNotificationBoughtBillRoute(
+            soldAndboughtId: message.data['notification']['bought_and_sold_Id'],
+            soldInvoiceAndBoughtInvoiceId: message.data['notification']
+                ['boughtInvoice_soldInvoice_Id']));
+      }
+    });
     firebaseMessaging!.getToken().then((fcmToken) {
       final FirebaseFirestore _db = FirebaseFirestore.instance;
 

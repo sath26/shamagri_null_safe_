@@ -8,7 +8,7 @@ abstract class FromNotificationState with _$FromNotificationState {
   const factory FromNotificationState.initial() = _Initial;
   const factory FromNotificationState.loadInProgress() = _LoadInProgress;
   const factory FromNotificationState.loadSuccess(
-      List<BoughtNotForm> fromNotificationBought) = _LoadSuccess;
+      BoughtNotForm fromNotificationBought) = _LoadSuccess;
   const factory FromNotificationState.loadFailure(
       BoughtNotFormFailure fromNotificationBoughtFailure) = _LoadFailure;
 }

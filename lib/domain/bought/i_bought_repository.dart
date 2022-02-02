@@ -19,6 +19,6 @@ abstract class IBoughtRepository {
   Future<Either<BoughtNotFormFailure, BoughtNotForm>> delete(
       BoughtNotForm bought);
 
-  Stream<Either<BoughtNotFormFailure, List<BoughtNotForm>>> from_notification(
+  Stream<Either<BoughtNotFormFailure, BoughtNotForm>> fromNotification(
       String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id);
 }

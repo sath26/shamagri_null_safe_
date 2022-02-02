@@ -6,6 +6,6 @@ abstract class FromNotificationEvent with _$FromNotificationEvent {
           String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id) =
       _From_notification;
   const factory FromNotificationEvent.boughtNotFormReceived(
-      Either<BoughtNotFormFailure, List<BoughtNotForm>>
+      Either<BoughtNotFormFailure, BoughtNotForm>
           failureOrFromNotificationBought) = _BoughtNotFormReceived;
 }

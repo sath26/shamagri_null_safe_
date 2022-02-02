@@ -153,10 +153,12 @@ class BoughtRepository implements IBoughtRepository {
       FirebaseCrashlytics.instance
           .recordError(e, e, reason: 'bought_repository: afterTen');
       if (e is FirebaseException && e.message!.contains('PERMISSION_DENIED')) {
-        return left(const BoughtNotFormFailure.insufficientPermission());
+        return left<BoughtNotFormFailure, List<BoughtNotForm>>(
+            const BoughtNotFormFailure.insufficientPermission());
       } else {
         log(e.toString());
-        return left(const BoughtNotFormFailure.unexpected());
+        return left<BoughtNotFormFailure, List<BoughtNotForm>>(
+            const BoughtNotFormFailure.unexpected());
       }
     });
   }
@@ -302,9 +304,76 @@ await _firestore.boughtCollection
   }
 
   @override
-  Stream<Either<BoughtNotFormFailure, List<BoughtNotForm>>> from_notification(
-      String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id) {
-    // TODO: implement from_notification
-    throw UnimplementedError();
+  Stream<Either<BoughtNotFormFailure, BoughtNotForm>> fromNotification(
+      String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id) async* {
+    final userOption = await getIt<IAuthFacade>().getSignedInUser();
+    final user = userOption.getOrElse(() => throw NotAuthenticatedError());
+    userID = user.id!.getOrCrash();
+    /*  final userDoc = await _firestore.userDocument();
+
+    userDoc.get().then((DocumentSnapshot documentSnapshot) {
+      // Get value of field date from document dashboard/totalVisitors
+      userID = documentSnapshot.data()['id'].toString();
+      //log(userID);
+    }); */
+
+    _boughtId = sold_and_bought_Id;
+    yield* _firestore
+        .collection("users")
+        .doc(userID)
+        .collection("bought")
+        .doc(_boughtId)
+        .collection('invoice')
+        .
+        // .where("userId", isEqualTo: userID)
+        //? not  required coz userDoc has it
+        /*  .doc(userID)
+        .collection("note") */
+        // .orderBy('serverTimeStamp', descending: true)
+        doc(soldInvoice_boughtInvoice_Id)
+        .snapshots()
+        // .snapshots(includeMetadataChanges: true)
+        .map((DocumentSnapshot snapshot) {
+      // log("after peculiar:  " + snapshot.docs.first.data().toString());
+      /*  _lastDocument = snapshot.docs[snapshot.docs.length - 1];
+        log('_  ' + _lastDocument.data().toString());
+        log('length ' + snapshot.docs.length.toString());
+        log('sellerDisplayName ' +
+            _lastDocument.data()['sellerDisplayName'].toString());
+        log('sellerPhotoUrl ' +
+            _lastDocument.data()['sellerPhotoUrl'].toString());
+        log('buyerDisplayName ' +
+            _lastDocument.data()['buyerDisplayName'].toString());
+        log('buyerPhotoUrl ' +
+            _lastDocument.data()['buyerPhotoUrl'].toString());
+        log('buyerUserId ' + _lastDocument.data()['buyerUserId'].toString());
+        log('sellerUserId ' + _lastDocument.data()['sellerUserId'].toString());
+        log('updatedAt ' +
+            (_lastDocument.data()['updatedAt']).toDate().toString());
+        log('total ' + _lastDocument.data()['total'].toString()); */
+      if (snapshot.exists) {
+        return right<BoughtNotFormFailure, BoughtNotForm>(
+            BoughtDto.fromFirestore(snapshot).toDomain()
+            /*   snapshot.data()
+              .map((doc) => BoughtDto.fromFirestore(doc).toDomain())
+              .toList(), */
+            );
+      } else {
+        return left<BoughtNotFormFailure, BoughtNotForm>(
+            const BoughtNotFormFailure.isEmpty());
+      }
+    }).doOnError((e, s) {
+      throw FirebaseCrashlytics.instance
+          .recordError(e, s, reason: 'bought_repository: firstTen');
+    }).onErrorReturnWith((e, s) {
+      if (e is FirebaseException && e.message!.contains('PERMISSION_DENIED')) {
+        return left<BoughtNotFormFailure, BoughtNotForm>(
+            const BoughtNotFormFailure.insufficientPermission());
+      } else {
+        log(userID! + "     " + e.toString());
+        return left<BoughtNotFormFailure, BoughtNotForm>(
+            const BoughtNotFormFailure.unexpected());
+      }
+    });
   }
 }

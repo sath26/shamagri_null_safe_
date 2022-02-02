@@ -46,7 +46,7 @@ class FromNotificationBloc
     emit(const FromNotificationState.loadInProgress());
     await _listBoughtBoughtNotFormStreamSubscription?.cancel();
     _listBoughtBoughtNotFormStreamSubscription = _boughtRepository
-        .from_notification(e.sold_and_bought_Id, e.soldInvoice_boughtInvoice_Id)
+        .fromNotification(e.sold_and_bought_Id, e.soldInvoice_boughtInvoice_Id)
         .listen(
       (failureOrFromNotificationBought) {
         return add(FromNotificationEvent.boughtNotFormReceived(
@@ -56,7 +56,7 @@ class FromNotificationBloc
   }
 
   // StreamSubscription<Either<SoldNotFormFailure, bool>> _soldStreamSubscription;
-  StreamSubscription<Either<BoughtNotFormFailure, List<BoughtNotForm>>>?
+  StreamSubscription<Either<BoughtNotFormFailure, BoughtNotForm>>?
       _listBoughtBoughtNotFormStreamSubscription;
   /*  @override
   Stream<FromNotificationState> mapEventToState(

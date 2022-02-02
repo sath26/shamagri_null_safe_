@@ -27,7 +27,7 @@ class _$FromNotificationEventTearOff {
   }
 
   _BoughtNotFormReceived boughtNotFormReceived(
-      Either<BoughtNotFormFailure, List<BoughtNotForm>>
+      Either<BoughtNotFormFailure, BoughtNotForm>
           failureOrFromNotificationBought) {
     return _BoughtNotFormReceived(
       failureOrFromNotificationBought,
@@ -46,7 +46,7 @@ mixin _$FromNotificationEvent {
             String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)
         from_notification,
     required TResult Function(
-            Either<BoughtNotFormFailure, List<BoughtNotForm>>
+            Either<BoughtNotFormFailure, BoughtNotForm>
                 failureOrFromNotificationBought)
         boughtNotFormReceived,
   }) =>
@@ -57,7 +57,7 @@ mixin _$FromNotificationEvent {
             String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)?
         from_notification,
     TResult Function(
-            Either<BoughtNotFormFailure, List<BoughtNotForm>>
+            Either<BoughtNotFormFailure, BoughtNotForm>
                 failureOrFromNotificationBought)?
         boughtNotFormReceived,
   }) =>
@@ -68,7 +68,7 @@ mixin _$FromNotificationEvent {
             String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)?
         from_notification,
     TResult Function(
-            Either<BoughtNotFormFailure, List<BoughtNotForm>>
+            Either<BoughtNotFormFailure, BoughtNotForm>
                 failureOrFromNotificationBought)?
         boughtNotFormReceived,
     required TResult orElse(),
@@ -196,7 +196,7 @@ class _$_From_notification implements _From_notification {
             String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)
         from_notification,
     required TResult Function(
-            Either<BoughtNotFormFailure, List<BoughtNotForm>>
+            Either<BoughtNotFormFailure, BoughtNotForm>
                 failureOrFromNotificationBought)
         boughtNotFormReceived,
   }) {
@@ -210,7 +210,7 @@ class _$_From_notification implements _From_notification {
             String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)?
         from_notification,
     TResult Function(
-            Either<BoughtNotFormFailure, List<BoughtNotForm>>
+            Either<BoughtNotFormFailure, BoughtNotForm>
                 failureOrFromNotificationBought)?
         boughtNotFormReceived,
   }) {
@@ -225,7 +225,7 @@ class _$_From_notification implements _From_notification {
             String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)?
         from_notification,
     TResult Function(
-            Either<BoughtNotFormFailure, List<BoughtNotForm>>
+            Either<BoughtNotFormFailure, BoughtNotForm>
                 failureOrFromNotificationBought)?
         boughtNotFormReceived,
     required TResult orElse(),
@@ -288,7 +288,7 @@ abstract class _$BoughtNotFormReceivedCopyWith<$Res> {
           $Res Function(_BoughtNotFormReceived) then) =
       __$BoughtNotFormReceivedCopyWithImpl<$Res>;
   $Res call(
-      {Either<BoughtNotFormFailure, List<BoughtNotForm>>
+      {Either<BoughtNotFormFailure, BoughtNotForm>
           failureOrFromNotificationBought});
 }
 
@@ -311,7 +311,7 @@ class __$BoughtNotFormReceivedCopyWithImpl<$Res>
       failureOrFromNotificationBought == freezed
           ? _value.failureOrFromNotificationBought
           : failureOrFromNotificationBought // ignore: cast_nullable_to_non_nullable
-              as Either<BoughtNotFormFailure, List<BoughtNotForm>>,
+              as Either<BoughtNotFormFailure, BoughtNotForm>,
     ));
   }
 }
@@ -322,7 +322,7 @@ class _$_BoughtNotFormReceived implements _BoughtNotFormReceived {
   const _$_BoughtNotFormReceived(this.failureOrFromNotificationBought);
 
   @override
-  final Either<BoughtNotFormFailure, List<BoughtNotForm>>
+  final Either<BoughtNotFormFailure, BoughtNotForm>
       failureOrFromNotificationBought;
 
   @override
@@ -357,7 +357,7 @@ class _$_BoughtNotFormReceived implements _BoughtNotFormReceived {
             String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)
         from_notification,
     required TResult Function(
-            Either<BoughtNotFormFailure, List<BoughtNotForm>>
+            Either<BoughtNotFormFailure, BoughtNotForm>
                 failureOrFromNotificationBought)
         boughtNotFormReceived,
   }) {
@@ -371,7 +371,7 @@ class _$_BoughtNotFormReceived implements _BoughtNotFormReceived {
             String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)?
         from_notification,
     TResult Function(
-            Either<BoughtNotFormFailure, List<BoughtNotForm>>
+            Either<BoughtNotFormFailure, BoughtNotForm>
                 failureOrFromNotificationBought)?
         boughtNotFormReceived,
   }) {
@@ -385,7 +385,7 @@ class _$_BoughtNotFormReceived implements _BoughtNotFormReceived {
             String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)?
         from_notification,
     TResult Function(
-            Either<BoughtNotFormFailure, List<BoughtNotForm>>
+            Either<BoughtNotFormFailure, BoughtNotForm>
                 failureOrFromNotificationBought)?
         boughtNotFormReceived,
     required TResult orElse(),
@@ -431,10 +431,10 @@ class _$_BoughtNotFormReceived implements _BoughtNotFormReceived {
 
 abstract class _BoughtNotFormReceived implements FromNotificationEvent {
   const factory _BoughtNotFormReceived(
-      Either<BoughtNotFormFailure, List<BoughtNotForm>>
+      Either<BoughtNotFormFailure, BoughtNotForm>
           failureOrFromNotificationBought) = _$_BoughtNotFormReceived;
 
-  Either<BoughtNotFormFailure, List<BoughtNotForm>>
+  Either<BoughtNotFormFailure, BoughtNotForm>
       get failureOrFromNotificationBought;
   @JsonKey(ignore: true)
   _$BoughtNotFormReceivedCopyWith<_BoughtNotFormReceived> get copyWith =>
@@ -453,7 +453,7 @@ class _$FromNotificationStateTearOff {
     return const _LoadInProgress();
   }
 
-  _LoadSuccess loadSuccess(List<BoughtNotForm> fromNotificationBought) {
+  _LoadSuccess loadSuccess(BoughtNotForm fromNotificationBought) {
     return _LoadSuccess(
       fromNotificationBought,
     );
@@ -475,8 +475,7 @@ mixin _$FromNotificationState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadInProgress,
-    required TResult Function(List<BoughtNotForm> fromNotificationBought)
-        loadSuccess,
+    required TResult Function(BoughtNotForm fromNotificationBought) loadSuccess,
     required TResult Function(
             BoughtNotFormFailure fromNotificationBoughtFailure)
         loadFailure,
@@ -486,7 +485,7 @@ mixin _$FromNotificationState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(List<BoughtNotForm> fromNotificationBought)? loadSuccess,
+    TResult Function(BoughtNotForm fromNotificationBought)? loadSuccess,
     TResult Function(BoughtNotFormFailure fromNotificationBoughtFailure)?
         loadFailure,
   }) =>
@@ -495,7 +494,7 @@ mixin _$FromNotificationState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(List<BoughtNotForm> fromNotificationBought)? loadSuccess,
+    TResult Function(BoughtNotForm fromNotificationBought)? loadSuccess,
     TResult Function(BoughtNotFormFailure fromNotificationBoughtFailure)?
         loadFailure,
     required TResult orElse(),
@@ -586,8 +585,7 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadInProgress,
-    required TResult Function(List<BoughtNotForm> fromNotificationBought)
-        loadSuccess,
+    required TResult Function(BoughtNotForm fromNotificationBought) loadSuccess,
     required TResult Function(
             BoughtNotFormFailure fromNotificationBoughtFailure)
         loadFailure,
@@ -600,7 +598,7 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(List<BoughtNotForm> fromNotificationBought)? loadSuccess,
+    TResult Function(BoughtNotForm fromNotificationBought)? loadSuccess,
     TResult Function(BoughtNotFormFailure fromNotificationBoughtFailure)?
         loadFailure,
   }) {
@@ -612,7 +610,7 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(List<BoughtNotForm> fromNotificationBought)? loadSuccess,
+    TResult Function(BoughtNotForm fromNotificationBought)? loadSuccess,
     TResult Function(BoughtNotFormFailure fromNotificationBoughtFailure)?
         loadFailure,
     required TResult orElse(),
@@ -708,8 +706,7 @@ class _$_LoadInProgress implements _LoadInProgress {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadInProgress,
-    required TResult Function(List<BoughtNotForm> fromNotificationBought)
-        loadSuccess,
+    required TResult Function(BoughtNotForm fromNotificationBought) loadSuccess,
     required TResult Function(
             BoughtNotFormFailure fromNotificationBoughtFailure)
         loadFailure,
@@ -722,7 +719,7 @@ class _$_LoadInProgress implements _LoadInProgress {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(List<BoughtNotForm> fromNotificationBought)? loadSuccess,
+    TResult Function(BoughtNotForm fromNotificationBought)? loadSuccess,
     TResult Function(BoughtNotFormFailure fromNotificationBoughtFailure)?
         loadFailure,
   }) {
@@ -734,7 +731,7 @@ class _$_LoadInProgress implements _LoadInProgress {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(List<BoughtNotForm> fromNotificationBought)? loadSuccess,
+    TResult Function(BoughtNotForm fromNotificationBought)? loadSuccess,
     TResult Function(BoughtNotFormFailure fromNotificationBoughtFailure)?
         loadFailure,
     required TResult orElse(),
@@ -792,7 +789,9 @@ abstract class _$LoadSuccessCopyWith<$Res> {
   factory _$LoadSuccessCopyWith(
           _LoadSuccess value, $Res Function(_LoadSuccess) then) =
       __$LoadSuccessCopyWithImpl<$Res>;
-  $Res call({List<BoughtNotForm> fromNotificationBought});
+  $Res call({BoughtNotForm fromNotificationBought});
+
+  $BoughtNotFormCopyWith<$Res> get fromNotificationBought;
 }
 
 /// @nodoc
@@ -814,8 +813,15 @@ class __$LoadSuccessCopyWithImpl<$Res>
       fromNotificationBought == freezed
           ? _value.fromNotificationBought
           : fromNotificationBought // ignore: cast_nullable_to_non_nullable
-              as List<BoughtNotForm>,
+              as BoughtNotForm,
     ));
+  }
+
+  @override
+  $BoughtNotFormCopyWith<$Res> get fromNotificationBought {
+    return $BoughtNotFormCopyWith<$Res>(_value.fromNotificationBought, (value) {
+      return _then(_value.copyWith(fromNotificationBought: value));
+    });
   }
 }
 
@@ -825,7 +831,7 @@ class _$_LoadSuccess implements _LoadSuccess {
   const _$_LoadSuccess(this.fromNotificationBought);
 
   @override
-  final List<BoughtNotForm> fromNotificationBought;
+  final BoughtNotForm fromNotificationBought;
 
   @override
   String toString() {
@@ -855,8 +861,7 @@ class _$_LoadSuccess implements _LoadSuccess {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadInProgress,
-    required TResult Function(List<BoughtNotForm> fromNotificationBought)
-        loadSuccess,
+    required TResult Function(BoughtNotForm fromNotificationBought) loadSuccess,
     required TResult Function(
             BoughtNotFormFailure fromNotificationBoughtFailure)
         loadFailure,
@@ -869,7 +874,7 @@ class _$_LoadSuccess implements _LoadSuccess {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(List<BoughtNotForm> fromNotificationBought)? loadSuccess,
+    TResult Function(BoughtNotForm fromNotificationBought)? loadSuccess,
     TResult Function(BoughtNotFormFailure fromNotificationBoughtFailure)?
         loadFailure,
   }) {
@@ -881,7 +886,7 @@ class _$_LoadSuccess implements _LoadSuccess {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(List<BoughtNotForm> fromNotificationBought)? loadSuccess,
+    TResult Function(BoughtNotForm fromNotificationBought)? loadSuccess,
     TResult Function(BoughtNotFormFailure fromNotificationBoughtFailure)?
         loadFailure,
     required TResult orElse(),
@@ -931,10 +936,10 @@ class _$_LoadSuccess implements _LoadSuccess {
 }
 
 abstract class _LoadSuccess implements FromNotificationState {
-  const factory _LoadSuccess(List<BoughtNotForm> fromNotificationBought) =
+  const factory _LoadSuccess(BoughtNotForm fromNotificationBought) =
       _$_LoadSuccess;
 
-  List<BoughtNotForm> get fromNotificationBought;
+  BoughtNotForm get fromNotificationBought;
   @JsonKey(ignore: true)
   _$LoadSuccessCopyWith<_LoadSuccess> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1019,8 +1024,7 @@ class _$_LoadFailure implements _LoadFailure {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadInProgress,
-    required TResult Function(List<BoughtNotForm> fromNotificationBought)
-        loadSuccess,
+    required TResult Function(BoughtNotForm fromNotificationBought) loadSuccess,
     required TResult Function(
             BoughtNotFormFailure fromNotificationBoughtFailure)
         loadFailure,
@@ -1033,7 +1037,7 @@ class _$_LoadFailure implements _LoadFailure {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(List<BoughtNotForm> fromNotificationBought)? loadSuccess,
+    TResult Function(BoughtNotForm fromNotificationBought)? loadSuccess,
     TResult Function(BoughtNotFormFailure fromNotificationBoughtFailure)?
         loadFailure,
   }) {
@@ -1045,7 +1049,7 @@ class _$_LoadFailure implements _LoadFailure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(List<BoughtNotForm> fromNotificationBought)? loadSuccess,
+    TResult Function(BoughtNotForm fromNotificationBought)? loadSuccess,
     TResult Function(BoughtNotFormFailure fromNotificationBoughtFailure)?
         loadFailure,
     required TResult orElse(),
