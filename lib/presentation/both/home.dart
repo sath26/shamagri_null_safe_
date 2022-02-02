@@ -136,27 +136,37 @@ class HomeScreenState extends State<HomeScreen>
     logger.i("registerNotification called");
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      Map<String, dynamic> data = message.data;
+
       print('onMessage: $message');
+      logger.i("data from cloud onMessage" + data.toString());
+
       if (message.notification != null) {
         showNotification(message.notification!);
       }
       return;
     });
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      if (message.data['notification']['sold_and_bought_Id']) {
+      // logger.i("data from cloud" + message.toString());
+
+      Map<String, dynamic> data = message.data;
+      logger.i("data from cloud onMessageOpenedApp" +
+          data['sold_and_bought_Id'].toString());
+
+      if (data['sold_and_bought_Id'] != null) {
         AutoRouter.of(context).push(FromNotificationBoughtBillRoute(
-            soldAndboughtId: message.data['notification']['sold_and_bought_Id'],
-            soldInvoiceAndBoughtInvoiceId: message.data['notification']
-                ['soldInvoice_boughtInvoice_Id']));
-      } else {
+            soldAndboughtId: data['sold_and_bought_Id'],
+            soldInvoiceAndBoughtInvoiceId:
+                data['soldInvoice_boughtInvoice_Id']));
+      } else if (data['bought_and_sold_Id'] != null) {
         //this shoudl have pushfromnotificaitonsoldbill
         AutoRouter.of(context).push(FromNotificationBoughtBillRoute(
-            soldAndboughtId: message.data['notification']['bought_and_sold_Id'],
-            soldInvoiceAndBoughtInvoiceId: message.data['notification']
-                ['boughtInvoice_soldInvoice_Id']));
-      }
+            soldAndboughtId: data['bought_and_sold_Id'],
+            soldInvoiceAndBoughtInvoiceId:
+                data['boughtInvoice_soldInvoice_Id']));
+      } else {}
     });
-    firebaseMessaging!.getToken().then((fcmToken) {
+    firebaseMessaging!.onTokenRefresh.listen((fcmToken) {
       final FirebaseFirestore _db = FirebaseFirestore.instance;
 
       print('push token: $fcmToken');
@@ -175,7 +185,7 @@ class HomeScreenState extends State<HomeScreen>
         }).catchError((error, stackTrace) =>
             FlushbarHelper.createError(message: error!.message.toString()));
       }
-    }).catchError((err) {
+    }).onError((err) {
       FlushbarHelper.createError(message: err.message.toString());
     });
   }

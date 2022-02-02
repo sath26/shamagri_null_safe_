@@ -25,7 +25,7 @@ _$_SoldDto _$$_SoldDtoFromJson(Map<String, dynamic> json) => _$_SoldDto(
 
 Map<String, dynamic> _$$_SoldDtoToJson(_$_SoldDto instance) =>
     <String, dynamic>{
-      'quotations': instance.quotations,
+      'quotations': instance.quotations?.map((e) => e.toJson()).toList(),
       'total': instance.total,
       'buyerEmail': instance.buyerEmail,
       'sellerEmail': instance.sellerEmail,
