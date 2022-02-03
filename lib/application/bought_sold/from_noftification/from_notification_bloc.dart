@@ -30,21 +30,53 @@ class FromNotificationBloc
 
   FromNotificationBloc(this._boughtRepository)
       : super(FromNotificationState.initial()) {
+    on<_Initialized>(initialized);
     on<_$_BoughtNotFormReceived>(_boughtNotFormReceived);
     on<_$_From_notification>(_fromNotification);
   }
+  FutureOr<void> initialized(
+      _Initialized e, Emitter<FromNotificationState> emit) {
+    return e.afterSelectBoughtOption.fold(
+      () => emit(state),
+      (initialBought) => emit(state.copyWith(
+        bill: initialBought,
+        isEditing: true,
+      )),
+    );
+  }
+
   FutureOr<void> _boughtNotFormReceived(
       _BoughtNotFormReceived e, Emitter<FromNotificationState> emit) async {
     e.failureOrFromNotificationBought.fold(
-      (f) => emit(FromNotificationState.loadFailure(f)),
-      (boughtNotForm) => emit(FromNotificationState.loadSuccess(boughtNotForm)),
+      (f) => emit(state),
+      (boughtNotForm) {
+        Either<BoughtNotFormFailure, BoughtNotForm>? failureOrSuccess;
+
+        emit(state.copyWith(
+          isSaving: true,
+          saveFailureOrSuccessOption: none(),
+        ));
+
+        if (state.bill!.failureOption.isNone()) {
+          // failureOrSuccess = state.isEditing
+          // ? await _soldRepository.update(state.bill)
+          failureOrSuccess = right(boughtNotForm);
+        }
+
+        return emit(state.copyWith(
+          isSaving: false,
+          showErrorMessages: true,
+          saveFailureOrSuccessOption: optionOf(failureOrSuccess),
+        ));
+        // return emit(FromNotificationState.loadSuccess(boughtNotForm));
+      },
     );
   }
 
   FutureOr<void> _fromNotification(
       _From_notification e, Emitter<FromNotificationState> emit) async {
-    emit(const FromNotificationState.loadInProgress());
-    await _listBoughtBoughtNotFormStreamSubscription?.cancel();
+    // emit(const FromNotificationState.loadInProgress());
+    // await _listBoughtBoughtNotFormStreamSubscription?.cancel();
     _listBoughtBoughtNotFormStreamSubscription = _boughtRepository
         .fromNotification(e.sold_and_bought_Id, e.soldInvoice_boughtInvoice_Id)
         .listen(

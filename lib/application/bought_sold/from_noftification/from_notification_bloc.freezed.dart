@@ -18,6 +18,12 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$FromNotificationEventTearOff {
   const _$FromNotificationEventTearOff();
 
+  _Initialized initialized(Option<BoughtNotForm> afterSelectBoughtOption) {
+    return _Initialized(
+      afterSelectBoughtOption,
+    );
+  }
+
   _From_notification from_notification(
       String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id) {
     return _From_notification(
@@ -42,6 +48,8 @@ const $FromNotificationEvent = _$FromNotificationEventTearOff();
 mixin _$FromNotificationEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(Option<BoughtNotForm> afterSelectBoughtOption)
+        initialized,
     required TResult Function(
             String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)
         from_notification,
@@ -53,6 +61,8 @@ mixin _$FromNotificationEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Option<BoughtNotForm> afterSelectBoughtOption)?
+        initialized,
     TResult Function(
             String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)?
         from_notification,
@@ -64,6 +74,8 @@ mixin _$FromNotificationEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Option<BoughtNotForm> afterSelectBoughtOption)?
+        initialized,
     TResult Function(
             String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)?
         from_notification,
@@ -76,6 +88,7 @@ mixin _$FromNotificationEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initialized value) initialized,
     required TResult Function(_From_notification value) from_notification,
     required TResult Function(_BoughtNotFormReceived value)
         boughtNotFormReceived,
@@ -83,12 +96,14 @@ mixin _$FromNotificationEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initialized value)? initialized,
     TResult Function(_From_notification value)? from_notification,
     TResult Function(_BoughtNotFormReceived value)? boughtNotFormReceived,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialized value)? initialized,
     TResult Function(_From_notification value)? from_notification,
     TResult Function(_BoughtNotFormReceived value)? boughtNotFormReceived,
     required TResult orElse(),
@@ -111,6 +126,167 @@ class _$FromNotificationEventCopyWithImpl<$Res>
   final FromNotificationEvent _value;
   // ignore: unused_field
   final $Res Function(FromNotificationEvent) _then;
+}
+
+/// @nodoc
+abstract class _$InitializedCopyWith<$Res> {
+  factory _$InitializedCopyWith(
+          _Initialized value, $Res Function(_Initialized) then) =
+      __$InitializedCopyWithImpl<$Res>;
+  $Res call({Option<BoughtNotForm> afterSelectBoughtOption});
+}
+
+/// @nodoc
+class __$InitializedCopyWithImpl<$Res>
+    extends _$FromNotificationEventCopyWithImpl<$Res>
+    implements _$InitializedCopyWith<$Res> {
+  __$InitializedCopyWithImpl(
+      _Initialized _value, $Res Function(_Initialized) _then)
+      : super(_value, (v) => _then(v as _Initialized));
+
+  @override
+  _Initialized get _value => super._value as _Initialized;
+
+  @override
+  $Res call({
+    Object? afterSelectBoughtOption = freezed,
+  }) {
+    return _then(_Initialized(
+      afterSelectBoughtOption == freezed
+          ? _value.afterSelectBoughtOption
+          : afterSelectBoughtOption // ignore: cast_nullable_to_non_nullable
+              as Option<BoughtNotForm>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_Initialized implements _Initialized {
+  const _$_Initialized(this.afterSelectBoughtOption);
+
+  @override
+  final Option<BoughtNotForm> afterSelectBoughtOption;
+
+  @override
+  String toString() {
+    return 'FromNotificationEvent.initialized(afterSelectBoughtOption: $afterSelectBoughtOption)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _Initialized &&
+            const DeepCollectionEquality().equals(
+                other.afterSelectBoughtOption, afterSelectBoughtOption));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(afterSelectBoughtOption));
+
+  @JsonKey(ignore: true)
+  @override
+  _$InitializedCopyWith<_Initialized> get copyWith =>
+      __$InitializedCopyWithImpl<_Initialized>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Option<BoughtNotForm> afterSelectBoughtOption)
+        initialized,
+    required TResult Function(
+            String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)
+        from_notification,
+    required TResult Function(
+            Either<BoughtNotFormFailure, BoughtNotForm>
+                failureOrFromNotificationBought)
+        boughtNotFormReceived,
+  }) {
+    return initialized(afterSelectBoughtOption);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Option<BoughtNotForm> afterSelectBoughtOption)?
+        initialized,
+    TResult Function(
+            String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)?
+        from_notification,
+    TResult Function(
+            Either<BoughtNotFormFailure, BoughtNotForm>
+                failureOrFromNotificationBought)?
+        boughtNotFormReceived,
+  }) {
+    return initialized?.call(afterSelectBoughtOption);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Option<BoughtNotForm> afterSelectBoughtOption)?
+        initialized,
+    TResult Function(
+            String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)?
+        from_notification,
+    TResult Function(
+            Either<BoughtNotFormFailure, BoughtNotForm>
+                failureOrFromNotificationBought)?
+        boughtNotFormReceived,
+    required TResult orElse(),
+  }) {
+    if (initialized != null) {
+      return initialized(afterSelectBoughtOption);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialized value) initialized,
+    required TResult Function(_From_notification value) from_notification,
+    required TResult Function(_BoughtNotFormReceived value)
+        boughtNotFormReceived,
+  }) {
+    return initialized(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initialized value)? initialized,
+    TResult Function(_From_notification value)? from_notification,
+    TResult Function(_BoughtNotFormReceived value)? boughtNotFormReceived,
+  }) {
+    return initialized?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialized value)? initialized,
+    TResult Function(_From_notification value)? from_notification,
+    TResult Function(_BoughtNotFormReceived value)? boughtNotFormReceived,
+    required TResult orElse(),
+  }) {
+    if (initialized != null) {
+      return initialized(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Initialized implements FromNotificationEvent {
+  const factory _Initialized(Option<BoughtNotForm> afterSelectBoughtOption) =
+      _$_Initialized;
+
+  Option<BoughtNotForm> get afterSelectBoughtOption;
+  @JsonKey(ignore: true)
+  _$InitializedCopyWith<_Initialized> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -192,6 +368,8 @@ class _$_From_notification implements _From_notification {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(Option<BoughtNotForm> afterSelectBoughtOption)
+        initialized,
     required TResult Function(
             String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)
         from_notification,
@@ -206,6 +384,8 @@ class _$_From_notification implements _From_notification {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Option<BoughtNotForm> afterSelectBoughtOption)?
+        initialized,
     TResult Function(
             String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)?
         from_notification,
@@ -221,6 +401,8 @@ class _$_From_notification implements _From_notification {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Option<BoughtNotForm> afterSelectBoughtOption)?
+        initialized,
     TResult Function(
             String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)?
         from_notification,
@@ -240,6 +422,7 @@ class _$_From_notification implements _From_notification {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initialized value) initialized,
     required TResult Function(_From_notification value) from_notification,
     required TResult Function(_BoughtNotFormReceived value)
         boughtNotFormReceived,
@@ -250,6 +433,7 @@ class _$_From_notification implements _From_notification {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initialized value)? initialized,
     TResult Function(_From_notification value)? from_notification,
     TResult Function(_BoughtNotFormReceived value)? boughtNotFormReceived,
   }) {
@@ -259,6 +443,7 @@ class _$_From_notification implements _From_notification {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialized value)? initialized,
     TResult Function(_From_notification value)? from_notification,
     TResult Function(_BoughtNotFormReceived value)? boughtNotFormReceived,
     required TResult orElse(),
@@ -353,6 +538,8 @@ class _$_BoughtNotFormReceived implements _BoughtNotFormReceived {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(Option<BoughtNotForm> afterSelectBoughtOption)
+        initialized,
     required TResult Function(
             String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)
         from_notification,
@@ -367,6 +554,8 @@ class _$_BoughtNotFormReceived implements _BoughtNotFormReceived {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Option<BoughtNotForm> afterSelectBoughtOption)?
+        initialized,
     TResult Function(
             String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)?
         from_notification,
@@ -381,6 +570,8 @@ class _$_BoughtNotFormReceived implements _BoughtNotFormReceived {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Option<BoughtNotForm> afterSelectBoughtOption)?
+        initialized,
     TResult Function(
             String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)?
         from_notification,
@@ -399,6 +590,7 @@ class _$_BoughtNotFormReceived implements _BoughtNotFormReceived {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initialized value) initialized,
     required TResult Function(_From_notification value) from_notification,
     required TResult Function(_BoughtNotFormReceived value)
         boughtNotFormReceived,
@@ -409,6 +601,7 @@ class _$_BoughtNotFormReceived implements _BoughtNotFormReceived {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initialized value)? initialized,
     TResult Function(_From_notification value)? from_notification,
     TResult Function(_BoughtNotFormReceived value)? boughtNotFormReceived,
   }) {
@@ -418,6 +611,7 @@ class _$_BoughtNotFormReceived implements _BoughtNotFormReceived {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialized value)? initialized,
     TResult Function(_From_notification value)? from_notification,
     TResult Function(_BoughtNotFormReceived value)? boughtNotFormReceived,
     required TResult orElse(),
@@ -445,23 +639,21 @@ abstract class _BoughtNotFormReceived implements FromNotificationEvent {
 class _$FromNotificationStateTearOff {
   const _$FromNotificationStateTearOff();
 
-  _Initial initial() {
-    return const _Initial();
-  }
-
-  _LoadInProgress loadInProgress() {
-    return const _LoadInProgress();
-  }
-
-  _LoadSuccess loadSuccess(BoughtNotForm fromNotificationBought) {
-    return _LoadSuccess(
-      fromNotificationBought,
-    );
-  }
-
-  _LoadFailure loadFailure(BoughtNotFormFailure fromNotificationBoughtFailure) {
-    return _LoadFailure(
-      fromNotificationBoughtFailure,
+  _FromNotificationState call(
+      {BoughtNotForm? bill,
+      bool? showErrorMessages,
+      bool? navigationWork,
+      bool? isEditing,
+      bool? isSaving,
+      Option<Either<BoughtNotFormFailure, BoughtNotForm>>?
+          saveFailureOrSuccessOption}) {
+    return _FromNotificationState(
+      bill: bill,
+      showErrorMessages: showErrorMessages,
+      navigationWork: navigationWork,
+      isEditing: isEditing,
+      isSaving: isSaving,
+      saveFailureOrSuccessOption: saveFailureOrSuccessOption,
     );
   }
 }
@@ -471,59 +663,16 @@ const $FromNotificationState = _$FromNotificationStateTearOff();
 
 /// @nodoc
 mixin _$FromNotificationState {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loadInProgress,
-    required TResult Function(BoughtNotForm fromNotificationBought) loadSuccess,
-    required TResult Function(
-            BoughtNotFormFailure fromNotificationBoughtFailure)
-        loadFailure,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loadInProgress,
-    TResult Function(BoughtNotForm fromNotificationBought)? loadSuccess,
-    TResult Function(BoughtNotFormFailure fromNotificationBoughtFailure)?
-        loadFailure,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loadInProgress,
-    TResult Function(BoughtNotForm fromNotificationBought)? loadSuccess,
-    TResult Function(BoughtNotFormFailure fromNotificationBoughtFailure)?
-        loadFailure,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_LoadInProgress value) loadInProgress,
-    required TResult Function(_LoadSuccess value) loadSuccess,
-    required TResult Function(_LoadFailure value) loadFailure,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadInProgress value)? loadInProgress,
-    TResult Function(_LoadSuccess value)? loadSuccess,
-    TResult Function(_LoadFailure value)? loadFailure,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadInProgress value)? loadInProgress,
-    TResult Function(_LoadSuccess value)? loadSuccess,
-    TResult Function(_LoadFailure value)? loadFailure,
-    required TResult orElse(),
-  }) =>
+  BoughtNotForm? get bill => throw _privateConstructorUsedError;
+  bool? get showErrorMessages => throw _privateConstructorUsedError;
+  bool? get navigationWork => throw _privateConstructorUsedError;
+  bool? get isEditing => throw _privateConstructorUsedError;
+  bool? get isSaving => throw _privateConstructorUsedError;
+  Option<Either<BoughtNotFormFailure, BoughtNotForm>>?
+      get saveFailureOrSuccessOption => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $FromNotificationStateCopyWith<FromNotificationState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -532,6 +681,16 @@ abstract class $FromNotificationStateCopyWith<$Res> {
   factory $FromNotificationStateCopyWith(FromNotificationState value,
           $Res Function(FromNotificationState) then) =
       _$FromNotificationStateCopyWithImpl<$Res>;
+  $Res call(
+      {BoughtNotForm? bill,
+      bool? showErrorMessages,
+      bool? navigationWork,
+      bool? isEditing,
+      bool? isSaving,
+      Option<Either<BoughtNotFormFailure, BoughtNotForm>>?
+          saveFailureOrSuccessOption});
+
+  $BoughtNotFormCopyWith<$Res>? get bill;
 }
 
 /// @nodoc
@@ -542,568 +701,213 @@ class _$FromNotificationStateCopyWithImpl<$Res>
   final FromNotificationState _value;
   // ignore: unused_field
   final $Res Function(FromNotificationState) _then;
-}
-
-/// @nodoc
-abstract class _$InitialCopyWith<$Res> {
-  factory _$InitialCopyWith(_Initial value, $Res Function(_Initial) then) =
-      __$InitialCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$InitialCopyWithImpl<$Res>
-    extends _$FromNotificationStateCopyWithImpl<$Res>
-    implements _$InitialCopyWith<$Res> {
-  __$InitialCopyWithImpl(_Initial _value, $Res Function(_Initial) _then)
-      : super(_value, (v) => _then(v as _Initial));
-
-  @override
-  _Initial get _value => super._value as _Initial;
-}
-
-/// @nodoc
-
-class _$_Initial implements _Initial {
-  const _$_Initial();
-
-  @override
-  String toString() {
-    return 'FromNotificationState.initial()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _Initial);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loadInProgress,
-    required TResult Function(BoughtNotForm fromNotificationBought) loadSuccess,
-    required TResult Function(
-            BoughtNotFormFailure fromNotificationBoughtFailure)
-        loadFailure,
-  }) {
-    return initial();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loadInProgress,
-    TResult Function(BoughtNotForm fromNotificationBought)? loadSuccess,
-    TResult Function(BoughtNotFormFailure fromNotificationBoughtFailure)?
-        loadFailure,
-  }) {
-    return initial?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loadInProgress,
-    TResult Function(BoughtNotForm fromNotificationBought)? loadSuccess,
-    TResult Function(BoughtNotFormFailure fromNotificationBoughtFailure)?
-        loadFailure,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_LoadInProgress value) loadInProgress,
-    required TResult Function(_LoadSuccess value) loadSuccess,
-    required TResult Function(_LoadFailure value) loadFailure,
-  }) {
-    return initial(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadInProgress value)? loadInProgress,
-    TResult Function(_LoadSuccess value)? loadSuccess,
-    TResult Function(_LoadFailure value)? loadFailure,
-  }) {
-    return initial?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadInProgress value)? loadInProgress,
-    TResult Function(_LoadSuccess value)? loadSuccess,
-    TResult Function(_LoadFailure value)? loadFailure,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Initial implements FromNotificationState {
-  const factory _Initial() = _$_Initial;
-}
-
-/// @nodoc
-abstract class _$LoadInProgressCopyWith<$Res> {
-  factory _$LoadInProgressCopyWith(
-          _LoadInProgress value, $Res Function(_LoadInProgress) then) =
-      __$LoadInProgressCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$LoadInProgressCopyWithImpl<$Res>
-    extends _$FromNotificationStateCopyWithImpl<$Res>
-    implements _$LoadInProgressCopyWith<$Res> {
-  __$LoadInProgressCopyWithImpl(
-      _LoadInProgress _value, $Res Function(_LoadInProgress) _then)
-      : super(_value, (v) => _then(v as _LoadInProgress));
-
-  @override
-  _LoadInProgress get _value => super._value as _LoadInProgress;
-}
-
-/// @nodoc
-
-class _$_LoadInProgress implements _LoadInProgress {
-  const _$_LoadInProgress();
-
-  @override
-  String toString() {
-    return 'FromNotificationState.loadInProgress()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _LoadInProgress);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loadInProgress,
-    required TResult Function(BoughtNotForm fromNotificationBought) loadSuccess,
-    required TResult Function(
-            BoughtNotFormFailure fromNotificationBoughtFailure)
-        loadFailure,
-  }) {
-    return loadInProgress();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loadInProgress,
-    TResult Function(BoughtNotForm fromNotificationBought)? loadSuccess,
-    TResult Function(BoughtNotFormFailure fromNotificationBoughtFailure)?
-        loadFailure,
-  }) {
-    return loadInProgress?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loadInProgress,
-    TResult Function(BoughtNotForm fromNotificationBought)? loadSuccess,
-    TResult Function(BoughtNotFormFailure fromNotificationBoughtFailure)?
-        loadFailure,
-    required TResult orElse(),
-  }) {
-    if (loadInProgress != null) {
-      return loadInProgress();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_LoadInProgress value) loadInProgress,
-    required TResult Function(_LoadSuccess value) loadSuccess,
-    required TResult Function(_LoadFailure value) loadFailure,
-  }) {
-    return loadInProgress(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadInProgress value)? loadInProgress,
-    TResult Function(_LoadSuccess value)? loadSuccess,
-    TResult Function(_LoadFailure value)? loadFailure,
-  }) {
-    return loadInProgress?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadInProgress value)? loadInProgress,
-    TResult Function(_LoadSuccess value)? loadSuccess,
-    TResult Function(_LoadFailure value)? loadFailure,
-    required TResult orElse(),
-  }) {
-    if (loadInProgress != null) {
-      return loadInProgress(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _LoadInProgress implements FromNotificationState {
-  const factory _LoadInProgress() = _$_LoadInProgress;
-}
-
-/// @nodoc
-abstract class _$LoadSuccessCopyWith<$Res> {
-  factory _$LoadSuccessCopyWith(
-          _LoadSuccess value, $Res Function(_LoadSuccess) then) =
-      __$LoadSuccessCopyWithImpl<$Res>;
-  $Res call({BoughtNotForm fromNotificationBought});
-
-  $BoughtNotFormCopyWith<$Res> get fromNotificationBought;
-}
-
-/// @nodoc
-class __$LoadSuccessCopyWithImpl<$Res>
-    extends _$FromNotificationStateCopyWithImpl<$Res>
-    implements _$LoadSuccessCopyWith<$Res> {
-  __$LoadSuccessCopyWithImpl(
-      _LoadSuccess _value, $Res Function(_LoadSuccess) _then)
-      : super(_value, (v) => _then(v as _LoadSuccess));
-
-  @override
-  _LoadSuccess get _value => super._value as _LoadSuccess;
 
   @override
   $Res call({
-    Object? fromNotificationBought = freezed,
+    Object? bill = freezed,
+    Object? showErrorMessages = freezed,
+    Object? navigationWork = freezed,
+    Object? isEditing = freezed,
+    Object? isSaving = freezed,
+    Object? saveFailureOrSuccessOption = freezed,
   }) {
-    return _then(_LoadSuccess(
-      fromNotificationBought == freezed
-          ? _value.fromNotificationBought
-          : fromNotificationBought // ignore: cast_nullable_to_non_nullable
-              as BoughtNotForm,
+    return _then(_value.copyWith(
+      bill: bill == freezed
+          ? _value.bill
+          : bill // ignore: cast_nullable_to_non_nullable
+              as BoughtNotForm?,
+      showErrorMessages: showErrorMessages == freezed
+          ? _value.showErrorMessages
+          : showErrorMessages // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      navigationWork: navigationWork == freezed
+          ? _value.navigationWork
+          : navigationWork // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isEditing: isEditing == freezed
+          ? _value.isEditing
+          : isEditing // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isSaving: isSaving == freezed
+          ? _value.isSaving
+          : isSaving // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      saveFailureOrSuccessOption: saveFailureOrSuccessOption == freezed
+          ? _value.saveFailureOrSuccessOption
+          : saveFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<BoughtNotFormFailure, BoughtNotForm>>?,
     ));
   }
 
   @override
-  $BoughtNotFormCopyWith<$Res> get fromNotificationBought {
-    return $BoughtNotFormCopyWith<$Res>(_value.fromNotificationBought, (value) {
-      return _then(_value.copyWith(fromNotificationBought: value));
+  $BoughtNotFormCopyWith<$Res>? get bill {
+    if (_value.bill == null) {
+      return null;
+    }
+
+    return $BoughtNotFormCopyWith<$Res>(_value.bill!, (value) {
+      return _then(_value.copyWith(bill: value));
     });
   }
 }
 
 /// @nodoc
-
-class _$_LoadSuccess implements _LoadSuccess {
-  const _$_LoadSuccess(this.fromNotificationBought);
+abstract class _$FromNotificationStateCopyWith<$Res>
+    implements $FromNotificationStateCopyWith<$Res> {
+  factory _$FromNotificationStateCopyWith(_FromNotificationState value,
+          $Res Function(_FromNotificationState) then) =
+      __$FromNotificationStateCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {BoughtNotForm? bill,
+      bool? showErrorMessages,
+      bool? navigationWork,
+      bool? isEditing,
+      bool? isSaving,
+      Option<Either<BoughtNotFormFailure, BoughtNotForm>>?
+          saveFailureOrSuccessOption});
 
   @override
-  final BoughtNotForm fromNotificationBought;
+  $BoughtNotFormCopyWith<$Res>? get bill;
+}
+
+/// @nodoc
+class __$FromNotificationStateCopyWithImpl<$Res>
+    extends _$FromNotificationStateCopyWithImpl<$Res>
+    implements _$FromNotificationStateCopyWith<$Res> {
+  __$FromNotificationStateCopyWithImpl(_FromNotificationState _value,
+      $Res Function(_FromNotificationState) _then)
+      : super(_value, (v) => _then(v as _FromNotificationState));
+
+  @override
+  _FromNotificationState get _value => super._value as _FromNotificationState;
+
+  @override
+  $Res call({
+    Object? bill = freezed,
+    Object? showErrorMessages = freezed,
+    Object? navigationWork = freezed,
+    Object? isEditing = freezed,
+    Object? isSaving = freezed,
+    Object? saveFailureOrSuccessOption = freezed,
+  }) {
+    return _then(_FromNotificationState(
+      bill: bill == freezed
+          ? _value.bill
+          : bill // ignore: cast_nullable_to_non_nullable
+              as BoughtNotForm?,
+      showErrorMessages: showErrorMessages == freezed
+          ? _value.showErrorMessages
+          : showErrorMessages // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      navigationWork: navigationWork == freezed
+          ? _value.navigationWork
+          : navigationWork // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isEditing: isEditing == freezed
+          ? _value.isEditing
+          : isEditing // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isSaving: isSaving == freezed
+          ? _value.isSaving
+          : isSaving // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      saveFailureOrSuccessOption: saveFailureOrSuccessOption == freezed
+          ? _value.saveFailureOrSuccessOption
+          : saveFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<BoughtNotFormFailure, BoughtNotForm>>?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_FromNotificationState implements _FromNotificationState {
+  const _$_FromNotificationState(
+      {this.bill,
+      this.showErrorMessages,
+      this.navigationWork,
+      this.isEditing,
+      this.isSaving,
+      this.saveFailureOrSuccessOption});
+
+  @override
+  final BoughtNotForm? bill;
+  @override
+  final bool? showErrorMessages;
+  @override
+  final bool? navigationWork;
+  @override
+  final bool? isEditing;
+  @override
+  final bool? isSaving;
+  @override
+  final Option<Either<BoughtNotFormFailure, BoughtNotForm>>?
+      saveFailureOrSuccessOption;
 
   @override
   String toString() {
-    return 'FromNotificationState.loadSuccess(fromNotificationBought: $fromNotificationBought)';
+    return 'FromNotificationState(bill: $bill, showErrorMessages: $showErrorMessages, navigationWork: $navigationWork, isEditing: $isEditing, isSaving: $isSaving, saveFailureOrSuccessOption: $saveFailureOrSuccessOption)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _LoadSuccess &&
+            other is _FromNotificationState &&
+            const DeepCollectionEquality().equals(other.bill, bill) &&
             const DeepCollectionEquality()
-                .equals(other.fromNotificationBought, fromNotificationBought));
+                .equals(other.showErrorMessages, showErrorMessages) &&
+            const DeepCollectionEquality()
+                .equals(other.navigationWork, navigationWork) &&
+            const DeepCollectionEquality().equals(other.isEditing, isEditing) &&
+            const DeepCollectionEquality().equals(other.isSaving, isSaving) &&
+            const DeepCollectionEquality().equals(
+                other.saveFailureOrSuccessOption, saveFailureOrSuccessOption));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(fromNotificationBought));
+      runtimeType,
+      const DeepCollectionEquality().hash(bill),
+      const DeepCollectionEquality().hash(showErrorMessages),
+      const DeepCollectionEquality().hash(navigationWork),
+      const DeepCollectionEquality().hash(isEditing),
+      const DeepCollectionEquality().hash(isSaving),
+      const DeepCollectionEquality().hash(saveFailureOrSuccessOption));
 
   @JsonKey(ignore: true)
   @override
-  _$LoadSuccessCopyWith<_LoadSuccess> get copyWith =>
-      __$LoadSuccessCopyWithImpl<_LoadSuccess>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loadInProgress,
-    required TResult Function(BoughtNotForm fromNotificationBought) loadSuccess,
-    required TResult Function(
-            BoughtNotFormFailure fromNotificationBoughtFailure)
-        loadFailure,
-  }) {
-    return loadSuccess(fromNotificationBought);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loadInProgress,
-    TResult Function(BoughtNotForm fromNotificationBought)? loadSuccess,
-    TResult Function(BoughtNotFormFailure fromNotificationBoughtFailure)?
-        loadFailure,
-  }) {
-    return loadSuccess?.call(fromNotificationBought);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loadInProgress,
-    TResult Function(BoughtNotForm fromNotificationBought)? loadSuccess,
-    TResult Function(BoughtNotFormFailure fromNotificationBoughtFailure)?
-        loadFailure,
-    required TResult orElse(),
-  }) {
-    if (loadSuccess != null) {
-      return loadSuccess(fromNotificationBought);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_LoadInProgress value) loadInProgress,
-    required TResult Function(_LoadSuccess value) loadSuccess,
-    required TResult Function(_LoadFailure value) loadFailure,
-  }) {
-    return loadSuccess(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadInProgress value)? loadInProgress,
-    TResult Function(_LoadSuccess value)? loadSuccess,
-    TResult Function(_LoadFailure value)? loadFailure,
-  }) {
-    return loadSuccess?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadInProgress value)? loadInProgress,
-    TResult Function(_LoadSuccess value)? loadSuccess,
-    TResult Function(_LoadFailure value)? loadFailure,
-    required TResult orElse(),
-  }) {
-    if (loadSuccess != null) {
-      return loadSuccess(this);
-    }
-    return orElse();
-  }
+  _$FromNotificationStateCopyWith<_FromNotificationState> get copyWith =>
+      __$FromNotificationStateCopyWithImpl<_FromNotificationState>(
+          this, _$identity);
 }
 
-abstract class _LoadSuccess implements FromNotificationState {
-  const factory _LoadSuccess(BoughtNotForm fromNotificationBought) =
-      _$_LoadSuccess;
+abstract class _FromNotificationState implements FromNotificationState {
+  const factory _FromNotificationState(
+      {BoughtNotForm? bill,
+      bool? showErrorMessages,
+      bool? navigationWork,
+      bool? isEditing,
+      bool? isSaving,
+      Option<Either<BoughtNotFormFailure, BoughtNotForm>>?
+          saveFailureOrSuccessOption}) = _$_FromNotificationState;
 
-  BoughtNotForm get fromNotificationBought;
+  @override
+  BoughtNotForm? get bill;
+  @override
+  bool? get showErrorMessages;
+  @override
+  bool? get navigationWork;
+  @override
+  bool? get isEditing;
+  @override
+  bool? get isSaving;
+  @override
+  Option<Either<BoughtNotFormFailure, BoughtNotForm>>?
+      get saveFailureOrSuccessOption;
+  @override
   @JsonKey(ignore: true)
-  _$LoadSuccessCopyWith<_LoadSuccess> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$LoadFailureCopyWith<$Res> {
-  factory _$LoadFailureCopyWith(
-          _LoadFailure value, $Res Function(_LoadFailure) then) =
-      __$LoadFailureCopyWithImpl<$Res>;
-  $Res call({BoughtNotFormFailure fromNotificationBoughtFailure});
-
-  $BoughtNotFormFailureCopyWith<$Res> get fromNotificationBoughtFailure;
-}
-
-/// @nodoc
-class __$LoadFailureCopyWithImpl<$Res>
-    extends _$FromNotificationStateCopyWithImpl<$Res>
-    implements _$LoadFailureCopyWith<$Res> {
-  __$LoadFailureCopyWithImpl(
-      _LoadFailure _value, $Res Function(_LoadFailure) _then)
-      : super(_value, (v) => _then(v as _LoadFailure));
-
-  @override
-  _LoadFailure get _value => super._value as _LoadFailure;
-
-  @override
-  $Res call({
-    Object? fromNotificationBoughtFailure = freezed,
-  }) {
-    return _then(_LoadFailure(
-      fromNotificationBoughtFailure == freezed
-          ? _value.fromNotificationBoughtFailure
-          : fromNotificationBoughtFailure // ignore: cast_nullable_to_non_nullable
-              as BoughtNotFormFailure,
-    ));
-  }
-
-  @override
-  $BoughtNotFormFailureCopyWith<$Res> get fromNotificationBoughtFailure {
-    return $BoughtNotFormFailureCopyWith<$Res>(
-        _value.fromNotificationBoughtFailure, (value) {
-      return _then(_value.copyWith(fromNotificationBoughtFailure: value));
-    });
-  }
-}
-
-/// @nodoc
-
-class _$_LoadFailure implements _LoadFailure {
-  const _$_LoadFailure(this.fromNotificationBoughtFailure);
-
-  @override
-  final BoughtNotFormFailure fromNotificationBoughtFailure;
-
-  @override
-  String toString() {
-    return 'FromNotificationState.loadFailure(fromNotificationBoughtFailure: $fromNotificationBoughtFailure)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _LoadFailure &&
-            const DeepCollectionEquality().equals(
-                other.fromNotificationBoughtFailure,
-                fromNotificationBoughtFailure));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(fromNotificationBoughtFailure));
-
-  @JsonKey(ignore: true)
-  @override
-  _$LoadFailureCopyWith<_LoadFailure> get copyWith =>
-      __$LoadFailureCopyWithImpl<_LoadFailure>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loadInProgress,
-    required TResult Function(BoughtNotForm fromNotificationBought) loadSuccess,
-    required TResult Function(
-            BoughtNotFormFailure fromNotificationBoughtFailure)
-        loadFailure,
-  }) {
-    return loadFailure(fromNotificationBoughtFailure);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loadInProgress,
-    TResult Function(BoughtNotForm fromNotificationBought)? loadSuccess,
-    TResult Function(BoughtNotFormFailure fromNotificationBoughtFailure)?
-        loadFailure,
-  }) {
-    return loadFailure?.call(fromNotificationBoughtFailure);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loadInProgress,
-    TResult Function(BoughtNotForm fromNotificationBought)? loadSuccess,
-    TResult Function(BoughtNotFormFailure fromNotificationBoughtFailure)?
-        loadFailure,
-    required TResult orElse(),
-  }) {
-    if (loadFailure != null) {
-      return loadFailure(fromNotificationBoughtFailure);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_LoadInProgress value) loadInProgress,
-    required TResult Function(_LoadSuccess value) loadSuccess,
-    required TResult Function(_LoadFailure value) loadFailure,
-  }) {
-    return loadFailure(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadInProgress value)? loadInProgress,
-    TResult Function(_LoadSuccess value)? loadSuccess,
-    TResult Function(_LoadFailure value)? loadFailure,
-  }) {
-    return loadFailure?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadInProgress value)? loadInProgress,
-    TResult Function(_LoadSuccess value)? loadSuccess,
-    TResult Function(_LoadFailure value)? loadFailure,
-    required TResult orElse(),
-  }) {
-    if (loadFailure != null) {
-      return loadFailure(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _LoadFailure implements FromNotificationState {
-  const factory _LoadFailure(
-      BoughtNotFormFailure fromNotificationBoughtFailure) = _$_LoadFailure;
-
-  BoughtNotFormFailure get fromNotificationBoughtFailure;
-  @JsonKey(ignore: true)
-  _$LoadFailureCopyWith<_LoadFailure> get copyWith =>
+  _$FromNotificationStateCopyWith<_FromNotificationState> get copyWith =>
       throw _privateConstructorUsedError;
 }

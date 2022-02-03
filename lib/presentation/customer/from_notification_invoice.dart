@@ -67,8 +67,7 @@ class FromNotificationBoughtBill extends StatelessWidget {
               },
             ),
           ],
-          child: BlocConsumer<SingleBoughtInvoiceWatcherBloc,
-              SingleBoughtInvoiceWatcherState>(
+          child: BlocConsumer<FromNotificationBloc, FromNotificationState>(
             listenWhen: (p, c) =>
                 p.saveFailureOrSuccessOption != c.saveFailureOrSuccessOption,
             listener: (context, state) {
