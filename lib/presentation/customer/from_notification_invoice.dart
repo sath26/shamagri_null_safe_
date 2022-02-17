@@ -40,7 +40,8 @@ class FromNotificationBoughtBill extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*  var logger = Logger();
+    var logger = Logger();
+    /*  
     logger.wtf(
         "inside SoldBillSoldOption    " + SoldBillSoldOption.toString()); */
     return MultiBlocProvider(
@@ -103,8 +104,11 @@ class FromNotificationBoughtBill extends StatelessWidget {
                 WillPopScope(
                   onWillPop: () async {
                     // ExtendedNavigator.of(context).pushSoldInvoice();
-                    bool? result = await AutoRouter.of(context).pop();
-
+                    bool? result =
+                        await AutoRouter.of(context).push(SoldInvoiceRoute());
+                    if (result == null) {
+                      result = false;
+                    }
                     return result;
                   },
                   child: Scaffold(
@@ -149,12 +153,14 @@ class FromNotificationBoughtBill extends StatelessWidget {
                           scrollDirection: Axis.vertical,
                           itemBuilder: (context, index) {
                             final quotation = context
-                                .read<SingleBoughtInvoiceWatcherBloc>()
+                                .watch<FromNotificationBloc>()
                                 .state
                                 .bill!
                                 .quotations!
                                 .getOrCrash()
                                 .get(index);
+                            logger.wtf(
+                                "quotation_notif: " + quotation.toString());
                             /* logger.wtf("passed" +
                           this
                               .SoldBillSoldOption
@@ -198,7 +204,7 @@ class FromNotificationBoughtBill extends StatelessWidget {
                         )), //List of items
                         Container(
                             child: Text(context
-                                .watch<SingleBoughtInvoiceWatcherBloc>()
+                                .watch<FromNotificationBloc>()
                                 .state
                                 .bill!
                                 .total!

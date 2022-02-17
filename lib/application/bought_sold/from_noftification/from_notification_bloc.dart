@@ -64,6 +64,7 @@ class FromNotificationBloc
         }
 
         return emit(state.copyWith(
+          bill: boughtNotForm,
           isSaving: false,
           showErrorMessages: true,
           saveFailureOrSuccessOption: optionOf(failureOrSuccess),

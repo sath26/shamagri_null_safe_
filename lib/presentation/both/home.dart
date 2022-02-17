@@ -166,6 +166,7 @@ class HomeScreenState extends State<HomeScreen>
                 data['boughtInvoice_soldInvoice_Id']));
       } else {}
     });
+    // firebaseMessaging!.getToken().then((fcmToken) {
     firebaseMessaging!.onTokenRefresh.listen((fcmToken) {
       final FirebaseFirestore _db = FirebaseFirestore.instance;
 
@@ -186,6 +187,7 @@ class HomeScreenState extends State<HomeScreen>
             FlushbarHelper.createError(message: error!.message.toString()));
       }
     }).onError((err) {
+      // .catchError((err) {
       FlushbarHelper.createError(message: err.message.toString());
     });
   }
