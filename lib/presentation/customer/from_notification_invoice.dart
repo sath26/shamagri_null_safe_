@@ -104,8 +104,8 @@ class FromNotificationBoughtBill extends StatelessWidget {
                 WillPopScope(
                   onWillPop: () async {
                     // ExtendedNavigator.of(context).pushSoldInvoice();
-                    bool? result =
-                        await AutoRouter.of(context).push(SoldInvoiceRoute());
+                    bool? result = await AutoRouter.of(context).push(
+                        BoughtInvoiceRoute(boughtId: this.soldAndboughtId));
                     if (result == null) {
                       result = false;
                     }
@@ -275,16 +275,16 @@ class SavingInProgressOverlay extends StatelessWidget {
 } */
 
 class ItemTile extends HookWidget {
-  final Quotation? entry;
+  final Quotation entry;
 
   final Function()? onTap;
-  const ItemTile({@required this.onTap, @required this.entry, Key? key})
+  const ItemTile({@required this.onTap, required this.entry, Key? key})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    // var logger = Logger();
+    var logger = Logger();
 
-    // logger.wtf(entry);
+    logger.wtf("entry received " + entry.toString());
     // logger.wtf("received" + index.toString());
 
     return InkWell(
@@ -296,13 +296,13 @@ class ItemTile extends HookWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                entry!.title!.getOrCrash(),
+                entry.title!.getOrCrash(),
                 style: TextStyle(fontSize: 20),
               ),
               Align(
                 alignment: Alignment.center,
                 child: Text(
-                  (entry!.rate!.getOrCrash()).toString(),
+                  (entry.rate!.getOrCrash()).toString(),
                   style: TextStyle(fontSize: 20),
                   // textAlign: TextAlign.center,
                 ),
@@ -313,7 +313,7 @@ class ItemTile extends HookWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: Text(
-                  (entry!.quantity!.getOrCrash()).toString(),
+                  (entry.quantity!.getOrCrash()).toString(),
                   style: TextStyle(fontSize: 20),
                 ),
               ),
@@ -321,7 +321,7 @@ class ItemTile extends HookWidget {
               Align(
                 alignment: Alignment.center,
                 child: Text(
-                  (entry!.rate!.getOrCrash() * entry!.quantity!.getOrCrash())
+                  (entry.rate!.getOrCrash() * entry.quantity!.getOrCrash())
                       .toString(),
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),

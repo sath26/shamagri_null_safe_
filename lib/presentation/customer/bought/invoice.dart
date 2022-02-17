@@ -9,6 +9,7 @@ import 'package:shamagri_latest_flutter_version/application/bought_sold/list_bou
 import 'package:shamagri_latest_flutter_version/application/bought_sold/list_bought_invoice/list_bought_invoice_bloc.dart';
 import 'package:shamagri_latest_flutter_version/domain/core/errors.dart';
 import 'package:shamagri_latest_flutter_version/injection.dart';
+import 'package:shamagri_latest_flutter_version/presentation/both/home.dart';
 import 'package:shamagri_latest_flutter_version/presentation/routes/router.gr.dart';
 import 'package:shamagri_latest_flutter_version/presentation/customer/bought/invoice_bought_widgets/invoice_bought_overview.dart';
 import 'package:shamagri_latest_flutter_version/presentation/customer/bought/list_bought_widgets/bought_overview.dart';
@@ -141,10 +142,25 @@ class BoughtInvoice extends StatelessWidget {
                     loadFailure: (loadFailure) => null);
               }
             });
-            return Scaffold(
-              appBar: AppBar(title: Text("Bought invoice")),
-              body: InvoiceBoughtOverviewBody(
-                  scrollController: _scrollController),
+            return WillPopScope(
+              onWillPop: () async {
+                bool? result;
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => HomeScreen(
+                              selectedPage: 0,
+                            )));
+                if (result == null) {
+                  result = false;
+                }
+                return result;
+              },
+              child: Scaffold(
+                appBar: AppBar(title: Text("Bought invoice")),
+                body: InvoiceBoughtOverviewBody(
+                    scrollController: _scrollController),
+              ),
             );
           })),
     );

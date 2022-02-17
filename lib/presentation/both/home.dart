@@ -43,7 +43,7 @@ class HomeScreenState extends State<HomeScreen>
       FlutterLocalNotificationsPlugin();
   // Logger logger = new Logger();
   int? num = 0;
-  int? currentTab;
+  int? currentTab = 0;
   @override
   void initState() {
     super.initState();
@@ -56,7 +56,11 @@ class HomeScreenState extends State<HomeScreen>
     // logger.i("selectedpage num  " + num.toString());
     controller = TabController(initialIndex: num ?? 0, length: 2, vsync: this);
     // if (currentTab == 0) {}
-
+    if (widget.selectedPage == 1) {
+      setState(() {
+        currentTab = 1;
+      });
+    }
     controller!.addListener(() {
       setState(() {
         currentTab = controller!.index;
