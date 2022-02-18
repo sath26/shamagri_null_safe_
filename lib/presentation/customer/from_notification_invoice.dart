@@ -106,14 +106,14 @@ class FromNotificationBoughtBill extends StatelessWidget {
                   .bill!
                   .quotations!
                   .getOrCrash();
-              logger.wtf(" right below builder " +
+              /* logger.wtf(" right below builder " +
                   context
                       .watch<FromNotificationBloc>()
                       .state
                       .bill!
                       .quotations!
                       .getOrCrash()
-                      .toString());
+                      .toString()); */
               return Stack(children: <Widget>[
                 WillPopScope(
                   onWillPop: () async {
@@ -220,7 +220,7 @@ class FromNotificationBoughtBill extends StatelessWidget {
                         //for name of buyer
                         //also has find buyer icon for input box to search for the user
                         // if(mounted){}
-                        Row(children: [Text("hey there")]),
+                        // Row(children: [Text("hey there")]),
                         Expanded(
                             child: ListView.builder(
                           scrollDirection: Axis.vertical,
@@ -240,7 +240,7 @@ class FromNotificationBoughtBill extends StatelessWidget {
                               entry: quotation,
                             );
                           },
-                          itemCount: state.bill!.quotations!.length,
+                          itemCount: quotations.size,
 
                           /*  children: state.bill.quotations.getOrCrash().((entry) {
                             return ItemTile(
