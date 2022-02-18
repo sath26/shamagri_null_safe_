@@ -95,7 +95,20 @@ class SingleSoldBill extends StatelessWidget {
                 WillPopScope(
                   onWillPop: () async {
                     // ExtendedNavigator.of(context).pushSoldInvoice();
-                    bool? result = await context.router.pop();
+                    bool? result = await AutoRouter.of(context).push(
+                        SoldInvoiceRoute(
+                            soldId: this
+                                    .soldBillSoldOption!
+                                    .sellerUserId!
+                                    .getOrCrash() +
+                                "-" +
+                                this
+                                    .soldBillSoldOption!
+                                    .buyerUserId!
+                                    .getOrCrash()));
+                    if (result == null) {
+                      result = false;
+                    }
                     return result;
                   },
                   child: Scaffold(

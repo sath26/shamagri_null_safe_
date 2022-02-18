@@ -37,7 +37,7 @@ class HomeScreenState extends State<HomeScreen>
   HomeScreenState({Key? key});
 // Create a tab controller
   TabController? controller;
-  Future<String?>? iosSubscription;
+  // Future<String?>? iosSubscription;
   final FirebaseMessaging? firebaseMessaging = FirebaseMessaging.instance;
   final FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
@@ -252,8 +252,8 @@ class HomeScreenState extends State<HomeScreen>
   void dispose() {
     // Dispose of the Tab Controller
     controller!.dispose();
-    /* if (Platform.isIOS) {
-      // iosSubscription!.cancel();
+    /*  if (Platform.isIOS) {
+      iosSubscription!.ignore();
     } */
     super.dispose();
   }

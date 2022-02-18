@@ -100,6 +100,20 @@ class FromNotificationBoughtBill extends StatelessWidget {
             },
             buildWhen: (p, c) => p.isEditing != c.isEditing,
             builder: (context, state) {
+              final quotations = context
+                  .watch<FromNotificationBloc>()
+                  .state
+                  .bill!
+                  .quotations!
+                  .getOrCrash();
+              logger.wtf(" right below builder " +
+                  context
+                      .watch<FromNotificationBloc>()
+                      .state
+                      .bill!
+                      .quotations!
+                      .getOrCrash()
+                      .toString());
               return Stack(children: <Widget>[
                 WillPopScope(
                   onWillPop: () async {
@@ -111,6 +125,7 @@ class FromNotificationBoughtBill extends StatelessWidget {
                     }
                     return result;
                   },
+                  // logger.wtf('it has arrived here'),
                   child: Scaffold(
                     appBar: AppBar(
                         title: Text('From Notification Bill'),
@@ -133,6 +148,62 @@ class FromNotificationBoughtBill extends StatelessWidget {
                           );
                         },
                       ) */
+                          IconButton(
+                            icon: Icon(
+                              Icons.edit,
+                              // color: Colors.white,
+                            ),
+                            onPressed: () {
+                              // do something
+                              /* showModalBottomSheet(
+                              context: context,
+                              builder: (context) {
+                                return Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    ListTile(
+                                      leading: new Icon(Icons.delete),
+                                      title: new Text('Delete'),
+                                      onTap: () {
+                                        // Navigator.pop(context);
+                                        /* context
+                                            .bloc<AuthBloc>()
+                                            .add(const AuthEvent.signedOut()); */
+                                      },
+                                    ),
+                                  ],
+                                );
+                              }); */
+                            },
+                          ),
+                          IconButton(
+                            icon: Icon(
+                              Icons.menu,
+                              // color: Colors.white,
+                            ),
+                            onPressed: () {
+                              // do something
+                              showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        ListTile(
+                                          leading: new Icon(Icons.delete),
+                                          title: new Text('Delete'),
+                                          onTap: () {
+                                            // Navigator.pop(context);
+                                            /* context
+                                            .bloc<AuthBloc>()
+                                            .add(const AuthEvent.signedOut()); */
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  });
+                            },
+                          ),
                         ]),
                     body: Column(
                       children: [
@@ -148,17 +219,14 @@ class FromNotificationBoughtBill extends StatelessWidget {
                         }), */
                         //for name of buyer
                         //also has find buyer icon for input box to search for the user
+                        // if(mounted){}
+                        Row(children: [Text("hey there")]),
                         Expanded(
                             child: ListView.builder(
                           scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
                           itemBuilder: (context, index) {
-                            final quotation = context
-                                .watch<FromNotificationBloc>()
-                                .state
-                                .bill!
-                                .quotations!
-                                .getOrCrash()
-                                .get(index);
+                            final quotation = quotations[index];
                             logger.wtf(
                                 "quotation_notif: " + quotation.toString());
                             /* logger.wtf("passed" +
@@ -169,27 +237,6 @@ class FromNotificationBoughtBill extends StatelessWidget {
                               .indexOf(quotation)
                               .toString()); */
                             return ItemTile(
-                              onTap: () {
-                                /*  */
-                                /*  context
-                                    .read<SingleInvoiceWatcherBloc>()
-                                    .state
-                                    .copyWith(isEditing: false);
-                                ExtendedNavigator.of(context)
-                                    .pushSelectedQuotationForm(
-                                  bill: context
-                                      .read<SingleInvoiceWatcherBloc>()
-                                      .state
-                                      .bill,
-                                  quotationIndex: context
-                                      .read<SingleInvoiceWatcherBloc>()
-                                      .state
-                                      .bill
-                                      .quotations
-                                      .getOrCrash()
-                                      .indexOf(quotation),
-                                ); */
-                              },
                               entry: quotation,
                             );
                           },
@@ -211,7 +258,7 @@ class FromNotificationBoughtBill extends StatelessWidget {
                                 .getOrCrash()
                                 .toString()),
                             height: 50.0), //total
-                        Row(), //send
+                        // Row(), //send
                       ],
                     ),
                   ),
@@ -277,9 +324,8 @@ class SavingInProgressOverlay extends StatelessWidget {
 class ItemTile extends HookWidget {
   final Quotation entry;
 
-  final Function()? onTap;
-  const ItemTile({@required this.onTap, required this.entry, Key? key})
-      : super(key: key);
+  // final Function() onTap;
+  const ItemTile({required this.entry, Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     var logger = Logger();
@@ -288,7 +334,7 @@ class ItemTile extends HookWidget {
     // logger.wtf("received" + index.toString());
 
     return InkWell(
-      onTap: onTap,
+      // onTap: onTap,
       child: Card(
         child: Padding(
           padding: EdgeInsets.all(12),
