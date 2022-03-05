@@ -39,6 +39,16 @@ class _$FromNotificationEventTearOff {
       failureOrFromNotificationBought,
     );
   }
+
+  _Updated updated() {
+    return const _Updated();
+  }
+
+  _IsApprovedChanged isApprovedChanged(bool isApproved) {
+    return _IsApprovedChanged(
+      isApproved,
+    );
+  }
 }
 
 /// @nodoc
@@ -57,6 +67,8 @@ mixin _$FromNotificationEvent {
             Either<BoughtNotFormFailure, BoughtNotForm>
                 failureOrFromNotificationBought)
         boughtNotFormReceived,
+    required TResult Function() updated,
+    required TResult Function(bool isApproved) isApprovedChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -70,6 +82,8 @@ mixin _$FromNotificationEvent {
             Either<BoughtNotFormFailure, BoughtNotForm>
                 failureOrFromNotificationBought)?
         boughtNotFormReceived,
+    TResult Function()? updated,
+    TResult Function(bool isApproved)? isApprovedChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -83,6 +97,8 @@ mixin _$FromNotificationEvent {
             Either<BoughtNotFormFailure, BoughtNotForm>
                 failureOrFromNotificationBought)?
         boughtNotFormReceived,
+    TResult Function()? updated,
+    TResult Function(bool isApproved)? isApprovedChanged,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -92,6 +108,8 @@ mixin _$FromNotificationEvent {
     required TResult Function(_From_notification value) from_notification,
     required TResult Function(_BoughtNotFormReceived value)
         boughtNotFormReceived,
+    required TResult Function(_Updated value) updated,
+    required TResult Function(_IsApprovedChanged value) isApprovedChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -99,6 +117,8 @@ mixin _$FromNotificationEvent {
     TResult Function(_Initialized value)? initialized,
     TResult Function(_From_notification value)? from_notification,
     TResult Function(_BoughtNotFormReceived value)? boughtNotFormReceived,
+    TResult Function(_Updated value)? updated,
+    TResult Function(_IsApprovedChanged value)? isApprovedChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -106,6 +126,8 @@ mixin _$FromNotificationEvent {
     TResult Function(_Initialized value)? initialized,
     TResult Function(_From_notification value)? from_notification,
     TResult Function(_BoughtNotFormReceived value)? boughtNotFormReceived,
+    TResult Function(_Updated value)? updated,
+    TResult Function(_IsApprovedChanged value)? isApprovedChanged,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -203,6 +225,8 @@ class _$_Initialized implements _Initialized {
             Either<BoughtNotFormFailure, BoughtNotForm>
                 failureOrFromNotificationBought)
         boughtNotFormReceived,
+    required TResult Function() updated,
+    required TResult Function(bool isApproved) isApprovedChanged,
   }) {
     return initialized(afterSelectBoughtOption);
   }
@@ -219,6 +243,8 @@ class _$_Initialized implements _Initialized {
             Either<BoughtNotFormFailure, BoughtNotForm>
                 failureOrFromNotificationBought)?
         boughtNotFormReceived,
+    TResult Function()? updated,
+    TResult Function(bool isApproved)? isApprovedChanged,
   }) {
     return initialized?.call(afterSelectBoughtOption);
   }
@@ -235,6 +261,8 @@ class _$_Initialized implements _Initialized {
             Either<BoughtNotFormFailure, BoughtNotForm>
                 failureOrFromNotificationBought)?
         boughtNotFormReceived,
+    TResult Function()? updated,
+    TResult Function(bool isApproved)? isApprovedChanged,
     required TResult orElse(),
   }) {
     if (initialized != null) {
@@ -250,6 +278,8 @@ class _$_Initialized implements _Initialized {
     required TResult Function(_From_notification value) from_notification,
     required TResult Function(_BoughtNotFormReceived value)
         boughtNotFormReceived,
+    required TResult Function(_Updated value) updated,
+    required TResult Function(_IsApprovedChanged value) isApprovedChanged,
   }) {
     return initialized(this);
   }
@@ -260,6 +290,8 @@ class _$_Initialized implements _Initialized {
     TResult Function(_Initialized value)? initialized,
     TResult Function(_From_notification value)? from_notification,
     TResult Function(_BoughtNotFormReceived value)? boughtNotFormReceived,
+    TResult Function(_Updated value)? updated,
+    TResult Function(_IsApprovedChanged value)? isApprovedChanged,
   }) {
     return initialized?.call(this);
   }
@@ -270,6 +302,8 @@ class _$_Initialized implements _Initialized {
     TResult Function(_Initialized value)? initialized,
     TResult Function(_From_notification value)? from_notification,
     TResult Function(_BoughtNotFormReceived value)? boughtNotFormReceived,
+    TResult Function(_Updated value)? updated,
+    TResult Function(_IsApprovedChanged value)? isApprovedChanged,
     required TResult orElse(),
   }) {
     if (initialized != null) {
@@ -377,6 +411,8 @@ class _$_From_notification implements _From_notification {
             Either<BoughtNotFormFailure, BoughtNotForm>
                 failureOrFromNotificationBought)
         boughtNotFormReceived,
+    required TResult Function() updated,
+    required TResult Function(bool isApproved) isApprovedChanged,
   }) {
     return from_notification(sold_and_bought_Id, soldInvoice_boughtInvoice_Id);
   }
@@ -393,6 +429,8 @@ class _$_From_notification implements _From_notification {
             Either<BoughtNotFormFailure, BoughtNotForm>
                 failureOrFromNotificationBought)?
         boughtNotFormReceived,
+    TResult Function()? updated,
+    TResult Function(bool isApproved)? isApprovedChanged,
   }) {
     return from_notification?.call(
         sold_and_bought_Id, soldInvoice_boughtInvoice_Id);
@@ -410,6 +448,8 @@ class _$_From_notification implements _From_notification {
             Either<BoughtNotFormFailure, BoughtNotForm>
                 failureOrFromNotificationBought)?
         boughtNotFormReceived,
+    TResult Function()? updated,
+    TResult Function(bool isApproved)? isApprovedChanged,
     required TResult orElse(),
   }) {
     if (from_notification != null) {
@@ -426,6 +466,8 @@ class _$_From_notification implements _From_notification {
     required TResult Function(_From_notification value) from_notification,
     required TResult Function(_BoughtNotFormReceived value)
         boughtNotFormReceived,
+    required TResult Function(_Updated value) updated,
+    required TResult Function(_IsApprovedChanged value) isApprovedChanged,
   }) {
     return from_notification(this);
   }
@@ -436,6 +478,8 @@ class _$_From_notification implements _From_notification {
     TResult Function(_Initialized value)? initialized,
     TResult Function(_From_notification value)? from_notification,
     TResult Function(_BoughtNotFormReceived value)? boughtNotFormReceived,
+    TResult Function(_Updated value)? updated,
+    TResult Function(_IsApprovedChanged value)? isApprovedChanged,
   }) {
     return from_notification?.call(this);
   }
@@ -446,6 +490,8 @@ class _$_From_notification implements _From_notification {
     TResult Function(_Initialized value)? initialized,
     TResult Function(_From_notification value)? from_notification,
     TResult Function(_BoughtNotFormReceived value)? boughtNotFormReceived,
+    TResult Function(_Updated value)? updated,
+    TResult Function(_IsApprovedChanged value)? isApprovedChanged,
     required TResult orElse(),
   }) {
     if (from_notification != null) {
@@ -547,6 +593,8 @@ class _$_BoughtNotFormReceived implements _BoughtNotFormReceived {
             Either<BoughtNotFormFailure, BoughtNotForm>
                 failureOrFromNotificationBought)
         boughtNotFormReceived,
+    required TResult Function() updated,
+    required TResult Function(bool isApproved) isApprovedChanged,
   }) {
     return boughtNotFormReceived(failureOrFromNotificationBought);
   }
@@ -563,6 +611,8 @@ class _$_BoughtNotFormReceived implements _BoughtNotFormReceived {
             Either<BoughtNotFormFailure, BoughtNotForm>
                 failureOrFromNotificationBought)?
         boughtNotFormReceived,
+    TResult Function()? updated,
+    TResult Function(bool isApproved)? isApprovedChanged,
   }) {
     return boughtNotFormReceived?.call(failureOrFromNotificationBought);
   }
@@ -579,6 +629,8 @@ class _$_BoughtNotFormReceived implements _BoughtNotFormReceived {
             Either<BoughtNotFormFailure, BoughtNotForm>
                 failureOrFromNotificationBought)?
         boughtNotFormReceived,
+    TResult Function()? updated,
+    TResult Function(bool isApproved)? isApprovedChanged,
     required TResult orElse(),
   }) {
     if (boughtNotFormReceived != null) {
@@ -594,6 +646,8 @@ class _$_BoughtNotFormReceived implements _BoughtNotFormReceived {
     required TResult Function(_From_notification value) from_notification,
     required TResult Function(_BoughtNotFormReceived value)
         boughtNotFormReceived,
+    required TResult Function(_Updated value) updated,
+    required TResult Function(_IsApprovedChanged value) isApprovedChanged,
   }) {
     return boughtNotFormReceived(this);
   }
@@ -604,6 +658,8 @@ class _$_BoughtNotFormReceived implements _BoughtNotFormReceived {
     TResult Function(_Initialized value)? initialized,
     TResult Function(_From_notification value)? from_notification,
     TResult Function(_BoughtNotFormReceived value)? boughtNotFormReceived,
+    TResult Function(_Updated value)? updated,
+    TResult Function(_IsApprovedChanged value)? isApprovedChanged,
   }) {
     return boughtNotFormReceived?.call(this);
   }
@@ -614,6 +670,8 @@ class _$_BoughtNotFormReceived implements _BoughtNotFormReceived {
     TResult Function(_Initialized value)? initialized,
     TResult Function(_From_notification value)? from_notification,
     TResult Function(_BoughtNotFormReceived value)? boughtNotFormReceived,
+    TResult Function(_Updated value)? updated,
+    TResult Function(_IsApprovedChanged value)? isApprovedChanged,
     required TResult orElse(),
   }) {
     if (boughtNotFormReceived != null) {
@@ -632,6 +690,318 @@ abstract class _BoughtNotFormReceived implements FromNotificationEvent {
       get failureOrFromNotificationBought;
   @JsonKey(ignore: true)
   _$BoughtNotFormReceivedCopyWith<_BoughtNotFormReceived> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$UpdatedCopyWith<$Res> {
+  factory _$UpdatedCopyWith(_Updated value, $Res Function(_Updated) then) =
+      __$UpdatedCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$UpdatedCopyWithImpl<$Res>
+    extends _$FromNotificationEventCopyWithImpl<$Res>
+    implements _$UpdatedCopyWith<$Res> {
+  __$UpdatedCopyWithImpl(_Updated _value, $Res Function(_Updated) _then)
+      : super(_value, (v) => _then(v as _Updated));
+
+  @override
+  _Updated get _value => super._value as _Updated;
+}
+
+/// @nodoc
+
+class _$_Updated implements _Updated {
+  const _$_Updated();
+
+  @override
+  String toString() {
+    return 'FromNotificationEvent.updated()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _Updated);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Option<BoughtNotForm> afterSelectBoughtOption)
+        initialized,
+    required TResult Function(
+            String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)
+        from_notification,
+    required TResult Function(
+            Either<BoughtNotFormFailure, BoughtNotForm>
+                failureOrFromNotificationBought)
+        boughtNotFormReceived,
+    required TResult Function() updated,
+    required TResult Function(bool isApproved) isApprovedChanged,
+  }) {
+    return updated();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Option<BoughtNotForm> afterSelectBoughtOption)?
+        initialized,
+    TResult Function(
+            String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)?
+        from_notification,
+    TResult Function(
+            Either<BoughtNotFormFailure, BoughtNotForm>
+                failureOrFromNotificationBought)?
+        boughtNotFormReceived,
+    TResult Function()? updated,
+    TResult Function(bool isApproved)? isApprovedChanged,
+  }) {
+    return updated?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Option<BoughtNotForm> afterSelectBoughtOption)?
+        initialized,
+    TResult Function(
+            String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)?
+        from_notification,
+    TResult Function(
+            Either<BoughtNotFormFailure, BoughtNotForm>
+                failureOrFromNotificationBought)?
+        boughtNotFormReceived,
+    TResult Function()? updated,
+    TResult Function(bool isApproved)? isApprovedChanged,
+    required TResult orElse(),
+  }) {
+    if (updated != null) {
+      return updated();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialized value) initialized,
+    required TResult Function(_From_notification value) from_notification,
+    required TResult Function(_BoughtNotFormReceived value)
+        boughtNotFormReceived,
+    required TResult Function(_Updated value) updated,
+    required TResult Function(_IsApprovedChanged value) isApprovedChanged,
+  }) {
+    return updated(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initialized value)? initialized,
+    TResult Function(_From_notification value)? from_notification,
+    TResult Function(_BoughtNotFormReceived value)? boughtNotFormReceived,
+    TResult Function(_Updated value)? updated,
+    TResult Function(_IsApprovedChanged value)? isApprovedChanged,
+  }) {
+    return updated?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialized value)? initialized,
+    TResult Function(_From_notification value)? from_notification,
+    TResult Function(_BoughtNotFormReceived value)? boughtNotFormReceived,
+    TResult Function(_Updated value)? updated,
+    TResult Function(_IsApprovedChanged value)? isApprovedChanged,
+    required TResult orElse(),
+  }) {
+    if (updated != null) {
+      return updated(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Updated implements FromNotificationEvent {
+  const factory _Updated() = _$_Updated;
+}
+
+/// @nodoc
+abstract class _$IsApprovedChangedCopyWith<$Res> {
+  factory _$IsApprovedChangedCopyWith(
+          _IsApprovedChanged value, $Res Function(_IsApprovedChanged) then) =
+      __$IsApprovedChangedCopyWithImpl<$Res>;
+  $Res call({bool isApproved});
+}
+
+/// @nodoc
+class __$IsApprovedChangedCopyWithImpl<$Res>
+    extends _$FromNotificationEventCopyWithImpl<$Res>
+    implements _$IsApprovedChangedCopyWith<$Res> {
+  __$IsApprovedChangedCopyWithImpl(
+      _IsApprovedChanged _value, $Res Function(_IsApprovedChanged) _then)
+      : super(_value, (v) => _then(v as _IsApprovedChanged));
+
+  @override
+  _IsApprovedChanged get _value => super._value as _IsApprovedChanged;
+
+  @override
+  $Res call({
+    Object? isApproved = freezed,
+  }) {
+    return _then(_IsApprovedChanged(
+      isApproved == freezed
+          ? _value.isApproved
+          : isApproved // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_IsApprovedChanged implements _IsApprovedChanged {
+  const _$_IsApprovedChanged(this.isApproved);
+
+  @override
+  final bool isApproved;
+
+  @override
+  String toString() {
+    return 'FromNotificationEvent.isApprovedChanged(isApproved: $isApproved)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _IsApprovedChanged &&
+            const DeepCollectionEquality()
+                .equals(other.isApproved, isApproved));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(isApproved));
+
+  @JsonKey(ignore: true)
+  @override
+  _$IsApprovedChangedCopyWith<_IsApprovedChanged> get copyWith =>
+      __$IsApprovedChangedCopyWithImpl<_IsApprovedChanged>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Option<BoughtNotForm> afterSelectBoughtOption)
+        initialized,
+    required TResult Function(
+            String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)
+        from_notification,
+    required TResult Function(
+            Either<BoughtNotFormFailure, BoughtNotForm>
+                failureOrFromNotificationBought)
+        boughtNotFormReceived,
+    required TResult Function() updated,
+    required TResult Function(bool isApproved) isApprovedChanged,
+  }) {
+    return isApprovedChanged(isApproved);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Option<BoughtNotForm> afterSelectBoughtOption)?
+        initialized,
+    TResult Function(
+            String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)?
+        from_notification,
+    TResult Function(
+            Either<BoughtNotFormFailure, BoughtNotForm>
+                failureOrFromNotificationBought)?
+        boughtNotFormReceived,
+    TResult Function()? updated,
+    TResult Function(bool isApproved)? isApprovedChanged,
+  }) {
+    return isApprovedChanged?.call(isApproved);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Option<BoughtNotForm> afterSelectBoughtOption)?
+        initialized,
+    TResult Function(
+            String sold_and_bought_Id, String soldInvoice_boughtInvoice_Id)?
+        from_notification,
+    TResult Function(
+            Either<BoughtNotFormFailure, BoughtNotForm>
+                failureOrFromNotificationBought)?
+        boughtNotFormReceived,
+    TResult Function()? updated,
+    TResult Function(bool isApproved)? isApprovedChanged,
+    required TResult orElse(),
+  }) {
+    if (isApprovedChanged != null) {
+      return isApprovedChanged(isApproved);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialized value) initialized,
+    required TResult Function(_From_notification value) from_notification,
+    required TResult Function(_BoughtNotFormReceived value)
+        boughtNotFormReceived,
+    required TResult Function(_Updated value) updated,
+    required TResult Function(_IsApprovedChanged value) isApprovedChanged,
+  }) {
+    return isApprovedChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initialized value)? initialized,
+    TResult Function(_From_notification value)? from_notification,
+    TResult Function(_BoughtNotFormReceived value)? boughtNotFormReceived,
+    TResult Function(_Updated value)? updated,
+    TResult Function(_IsApprovedChanged value)? isApprovedChanged,
+  }) {
+    return isApprovedChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialized value)? initialized,
+    TResult Function(_From_notification value)? from_notification,
+    TResult Function(_BoughtNotFormReceived value)? boughtNotFormReceived,
+    TResult Function(_Updated value)? updated,
+    TResult Function(_IsApprovedChanged value)? isApprovedChanged,
+    required TResult orElse(),
+  }) {
+    if (isApprovedChanged != null) {
+      return isApprovedChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _IsApprovedChanged implements FromNotificationEvent {
+  const factory _IsApprovedChanged(bool isApproved) = _$_IsApprovedChanged;
+
+  bool get isApproved;
+  @JsonKey(ignore: true)
+  _$IsApprovedChangedCopyWith<_IsApprovedChanged> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

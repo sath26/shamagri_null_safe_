@@ -8,6 +8,7 @@ import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 // import 'package:shamagri_latest_flutter_version/application/bought_sold/quotation_primitive/quotation_item_presentation_classes.dart';
 import 'package:shamagri_latest_flutter_version/domain/bought/i_bought_repository.dart';
+import 'package:shamagri_latest_flutter_version/domain/not_form_bought/bought_value_objects.dart';
 import 'package:shamagri_latest_flutter_version/domain/not_form_bought/not_form_bought.dart';
 import 'package:shamagri_latest_flutter_version/domain/not_form_bought/not_form_bought_failure.dart';
 // import 'package:shamagri_latest_flutter_version/domain/quotation_reso/quotation.dart';
@@ -32,7 +33,9 @@ class FromNotificationBloc
       : super(FromNotificationState.initial()) {
     on<_Initialized>(initialized);
     on<_$_BoughtNotFormReceived>(_boughtNotFormReceived);
+    on<_$_IsApprovedChanged>(isApprovedChanged);
     on<_$_From_notification>(_fromNotification);
+    on<_$_Updated>(_updated);
   }
   FutureOr<void> initialized(
       _Initialized e, Emitter<FromNotificationState> emit) {
@@ -72,6 +75,34 @@ class FromNotificationBloc
         // return emit(FromNotificationState.loadSuccess(boughtNotForm));
       },
     );
+  }
+
+  FutureOr<void> _updated(
+      _Updated e, Emitter<FromNotificationState> emit) async {
+    Either<BoughtNotFormFailure, BoughtNotForm>? failureOrSuccess;
+
+    emit(state.copyWith(
+      isSaving: true,
+      saveFailureOrSuccessOption: none(),
+    ));
+
+    if (state.bill!.failureOption.isNone()) {
+      // failureOrSuccess = state.isEditing
+      // ? await _soldRepository.update(state.bill)
+      failureOrSuccess = await _boughtRepository.update(state.bill!);
+    }
+
+    emit(state.copyWith(
+      isSaving: false,
+      showErrorMessages: true,
+      saveFailureOrSuccessOption: optionOf(failureOrSuccess),
+    ));
+  }
+
+  FutureOr<void> isApprovedChanged(
+      _IsApprovedChanged e, Emitter<FromNotificationState> emit) {
+    emit(state.copyWith(
+        bill: state.bill!.copyWith(isApproved: BoughtApproved(e.isApproved))));
   }
 
   FutureOr<void> _fromNotification(

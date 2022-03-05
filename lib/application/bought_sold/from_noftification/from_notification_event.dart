@@ -10,4 +10,7 @@ abstract class FromNotificationEvent with _$FromNotificationEvent {
   const factory FromNotificationEvent.boughtNotFormReceived(
       Either<BoughtNotFormFailure, BoughtNotForm>
           failureOrFromNotificationBought) = _BoughtNotFormReceived;
+  const factory FromNotificationEvent.updated() = _Updated;
+  const factory FromNotificationEvent.isApprovedChanged(bool isApproved) =
+      _IsApprovedChanged;
 }

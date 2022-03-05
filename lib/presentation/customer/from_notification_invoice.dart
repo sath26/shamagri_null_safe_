@@ -20,6 +20,7 @@ import 'package:shamagri_latest_flutter_version/domain/quotation_reso/quotation.
 import 'package:shamagri_latest_flutter_version/domain/sold/sold.dart';
 import 'package:shamagri_latest_flutter_version/domain/sold_not_form/sold_not_form.dart';
 import 'package:shamagri_latest_flutter_version/injection.dart';
+import 'package:shamagri_latest_flutter_version/presentation/both/stateful_wrapper.dart';
 import 'package:shamagri_latest_flutter_version/presentation/routes/router.gr.dart';
 import 'package:shamagri_latest_flutter_version/presentation/vendor/add/after_select/buyer_input_hook.dart';
 import 'package:provider/provider.dart';
@@ -114,157 +115,125 @@ class FromNotificationBoughtBill extends StatelessWidget {
                       .quotations!
                       .getOrCrash()
                       .toString()); */
-              return Stack(children: <Widget>[
-                WillPopScope(
-                  onWillPop: () async {
-                    // ExtendedNavigator.of(context).pushSoldInvoice();
-                    bool? result = await AutoRouter.of(context).push(
-                        BoughtInvoiceRoute(boughtId: this.soldAndboughtId));
-                    if (result == null) {
-                      result = false;
-                    }
-                    return result;
-                  },
-                  // logger.wtf('it has arrived here'),
-                  child: Scaffold(
-                    appBar: AppBar(
-                        title: Text('From Notification Bill'),
-                        actions: <Widget>[
-                          /*  Builder(
-                        builder: (BuildContext context) {
-                          final Sold billWithTotalUpdated = context.select(
-                              (SingleInvoiceWatcherBloc bloc) => bloc.state.bill);
-                          return IconButton(
-                            icon: Icon(Icons.done),
-                            onPressed: () {
-                              // do something
+              return StatefulWrapper(
+                onInit: () {},
+                child: Stack(children: <Widget>[
+                  WillPopScope(
+                    onWillPop: () async {
+                      // ExtendedNavigator.of(context).pushSoldInvoice();
+                      bool? result = await AutoRouter.of(context).push(
+                          BoughtInvoiceRoute(boughtId: this.soldAndboughtId));
+                      if (result == null) {
+                        result = false;
+                      }
+                      return result;
+                    },
+                    // logger.wtf('it has arrived here'),
+                    child: Scaffold(
+                      appBar: AppBar(
+                          title: Text('From Notification Bill'),
+                          actions: <Widget>[
+                            IconButton(
+                              icon: Icon(
+                                Icons.approval,
+                                // approval_rounded
+                              ),
+                              color: context
+                                      .read<FromNotificationBloc>()
+                                      .state
+                                      .bill!
+                                      .isApproved!
+                                      .getOrCrash()
+                                  ? Colors.green[600]
+                                  : Colors.yellow[600],
+                              onPressed: () {
+                                bool isApproved;
+                                // do something
+                                if (context
+                                    .read<FromNotificationBloc>()
+                                    .state
+                                    .bill!
+                                    .isApproved!
+                                    .getOrCrash()) {
+                                  isApproved = false;
+                                  BlocProvider.of<FromNotificationBloc>(context)
+                                      .add(FromNotificationEvent
+                                          .isApprovedChanged(isApproved));
+                                  BlocProvider.of<FromNotificationBloc>(context)
+                                      .add(FromNotificationEvent.updated());
+                                } else {
+                                  isApproved = true;
 
-                              // if (billWithTotalUpdated.failureOption.isNone()) {
-                              context
-                                  .read<SingleInvoiceWatcherBloc>()
-                                  .add(SingleInvoiceWatcherEvent.saved());
-                              // }
-                            },
-                          );
-                        },
-                      ) */
-                          IconButton(
-                            icon: Icon(
-                              Icons.edit,
-                              // color: Colors.white,
+                                  BlocProvider.of<FromNotificationBloc>(context)
+                                      .add(FromNotificationEvent
+                                          .isApprovedChanged(isApproved));
+                                  BlocProvider.of<FromNotificationBloc>(context)
+                                      .add(FromNotificationEvent.updated());
+                                }
+                              },
                             ),
-                            onPressed: () {
-                              // do something
-                              /* showModalBottomSheet(
-                              context: context,
-                              builder: (context) {
-                                return Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    ListTile(
-                                      leading: new Icon(Icons.delete),
-                                      title: new Text('Delete'),
-                                      onTap: () {
-                                        // Navigator.pop(context);
-                                        /* context
-                                            .bloc<AuthBloc>()
-                                            .add(const AuthEvent.signedOut()); */
-                                      },
-                                    ),
-                                  ],
-                                );
-                              }); */
-                            },
-                          ),
-                          IconButton(
-                            icon: Icon(
-                              Icons.menu,
-                              // color: Colors.white,
-                            ),
-                            onPressed: () {
-                              // do something
-                              showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: <Widget>[
-                                        ListTile(
-                                          leading: new Icon(Icons.delete),
-                                          title: new Text('Delete'),
-                                          onTap: () {
-                                            // Navigator.pop(context);
-                                            /* context
-                                            .bloc<AuthBloc>()
-                                            .add(const AuthEvent.signedOut()); */
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  });
-                            },
-                          ),
-                        ]),
-                    body: Column(
-                      children: [
-                        /* Builder(builder: (BuildContext context) {
-                          final bool showError = context.select(
-                              (SingleInvoiceWatcherBloc bloc) =>
-                                  bloc.state.showErrorMessages);
-                          return Container(
-                              child: Form(
-                            autovalidate: showError,
-                            child: BuyerInputHook(),
-                          ));
-                        }), */
-                        //for name of buyer
-                        //also has find buyer icon for input box to search for the user
-                        // if(mounted){}
-                        // Row(children: [Text("hey there")]),
-                        Expanded(
-                            child: ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            final quotation = quotations[index];
-                            logger.wtf(
-                                "quotation_notif: " + quotation.toString());
-                            /* logger.wtf("passed" +
-                          this
-                              .SoldBillSoldOption
-                              .quotations
-                              .getOrCrash()
-                              .indexOf(quotation)
-                              .toString()); */
-                            return ItemTile(
-                              entry: quotation,
-                            );
-                          },
-                          itemCount: quotations.size,
-
-                          /*  children: state.bill.quotations.getOrCrash().((entry) {
-                            return ItemTile(
-                              entry: entry,
-                            );
-                          }
-                          ) */
-                        )), //List of items
-                        Container(
-                            child: Text(context
-                                .watch<FromNotificationBloc>()
-                                .state
-                                .bill!
-                                .total!
+                          ]),
+                      body: Column(
+                        children: [
+                          /* Builder(builder: (BuildContext context) {
+                            final bool showError = context.select(
+                                (SingleInvoiceWatcherBloc bloc) =>
+                                    bloc.state.showErrorMessages);
+                            return Container(
+                                child: Form(
+                              autovalidate: showError,
+                              child: BuyerInputHook(),
+                            ));
+                          }), */
+                          //for name of buyer
+                          //also has find buyer icon for input box to search for the user
+                          // if(mounted){}
+                          // Row(children: [Text("hey there")]),
+                          Expanded(
+                              child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              final quotation = quotations[index];
+                              logger.wtf(
+                                  "quotation_notif: " + quotation.toString());
+                              /* logger.wtf("passed" +
+                            this
+                                .SoldBillSoldOption
+                                .quotations
                                 .getOrCrash()
-                                .toString()),
-                            height: 50.0), //total
-                        // Row(), //send
-                      ],
+                                .indexOf(quotation)
+                                .toString()); */
+                              return ItemTile(
+                                entry: quotation,
+                              );
+                            },
+                            itemCount: quotations.size,
+
+                            /*  children: state.bill.quotations.getOrCrash().((entry) {
+                              return ItemTile(
+                                entry: entry,
+                              );
+                            }
+                            ) */
+                          )), //List of items
+                          Container(
+                              child: Text(context
+                                  .watch<FromNotificationBloc>()
+                                  .state
+                                  .bill!
+                                  .total!
+                                  .getOrCrash()
+                                  .toString()),
+                              height: 50.0), //total
+                          // Row(), //send
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                SavingInProgressOverlay(isSaving: state.isSaving!)
-              ]);
+                  SavingInProgressOverlay(isSaving: state.isSaving!)
+                ]),
+              );
             },
           )),
     );
