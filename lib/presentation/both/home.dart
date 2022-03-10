@@ -311,6 +311,7 @@ class HomeScreenState extends State<HomeScreen>
       body: getTabBarView(<Widget>[Bought(), Sold()]), //Third()
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Visibility(
+        key
         visible:
             currentTab == 1 ? MyThemes.hideBillButton : MyThemes.showBillButton,
         // visible: false,
