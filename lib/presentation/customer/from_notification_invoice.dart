@@ -41,7 +41,7 @@ class FromNotificationBoughtBill extends StatelessWidget {
     @required this.soldInvoiceAndBoughtInvoiceId,
   }) : super(key: key) {
     intro = Intro(
-      stepCount: 2,
+      stepCount: 1,
 
       maskClosable: true,
 
@@ -51,7 +51,6 @@ class FromNotificationBoughtBill extends StatelessWidget {
   }
   Widget customThemeWidgetBuilder(StepWidgetParams stepWidgetParams) {
     List<String> texts = [
-      '',
       'This is the total you are looking for!',
       // 'My usage is also very simple, you can quickly learn and use it through example and api documentation.',
       // 'In order to quickly implement the guidance, I also provide a set of out-of-the-box themes, I wish you all a happy use, goodbye!',

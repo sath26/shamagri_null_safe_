@@ -10,12 +10,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_intro/flutter_intro.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:shamagri_latest_flutter_version/domain/auth/i_auth_facade.dart';
 import 'package:shamagri_latest_flutter_version/domain/core/errors.dart';
 import 'package:shamagri_latest_flutter_version/injection.dart';
+import 'package:shamagri_latest_flutter_version/presentation/both/stateful_wrapper.dart';
 // import 'package:logger/logger.dart';
 import 'package:shamagri_latest_flutter_version/presentation/routes/router.gr.dart';
 import 'package:shamagri_latest_flutter_version/presentation/vendor/sold.dart';
@@ -34,7 +36,70 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   final FirebaseAnalytics? _firebaseAnalytics = FirebaseAnalytics.instance;
-  HomeScreenState({Key? key});
+  HomeScreenState({Key? key}){
+    intro = Intro(
+      stepCount: 1,
+
+      maskClosable: true,
+
+      /// implement widgetBuilder function
+      widgetBuilder: customThemeWidgetBuilder,
+    );
+  }
+  Widget customThemeWidgetBuilder(StepWidgetParams stepWidgetParams) {
+    List<String> texts = [
+      'only seller sends bill!',
+      // 'My usage is also very simple, you can quickly learn and use it through example and api documentation.',
+      // 'In order to quickly implement the guidance, I also provide a set of out-of-the-box themes, I wish you all a happy use, goodbye!',
+    ];
+    return Padding(
+      padding: EdgeInsets.all(
+        32,
+      ),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 40,
+          ),
+          Text(
+            '${texts[stepWidgetParams.currentStepIndex]}【${stepWidgetParams.currentStepIndex + 1} / ${stepWidgetParams.stepCount}】',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+            ),
+          ),
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: stepWidgetParams.onPrev,
+                child: Text(
+                  'Prev',
+                ),
+              ),
+              SizedBox(
+                width: 16,
+              ),
+              ElevatedButton(
+                onPressed: stepWidgetParams.onNext,
+                child: Text(
+                  'Next',
+                ),
+              ),
+              SizedBox(
+                width: 16,
+              ),
+              ElevatedButton(
+                onPressed: stepWidgetParams.onFinish,
+                child: Text(
+                  'Finish',
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 // Create a tab controller
   TabController? controller;
   // Future<String?>? iosSubscription;
@@ -46,6 +111,7 @@ class HomeScreenState extends State<HomeScreen>
   int? currentTab = 0;
   @override
   void initState() {
+    intro.start(context);
     super.initState();
     _setAnalyticsProperties();
     _logAppOpen();
@@ -286,94 +352,95 @@ class HomeScreenState extends State<HomeScreen>
       controller: controller,
     );
   }
-
+late Intro intro;
   @override
   Widget build(BuildContext context) {
     // currentTab = controller.index;
 
-    return Scaffold(
-      appBar: AppBar(
-          title: Text('Shamagri'),
-          actions: [
-            /* IconButton(
-                icon: Icon(
-                  Icons.open_with_rounded,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  // do something
-                },
-              ), */
-          ],
-          // backgroundColor: Colors.indigo,
-          bottom: getTabBar(),
-          automaticallyImplyLeading: false),
-      body: getTabBarView(<Widget>[Bought(), Sold()]), //Third()
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Visibility(
-        key
-        visible:
-            currentTab == 1 ? MyThemes.hideBillButton : MyThemes.showBillButton,
-        // visible: false,
-
-        child: FloatingActionButton.extended(
-            // backgroundColor: Colors.white,
-            onPressed: () async {
-              //Navigator.pushReplacementNamed(context, '/select-bill');
-              // ExtendedNavigator.of(context).replace(Routes.selectBillScreen);
-              String now = dateFormat.format(DateTime.now());
-
-              await _firebaseAnalytics!.logEvent(
-                name: 'create_bill',
-                parameters: {
-                  'clicked_time': now,
-                },
-              );
-              AutoRouter.of(context)
-                  .push(SelectBillScreenRoute(afterSelectSoldOption: null));
-            },
-            icon: Icon(
-              Icons.add,
-              // color: Colors.white,
-            ),
-            label: Text(" BILL")),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        // color: Colors.black,
-        notchMargin: 6.0,
-        shape: AutomaticNotchedShape(
-          RoundedRectangleBorder(),
-          StadiumBorder(
-            side: BorderSide(),
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: new Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(
-                  Icons.home_outlined,
-                  //home_outlined shows that the tab is inactive and just home shows active icon
-                  // color: Colors.white,
-                ),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: Icon(
-                  Icons.person_outline,
-                  // color: Colors.white,
-                ),
-                onPressed: () {
-                  AutoRouter.of(context).replace(ProfilePageRoute());
-                },
-              ),
+    return  Scaffold(
+        appBar: AppBar(
+            title: Text('Shamagri'),
+            actions: [
+              /* IconButton(
+                  icon: Icon(
+                    Icons.open_with_rounded,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    // do something
+                  },
+                ), */
             ],
+            // backgroundColor: Colors.indigo,
+            bottom: getTabBar(),
+            automaticallyImplyLeading: false),
+        body: getTabBarView(<Widget>[Bought(), Sold()]), //Third()
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: Visibility(
+          key:intro.keys[0],
+          visible:
+              currentTab == 1 ? MyThemes.hideBillButton : MyThemes.showBillButton,
+          // visible: false,
+    
+          child: FloatingActionButton.extended(
+              // backgroundColor: Colors.white,
+              onPressed: () async {
+                //Navigator.pushReplacementNamed(context, '/select-bill');
+                // ExtendedNavigator.of(context).replace(Routes.selectBillScreen);
+                String now = dateFormat.format(DateTime.now());
+    
+                await _firebaseAnalytics!.logEvent(
+                  name: 'create_bill',
+                  parameters: {
+                    'clicked_time': now,
+                  },
+                );
+                AutoRouter.of(context)
+                    .push(SelectBillScreenRoute(afterSelectSoldOption: null));
+              },
+              icon: Icon(
+                Icons.add,
+                // color: Colors.white,
+              ),
+              label: Text(" BILL")),
+        ),
+        bottomNavigationBar: BottomAppBar(
+          // color: Colors.black,
+          notchMargin: 6.0,
+          shape: AutomaticNotchedShape(
+            RoundedRectangleBorder(),
+            StadiumBorder(
+              side: BorderSide(),
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: new Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(
+                    Icons.home_outlined,
+                    //home_outlined shows that the tab is inactive and just home shows active icon
+                    // color: Colors.white,
+                  ),
+                  onPressed: () {},
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.person_outline,
+                    // color: Colors.white,
+                  ),
+                  onPressed: () {
+                    AutoRouter.of(context).replace(ProfilePageRoute());
+                  },
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      )
+    ;
   }
 }
