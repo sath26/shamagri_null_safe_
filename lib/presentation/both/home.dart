@@ -51,7 +51,7 @@ class HomeScreenState extends State<HomeScreen>
   GlobalKey keyBottomNavigation1 = GlobalKey();
   @override
   void initState() {
-    Future.delayed(Duration.zero, showTutorial);
+    
     super.initState();
     _setAnalyticsProperties();
     _logAppOpen();
@@ -74,6 +74,7 @@ class HomeScreenState extends State<HomeScreen>
       if (currentTab == 0) {
         _trackBoughtClicked();
       } else {
+        Future.delayed(Duration.zero, showTutorial);
         _trackSoldClicked();
       }
       // logger.i("Selected index " + currentTab.toString());
