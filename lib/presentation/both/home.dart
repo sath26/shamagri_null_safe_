@@ -10,7 +10,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_intro/flutter_intro.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
@@ -23,6 +22,7 @@ import 'package:shamagri_latest_flutter_version/presentation/routes/router.gr.da
 import 'package:shamagri_latest_flutter_version/presentation/vendor/sold.dart';
 import 'package:shamagri_latest_flutter_version/presentation/customer/bought_bloc.dart';
 import 'package:shamagri_latest_flutter_version/themes.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 // import 'package:mobile_shamagri/third.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -36,71 +36,8 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   final FirebaseAnalytics? _firebaseAnalytics = FirebaseAnalytics.instance;
-  HomeScreenState({Key? key}){
-    intro = Intro(
-      stepCount: 1,
-
-      maskClosable: true,
-
-      /// implement widgetBuilder function
-      widgetBuilder: customThemeWidgetBuilder,
-    );
-  }
-  Widget customThemeWidgetBuilder(StepWidgetParams stepWidgetParams) {
-    List<String> texts = [
-      'only seller sends bill!',
-      // 'My usage is also very simple, you can quickly learn and use it through example and api documentation.',
-      // 'In order to quickly implement the guidance, I also provide a set of out-of-the-box themes, I wish you all a happy use, goodbye!',
-    ];
-    return Padding(
-      padding: EdgeInsets.all(
-        32,
-      ),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 40,
-          ),
-          Text(
-            '${texts[stepWidgetParams.currentStepIndex]}【${stepWidgetParams.currentStepIndex + 1} / ${stepWidgetParams.stepCount}】',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-            ),
-          ),
-          Row(
-            children: [
-              ElevatedButton(
-                onPressed: stepWidgetParams.onPrev,
-                child: Text(
-                  'Prev',
-                ),
-              ),
-              SizedBox(
-                width: 16,
-              ),
-              ElevatedButton(
-                onPressed: stepWidgetParams.onNext,
-                child: Text(
-                  'Next',
-                ),
-              ),
-              SizedBox(
-                width: 16,
-              ),
-              ElevatedButton(
-                onPressed: stepWidgetParams.onFinish,
-                child: Text(
-                  'Finish',
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-// Create a tab controller
+  HomeScreenState({Key? key});
+  // Create a tab controller
   TabController? controller;
   // Future<String?>? iosSubscription;
   final FirebaseMessaging? firebaseMessaging = FirebaseMessaging.instance;
@@ -109,9 +46,12 @@ class HomeScreenState extends State<HomeScreen>
   // Logger logger = new Logger();
   int? num = 0;
   int? currentTab = 0;
+  late TutorialCoachMark tutorialCoachMark;
+  List<TargetFocus> targets = <TargetFocus>[];
+  GlobalKey keyBottomNavigation1 = GlobalKey();
   @override
   void initState() {
-    intro.start(context);
+    Future.delayed(Duration.zero, showTutorial);
     super.initState();
     _setAnalyticsProperties();
     _logAppOpen();
@@ -143,6 +83,67 @@ class HomeScreenState extends State<HomeScreen>
     registerNotification();
     configLocalNotification();
   }
+  void showTutorial() {
+    initTargets();
+    tutorialCoachMark = TutorialCoachMark(
+      context,
+      targets: targets,
+      colorShadow: Colors.red,
+      textSkip: "SKIP",
+      paddingFocus: 10,
+      opacityShadow: 0.8,
+      onFinish: () {
+        print("finish");
+      },
+      onClickTarget: (target) {
+        print('onClickTarget: $target');
+      },
+      onClickOverlay: (target) {
+        print('onClickOverlay: $target');
+      },
+      onSkip: () {
+        print("skip");
+      },
+    )..show();
+  }
+  void initTargets() {
+    targets.clear();
+     targets.add(
+      TargetFocus(
+        identify: "keyBottomNavigation1",
+        keyTarget: keyBottomNavigation1,
+        alignSkip: Alignment.topRight,
+        contents: [
+          TargetContent(
+            align: ContentAlign.top,
+            builder: (context, controller) {
+              return Container(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Titulo lorem ipsum",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+void didChangeDependencies() {
+  super.didChangeDependencies();
+
+
+}
 
   void _logAppOpen() async {
     await _firebaseAnalytics!.logAppOpen();
@@ -329,7 +330,6 @@ class HomeScreenState extends State<HomeScreen>
       tabs: <Tab>[
         Tab(
           // set icon to the tab
-
           text: "BOUGHT",
         ),
         Tab(
@@ -352,7 +352,6 @@ class HomeScreenState extends State<HomeScreen>
       controller: controller,
     );
   }
-late Intro intro;
   @override
   Widget build(BuildContext context) {
     // currentTab = controller.index;
@@ -377,32 +376,35 @@ late Intro intro;
         body: getTabBarView(<Widget>[Bought(), Sold()]), //Third()
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Visibility(
-          key:intro.keys[0],
+          key:keyBottomNavigation1,
           visible:
               currentTab == 1 ? MyThemes.hideBillButton : MyThemes.showBillButton,
           // visible: false,
     
-          child: FloatingActionButton.extended(
-              // backgroundColor: Colors.white,
-              onPressed: () async {
-                //Navigator.pushReplacementNamed(context, '/select-bill');
-                // ExtendedNavigator.of(context).replace(Routes.selectBillScreen);
-                String now = dateFormat.format(DateTime.now());
-    
-                await _firebaseAnalytics!.logEvent(
-                  name: 'create_bill',
-                  parameters: {
-                    'clicked_time': now,
-                  },
-                );
-                AutoRouter.of(context)
-                    .push(SelectBillScreenRoute(afterSelectSoldOption: null));
-              },
-              icon: Icon(
-                Icons.add,
-                // color: Colors.white,
-              ),
-              label: Text(" BILL")),
+          child: SizedBox(
+           
+            child: FloatingActionButton.extended(
+                // backgroundColor: Colors.white,
+                onPressed: () async {
+                  //Navigator.pushReplacementNamed(context, '/select-bill');
+                  // ExtendedNavigator.of(context).replace(Routes.selectBillScreen);
+                  String now = dateFormat.format(DateTime.now());
+              
+                  await _firebaseAnalytics!.logEvent(
+                    name: 'create_bill',
+                    parameters: {
+                      'clicked_time': now,
+                    },
+                  );
+                  AutoRouter.of(context)
+                      .push(SelectBillScreenRoute(afterSelectSoldOption: null));
+                },
+                icon: Icon(
+                  Icons.add,
+                  // color: Colors.white,
+                ),
+                label: Text(" BILL")),
+          ),
         ),
         bottomNavigationBar: BottomAppBar(
           // color: Colors.black,

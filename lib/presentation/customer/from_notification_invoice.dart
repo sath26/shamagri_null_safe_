@@ -4,7 +4,6 @@ import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_intro/flutter_intro.dart';
 import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:logger/logger.dart';
@@ -31,7 +30,6 @@ class FromNotificationBoughtBill extends StatelessWidget {
   // final BoughtNotForm boughtBillBoughtOption;
   final String? soldAndboughtId;
   final String? soldInvoiceAndBoughtInvoiceId;
-  late Intro intro;
 
   FromNotificationBoughtBill({
     Key? key,
@@ -39,71 +37,9 @@ class FromNotificationBoughtBill extends StatelessWidget {
     // @required this.boughtBillBoughtOption,
     @required this.soldAndboughtId,
     @required this.soldInvoiceAndBoughtInvoiceId,
-  }) : super(key: key) {
-    intro = Intro(
-      stepCount: 1,
-
-      maskClosable: true,
-
-      /// implement widgetBuilder function
-      widgetBuilder: customThemeWidgetBuilder,
-    );
-  }
-  Widget customThemeWidgetBuilder(StepWidgetParams stepWidgetParams) {
-    List<String> texts = [
-      'This is the total you are looking for!',
-      // 'My usage is also very simple, you can quickly learn and use it through example and api documentation.',
-      // 'In order to quickly implement the guidance, I also provide a set of out-of-the-box themes, I wish you all a happy use, goodbye!',
-    ];
-    return Padding(
-      padding: EdgeInsets.all(
-        32,
-      ),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 40,
-          ),
-          Text(
-            '${texts[stepWidgetParams.currentStepIndex]}【${stepWidgetParams.currentStepIndex + 1} / ${stepWidgetParams.stepCount}】',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-            ),
-          ),
-          Row(
-            children: [
-              ElevatedButton(
-                onPressed: stepWidgetParams.onPrev,
-                child: Text(
-                  'Prev',
-                ),
-              ),
-              SizedBox(
-                width: 16,
-              ),
-              ElevatedButton(
-                onPressed: stepWidgetParams.onNext,
-                child: Text(
-                  'Next',
-                ),
-              ),
-              SizedBox(
-                width: 16,
-              ),
-              ElevatedButton(
-                onPressed: stepWidgetParams.onFinish,
-                child: Text(
-                  'Finish',
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
+  }) : super(key: key) ;
+      // 'This is the total you are looking for!',
+  
   @override
   Widget build(BuildContext context) {
     var logger = Logger();
@@ -182,7 +118,6 @@ class FromNotificationBoughtBill extends StatelessWidget {
                       .toString()); */
               return StatefulWrapper(
                 onInit: () {
-                  intro.start(context);
                 },
                 child: Stack(children: <Widget>[
                   WillPopScope(
@@ -201,7 +136,6 @@ class FromNotificationBoughtBill extends StatelessWidget {
                           title: Text('From Notification Bill'),
                           actions: <Widget>[
                             IconButton(
-                              key: intro.keys[0],
                               icon: Icon(
                                 Icons.approval,
                                 // approval_rounded
@@ -286,7 +220,6 @@ class FromNotificationBoughtBill extends StatelessWidget {
                             ) */
                           )), //List of items
                           Container(
-                              key: intro.keys[1],
                               child: Text(context
                                   .watch<FromNotificationBloc>()
                                   .state

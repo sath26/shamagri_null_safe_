@@ -85,7 +85,8 @@ dependencies:
   firebase_crashlytics: ^2.4.5
   firebase_analytics: ^9.0.5
   bloc_concurrency: ^0.2.0
-  flutter_intro: ^2.3.1
+  tutorial_coach_mark: ^1.2.1
+  # flutter_intro: ^2.3.1
   #mockito: ^4.1.4
   #remove above package later on
   #firebase_auth_mocks: ^0.3.1
