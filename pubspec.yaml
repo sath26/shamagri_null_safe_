@@ -86,6 +86,7 @@ dependencies:
   firebase_analytics: ^9.0.5
   bloc_concurrency: ^0.2.0
   tutorial_coach_mark: ^1.2.1
+  is_first_run: ^1.0.0
   # flutter_intro: ^2.3.1
   #mockito: ^4.1.4
   #remove above package later on

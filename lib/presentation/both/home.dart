@@ -12,6 +12,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
+import 'package:is_first_run/is_first_run.dart';
 import 'package:logger/logger.dart';
 import 'package:shamagri_latest_flutter_version/domain/auth/i_auth_facade.dart';
 import 'package:shamagri_latest_flutter_version/domain/core/errors.dart';
@@ -67,14 +68,18 @@ class HomeScreenState extends State<HomeScreen>
         currentTab = 1;
       });
     }
-    controller!.addListener(() {
+    controller!.addListener(() async{
       setState(() {
         currentTab = controller!.index;
       });
       if (currentTab == 0) {
+
         _trackBoughtClicked();
       } else {
+bool ifc = await IsFirstRun.isFirstCall();
+if(ifc){
         Future.delayed(Duration.zero, showTutorial);
+}
         _trackSoldClicked();
       }
       // logger.i("Selected index " + currentTab.toString());
