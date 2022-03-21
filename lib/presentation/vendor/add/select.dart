@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart' as m;
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:is_first_run/is_first_run.dart';
 import 'package:shamagri_latest_flutter_version/application/auth/auth_bloc.dart';
 import 'package:shamagri_latest_flutter_version/application/bought_sold/quotation_primitive/quotation_item_presentation_classes.dart';
 import 'package:shamagri_latest_flutter_version/application/bought_sold/selected_individual_edit_for_sold_not_bought/selected_watcher_bloc.dart';
@@ -26,6 +27,7 @@ import 'package:shamagri_latest_flutter_version/presentation/vendor/add/select/p
 import 'package:shamagri_latest_flutter_version/presentation/vendor/add/select/selected.dart';
 import 'package:provider/provider.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 // Base data class that will be supplied by the source bloc.
 class SelectBillScreen extends StatefulWidget {
@@ -41,13 +43,81 @@ class _SelectBillScreenState extends State<SelectBillScreen> {
   AutoScrollController? controller;
   final scrollDirection = Axis.vertical;
   final FirebaseAnalytics _firebaseAnalytics = FirebaseAnalytics.instance;
+  GlobalKey keyQuotationAdd = GlobalKey();
   @override
   void initState() {
     super.initState();
+    showTutorialInInitState();
     controller = AutoScrollController(
         viewportBoundaryGetter: () =>
             Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
         axis: scrollDirection);
+  }
+
+  void showTutorialInInitState() async {
+    bool ifc = await IsFirstRun.isFirstCall();
+    if (ifc) {
+      Future.delayed(Duration.zero, showTutorial);
+    }
+  }
+
+  late TutorialCoachMark tutorialCoachMark;
+  List<TargetFocus> targets = <TargetFocus>[];
+
+  void showTutorial() {
+    initTargets();
+    tutorialCoachMark = TutorialCoachMark(
+      context,
+      targets: targets,
+      colorShadow: Colors.red,
+      textSkip: "SKIP",
+      paddingFocus: 10,
+      opacityShadow: 0.8,
+      onFinish: () {
+        print("finish");
+      },
+      onClickTarget: (target) {
+        print('onClickTarget: $target');
+      },
+      onClickOverlay: (target) {
+        print('onClickOverlay: $target');
+      },
+      onSkip: () {
+        print("skip");
+      },
+    )..show();
+  }
+
+  void initTargets() {
+    targets.clear();
+    targets.add(
+      TargetFocus(
+        identify: "keyQuotationAdd",
+        keyTarget: keyQuotationAdd,
+        alignSkip: Alignment.topLeft,
+        contents: [
+          TargetContent(
+            align: ContentAlign.bottom,
+            builder: (context, controller) {
+              return Container(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Lets add your first item for quotation!",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -112,6 +182,7 @@ class _SelectBillScreenState extends State<SelectBillScreen> {
                   }),
               actions: <Widget>[
                 IconButton(
+                  key: keyQuotationAdd,
                   icon: Icon(
                     QuotationAddIcon.iUe800,
                     size: 30,

@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
 import 'package:intl/intl.dart';
+import 'package:is_first_run/is_first_run.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:logger/logger.dart';
 
@@ -19,9 +20,11 @@ import 'package:shamagri_latest_flutter_version/domain/sold/sold.dart';
 import 'package:shamagri_latest_flutter_version/domain/sold_not_form/sold_not_form.dart';
 import 'package:shamagri_latest_flutter_version/injection.dart';
 import 'package:shamagri_latest_flutter_version/presentation/both/home.dart';
+import 'package:shamagri_latest_flutter_version/presentation/both/stateful_wrapper.dart';
 import 'package:shamagri_latest_flutter_version/presentation/routes/router.gr.dart';
 import 'package:shamagri_latest_flutter_version/presentation/vendor/add/after_select/buyer_input_hook.dart';
 import 'package:provider/provider.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 class AfterSelect extends StatelessWidget {
   // final bool isEditing;
@@ -32,6 +35,41 @@ class AfterSelect extends StatelessWidget {
     @required this.afterSelectSoldOption,
   }) : super(key: key);
   final FirebaseAnalytics _firebaseAnalytics = FirebaseAnalytics.instance;
+  GlobalKey keyTotalAfterSelect = GlobalKey();
+  late TutorialCoachMark tutorialCoachMark;
+  List<TargetFocus> targets = <TargetFocus>[];
+
+  void initTargets() {
+    targets.clear();
+    targets.add(
+      TargetFocus(
+        identify: "keyTotalAfterSelect",
+        keyTarget: keyTotalAfterSelect,
+        alignSkip: Alignment.topLeft,
+        contents: [
+          TargetContent(
+            align: ContentAlign.bottom,
+            builder: (context, controller) {
+              return Container(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "No need of calculator anymore!",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,128 +137,164 @@ class AfterSelect extends StatelessWidget {
             },
             buildWhen: (p, c) => p.isEditing != c.isEditing,
             builder: (context, state) {
-              return Stack(children: <Widget>[
-                WillPopScope(
-                  onWillPop: () async {
-                    bool? result = await AutoRouter.of(context).root.push(
-                        SelectBillScreenRoute(afterSelectSoldOption: null));
-                    if (result == null) {
-                      result = false;
-                    }
-                    return result;
-                  },
-                  child: Scaffold(
-                    appBar: AppBar(title: Text('Send Bill'), actions: <Widget>[
-                      Builder(
-                        builder: (BuildContext context) {
-                          final Sold billWithTotalUpdated = context.select(
-                              (SelectedWatcherBloc bloc) => bloc.state.bill!);
-                          return IconButton(
-                            icon: Icon(Icons.done),
-                            onPressed: () async {
-                              // do something
-
-                              // if (billWithTotalUpdated.failureOption.isNone()) {
-                              DateFormat dateFormat =
-                                  DateFormat("yyyy-MM-dd HH:mm:ss");
-                              String now = dateFormat.format(DateTime.now());
-                              await _firebaseAnalytics.logEvent(
-                                name: 'bill_sent',
-                                parameters: {
-                                  'clicked_time': now,
-                                },
-                              );
-                              context
-                                  .read<SelectedWatcherBloc>()
-                                  .add(SelectedWatcherEvent.saved());
-                              // }
-                            },
-                          );
+              Logger logger = Logger();
+              return StatefulWrapper(
+                onInit: () async {
+                  logger.i("inside after_select onInit");
+                  bool ifc = await IsFirstRun.isFirstCall();
+                  if (ifc) {
+                    Future.delayed(Duration.zero, () {
+                      initTargets();
+                      tutorialCoachMark = TutorialCoachMark(
+                        context,
+                        targets: targets,
+                        colorShadow: Colors.red,
+                        textSkip: "SKIP",
+                        paddingFocus: 10,
+                        opacityShadow: 0.8,
+                        onFinish: () {
+                          print("finish");
                         },
-                      )
-                    ]),
-                    body: Column(
-                      children: [
-                        Builder(builder: (BuildContext context) {
-                          final bool showError = context.select(
-                              (SelectedWatcherBloc bloc) =>
-                                  bloc.state.showErrorMessages!);
-                          return Container(
-                              child: Form(
-                            autovalidateMode: AutovalidateMode.always,
-                            child: BuyerInputHook(),
-                          ));
-                        }),
-                        //for name of buyer
-                        //also has find buyer icon for input box to search for the user
-                        Expanded(
-                            child: ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (context, index) {
-                            final quotation = context
-                                .read<SelectedWatcherBloc>()
-                                .state
-                                .bill!
-                                .quotations!
-                                .getOrCrash()
-                                .get(index);
-                            /* logger.wtf("passed" +
-                          this
-                              .afterSelectSoldOption
-                              .quotations
-                              .getOrCrash()
-                              .indexOf(quotation)
-                              .toString()); */
-                            return ItemTile(
-                              onTap: () {
-                                /*  */
+                        onClickTarget: (target) {
+                          print('onClickTarget: $target');
+                        },
+                        onClickOverlay: (target) {
+                          print('onClickOverlay: $target');
+                        },
+                        onSkip: () {
+                          print("skip");
+                        },
+                      )..show();
+                    });
+                  }
+                  
+                },
+                child: Stack(children: <Widget>[
+                  WillPopScope(
+                    onWillPop: () async {
+                      bool? result = await AutoRouter.of(context).root.push(
+                          SelectBillScreenRoute(afterSelectSoldOption: null));
+                      if (result == null) {
+                        result = false;
+                      }
+                      return result;
+                    },
+                    child: Scaffold(
+                      appBar:
+                          AppBar(title: Text('Send Bill'), actions: <Widget>[
+                        Builder(
+                          builder: (BuildContext context) {
+                            final Sold billWithTotalUpdated = context.select(
+                                (SelectedWatcherBloc bloc) => bloc.state.bill!);
+                            return IconButton(
+                              icon: Icon(Icons.done),
+                              onPressed: () async {
+                                // do something
+
+                                // if (billWithTotalUpdated.failureOption.isNone()) {
+                                DateFormat dateFormat =
+                                    DateFormat("yyyy-MM-dd HH:mm:ss");
+                                String now = dateFormat.format(DateTime.now());
+                                await _firebaseAnalytics.logEvent(
+                                  name: 'bill_sent',
+                                  parameters: {
+                                    'clicked_time': now,
+                                  },
+                                );
                                 context
                                     .read<SelectedWatcherBloc>()
-                                    .state
-                                    .copyWith(isEditing: false);
-                                AutoRouter.of(context)
-                                    .push(SelectedQuotationFormRoute(
-                                  bill: context
-                                      .read<SelectedWatcherBloc>()
-                                      .state
-                                      .bill,
-                                  quotationIndex: context
-                                      .read<SelectedWatcherBloc>()
-                                      .state
-                                      .bill!
-                                      .quotations!
-                                      .getOrCrash()
-                                      .indexOf(quotation),
-                                ));
+                                    .add(SelectedWatcherEvent.saved());
+                                // }
                               },
-                              entry: quotation,
                             );
                           },
-                          itemCount: state.bill!.quotations!.length,
-
-                          /*  children: state.bill.quotations.getOrCrash().((entry) {
-                            return ItemTile(
-                              entry: entry,
-                            );
-                          }
-                          ) */
-                        )), //List of items
-                        Container(
-                            child: Text(context
-                                .watch<SelectedWatcherBloc>()
-                                .state
-                                .bill!
-                                .total!
+                        )
+                      ]),
+                      body: Column(
+                        children: [
+                          Builder(builder: (BuildContext context) {
+                            final bool showError = context.select(
+                                (SelectedWatcherBloc bloc) =>
+                                    bloc.state.showErrorMessages!);
+                            return Container(
+                                child: Form(
+                              autovalidateMode: AutovalidateMode.always,
+                              child: BuyerInputHook(),
+                            ));
+                          }),
+                          //for name of buyer
+                          //also has find buyer icon for input box to search for the user
+                          Expanded(
+                              child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemBuilder: (context, index) {
+                              final quotation = context
+                                  .read<SelectedWatcherBloc>()
+                                  .state
+                                  .bill!
+                                  .quotations!
+                                  .getOrCrash()
+                                  .get(index);
+                              /* logger.wtf("passed" +
+                            this
+                                .afterSelectSoldOption
+                                .quotations
                                 .getOrCrash()
-                                .toString()),
-                            height: 50.0), //total
-                        Row(), //send
-                      ],
+                                .indexOf(quotation)
+                                .toString()); */
+                              return ItemTile(
+                                onTap: () {
+                                  /*  */
+                                  context
+                                      .read<SelectedWatcherBloc>()
+                                      .state
+                                      .copyWith(isEditing: false);
+                                  AutoRouter.of(context)
+                                      .push(SelectedQuotationFormRoute(
+                                    bill: context
+                                        .read<SelectedWatcherBloc>()
+                                        .state
+                                        .bill,
+                                    quotationIndex: context
+                                        .read<SelectedWatcherBloc>()
+                                        .state
+                                        .bill!
+                                        .quotations!
+                                        .getOrCrash()
+                                        .indexOf(quotation),
+                                  ));
+                                },
+                                entry: quotation,
+                              );
+                            },
+                            itemCount: state.bill!.quotations!.length,
+
+                            /*  children: state.bill.quotations.getOrCrash().((entry) {
+                              return ItemTile(
+                                entry: entry,
+                              );
+                            }
+                            ) */
+                          )), //List of items
+                          Container(
+                              child: Text(
+                                  context
+                                      .watch<SelectedWatcherBloc>()
+                                      .state
+                                      .bill!
+                                      .total!
+                                      .getOrCrash()
+                                      .toString(),
+                                  key: keyTotalAfterSelect),
+                              height: 50.0), //total
+                          Row(), //send
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                SavingInProgressOverlay(isSaving: state.isSaving!)
-              ]);
+                  SavingInProgressOverlay(isSaving: state.isSaving!)
+                ]),
+              );
             },
           )),
     );
