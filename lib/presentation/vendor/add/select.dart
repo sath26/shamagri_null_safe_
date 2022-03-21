@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart' as m;
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:is_first_run/is_first_run.dart';
 import 'package:shamagri_latest_flutter_version/application/auth/auth_bloc.dart';
@@ -12,6 +13,7 @@ import 'package:shamagri_latest_flutter_version/application/quotation_reso/quota
 import 'package:shamagri_latest_flutter_version/domain/quotation_reso/quotation.dart';
 import 'package:shamagri_latest_flutter_version/domain/sold/sold.dart';
 import 'package:shamagri_latest_flutter_version/injection.dart';
+import 'package:shamagri_latest_flutter_version/presentation/getx_first_call_and_first_call/first_call_getx_select.dart';
 import 'package:shamagri_latest_flutter_version/presentation/icon/Quotation_add_icon.dart';
 import 'package:shamagri_latest_flutter_version/presentation/routes/router.gr.dart';
 // import "package:shamagri_latest_flutter_version/presentation/search_filter/filter_conditions_sheet.dart";
@@ -55,10 +57,19 @@ class _SelectBillScreenState extends State<SelectBillScreen> {
   }
 
   void showTutorialInInitState() async {
-    bool ifc = await IsFirstRun.isFirstCall();
-    if (ifc) {
-      Future.delayed(Duration.zero, showTutorial);
-    }
+    // int firstRunSelect = 0;
+    // bool ifcSelect = await IsFirstRun.isFirstCall();
+    // if (firstRunSelect == 0 && ifcSelect == false) {
+    //   ifcSelect = true;
+    // }
+      if(Get.put(FirstCallGetxSelect()).ifcSelect){
+
+        Future.delayed(Duration.zero, showTutorial);
+        Get.find<FirstCallGetxSelect>().firstCall(false);
+      }
+    // if (ifcSelect) {
+    //   firstRunSelect = firstRunSelect + 1;
+    // }
   }
 
   late TutorialCoachMark tutorialCoachMark;

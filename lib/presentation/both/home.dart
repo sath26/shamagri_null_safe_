@@ -11,6 +11,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:is_first_run/is_first_run.dart';
 import 'package:logger/logger.dart';
@@ -18,6 +19,7 @@ import 'package:shamagri_latest_flutter_version/domain/auth/i_auth_facade.dart';
 import 'package:shamagri_latest_flutter_version/domain/core/errors.dart';
 import 'package:shamagri_latest_flutter_version/injection.dart';
 import 'package:shamagri_latest_flutter_version/presentation/both/stateful_wrapper.dart';
+import 'package:shamagri_latest_flutter_version/presentation/getx_first_call_and_first_call/first_call_getx_home.dart';
 // import 'package:logger/logger.dart';
 import 'package:shamagri_latest_flutter_version/presentation/routes/router.gr.dart';
 import 'package:shamagri_latest_flutter_version/presentation/vendor/sold.dart';
@@ -76,9 +78,10 @@ class HomeScreenState extends State<HomeScreen>
 
         _trackBoughtClicked();
       } else {
-bool ifc = await IsFirstRun.isFirstCall();
-if(ifc){
+// bool ifcHome = await IsFirstRun.isFirstCall();
+if(Get.put(FirstCallGetxHome()).ifcHome){
         Future.delayed(Duration.zero, showTutorial);
+        Get.find<FirstCallGetxHome>().firstCall(false);
 }
         _trackSoldClicked();
       }

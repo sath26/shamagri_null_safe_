@@ -5,6 +5,7 @@ import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:get/get.dart';
 import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
 import 'package:intl/intl.dart';
 import 'package:is_first_run/is_first_run.dart';
@@ -21,6 +22,7 @@ import 'package:shamagri_latest_flutter_version/domain/sold_not_form/sold_not_fo
 import 'package:shamagri_latest_flutter_version/injection.dart';
 import 'package:shamagri_latest_flutter_version/presentation/both/home.dart';
 import 'package:shamagri_latest_flutter_version/presentation/both/stateful_wrapper.dart';
+import 'package:shamagri_latest_flutter_version/presentation/getx_first_call_and_first_call/first_call_getx_after_select.dart';
 import 'package:shamagri_latest_flutter_version/presentation/routes/router.gr.dart';
 import 'package:shamagri_latest_flutter_version/presentation/vendor/add/after_select/buyer_input_hook.dart';
 import 'package:provider/provider.dart';
@@ -141,8 +143,8 @@ class AfterSelect extends StatelessWidget {
               return StatefulWrapper(
                 onInit: () async {
                   logger.i("inside after_select onInit");
-                  bool ifc = await IsFirstRun.isFirstCall();
-                  if (ifc) {
+                  // bool ifcAfterSelect = await IsFirstRun.isFirstCall();
+                  if (Get.put(FirstCallGetxAfterSelect()).ifcSelect) {
                     Future.delayed(Duration.zero, () {
                       initTargets();
                       tutorialCoachMark = TutorialCoachMark(
@@ -166,6 +168,8 @@ class AfterSelect extends StatelessWidget {
                         },
                       )..show();
                     });
+        Get.find<FirstCallGetxAfterSelect>().firstCall(false);
+
                   }
                   
                 },
