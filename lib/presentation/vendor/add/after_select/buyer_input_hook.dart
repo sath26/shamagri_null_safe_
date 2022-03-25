@@ -48,7 +48,7 @@ class BuyerInputHook extends HookWidget {
               child: TextFormField(
                 controller: textEditingController,
                 decoration: const InputDecoration(
-                  labelText: 'Buyer Email',
+                  labelText: 'Buyer\'s Gmail',
                   counterText: '',
                 ),
                 /*  maxLength: SoldBuyerEmail.maxLength,

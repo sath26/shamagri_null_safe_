@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:dartz/dartz.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:kt_dart/kt.dart';
 // import 'package:shamagri_latest_flutter_version/domain/auth/value_objects.dart';
 import 'package:shamagri_latest_flutter_version/domain/core/failures.dart';
@@ -134,18 +135,21 @@ Either<ValueFailure<String>, String> validateEmailAddress(String input) {
 } */
 Either<ValueFailure<String>, String> validateEmailExistence(
     String input, bool emailExist) {
-  const emailRegex =
+  /* const emailRegex =
       r"""^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+""";
-  final validateEmail = RegExp(emailRegex).hasMatch(input);
+  final validateEmail = RegExp(emailRegex).hasMatch(input); */
+  final bool validateEmail = EmailValidator.validate(input);
   if (validateEmail == false) {
     return left(ValueFailure.invalidEmail(failedValue: input));
   } else if (input == "") {
     return left(ValueFailure.empty(failedValue: input));
-  } else if (emailExist) {
+  } else{
     return right(input);
-  } else {
+  }/*  else {
     return left(ValueFailure.notSignedUp(failedValue: input));
   }
+  
+   */
 }
 
 Either<ValueFailure<String>, String> validatePassword(String input) {
