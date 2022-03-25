@@ -132,7 +132,7 @@ if(Get.put(FirstCallGetxHome()).ifcHome){
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "Titulo lorem ipsum",
+                      "You got a sale and need bill? Great!",
                       style: TextStyle(
                         color: Colors.white,
                       ),
