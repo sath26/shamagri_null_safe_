@@ -143,13 +143,13 @@ Either<ValueFailure<String>, String> validateEmailExistence(
     return left(ValueFailure.invalidEmail(failedValue: input));
   } else if (input == "") {
     return left(ValueFailure.empty(failedValue: input));
-  } else{
+  } else if(emailExist){
     return right(input);
-  }/*  else {
+  } else {
     return left(ValueFailure.notSignedUp(failedValue: input));
   }
   
-   */
+  
 }
 
 Either<ValueFailure<String>, String> validatePassword(String input) {

@@ -146,10 +146,18 @@ class SelectedWatcherBloc
             
              */
             failureOrUnit.fold(
-                (l) => logger.wtf(
-                    "failureOrUnit buyerEmail  left    " + l.toString()), (r) {
+                (l) {
+                  emit(state.copyWith(
+        bill: state.bill!.copyWith(
+            buyerDisplayName: UserDisplayNameSold("Shamagri User"),
+            buyerEmail: EmailAddressBought(e.buyerEmail!, true),
+            buyerPhotoUrl: UserPhotoUrlSold(""),
+            buyerUserId: UserIdSold("")
+            )));
+                  return logger.wtf(
+                    "failureOrUnit buyerEmail  left    " + l.toString());}, (r) {
               logger.wtf("failureOrUnit buyerEmail  right " + r.toString());
-              if (r.isNotEmpty) {
+              if (r.isNotEmpty ) {
                 logger.v("ok its here " + e.buyerEmail!);
 //todo: call emailCHnaged again for state update
                 // findFailure = "validated";
@@ -258,6 +266,9 @@ class SelectedWatcherBloc
       // failureOrSuccess = state.isEditing
       // ? await _soldRepository.update(state.bill)
       failureOrSuccess = await _soldRepository.create(state.bill!);
+    }
+    if(state.bill!.buyerUserId!.failureOrUnit.isLeft()){
+
     }
 
     emit(state.copyWith(
