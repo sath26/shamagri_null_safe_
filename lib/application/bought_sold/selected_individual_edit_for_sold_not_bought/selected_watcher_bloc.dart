@@ -105,8 +105,9 @@ class SelectedWatcherBloc
   _emailValidNotSignedUpOnly(
       _EmailValidNotSignedUpOnly e, Emitter<SelectedWatcherState> emit) {
     return emit(state.copyWith(
-        bill: state.bill!
-            .copyWith(buyerEmail: EmailAddressBought(e.buyerEmail!, false))));
+        bill: state.bill!.copyWith(
+            buyerEmail: EmailAddressBought(e.buyerEmail!, false),
+            buyerDisplayName: UserDisplayNameSold('Shamagri User'))));
   }
 
   _buyerUserIdValidated(

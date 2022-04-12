@@ -95,9 +95,16 @@ class UserIdSold extends ValueObject<String> {
 
   factory UserIdSold(String input) {
     assert(input != null);
-    return UserIdSold._(
-      validateMaxStringLength(input, maxLength),
-    );
+    if (input.isNotEmpty) {
+      return UserIdSold._(
+        validateMaxStringLength(input, maxLength),
+      );
+    } else {
+      input = "Shamagri User";
+      return UserIdSold._(
+        validateStringNotEmpty(input),
+      );
+    }
   }
 
   const UserIdSold._(this.value);
@@ -111,9 +118,16 @@ class UserPhotoUrlSold extends ValueObject<String> {
 
   factory UserPhotoUrlSold(String input) {
     assert(input != null);
-    return UserPhotoUrlSold._(
-      validateMaxStringLength(input, maxLength),
-    );
+    if (input.isNotEmpty) {
+      return UserPhotoUrlSold._(
+        validateMaxStringLength(input, maxLength),
+      );
+    } else {
+      input = "Shamagri User";
+      return UserPhotoUrlSold._(
+        validateStringNotEmpty(input),
+      );
+    }
   }
 
   const UserPhotoUrlSold._(this.value);
@@ -127,9 +141,17 @@ class UserDisplayNameSold extends ValueObject<String> {
 
   factory UserDisplayNameSold(String input) {
     assert(input != null);
-    return UserDisplayNameSold._(
-      validateMaxStringLength(input, maxLength).flatMap(validateStringNotEmpty),
-    );
+    if (input.isNotEmpty) {
+      return UserDisplayNameSold._(
+        // validateMaxStringLength(input, maxLength).flatMap(validateStringNotEmpty),
+        validateMaxStringLength(input, maxLength),
+      );
+    } else {
+      input = "Shamagri User";
+      return UserDisplayNameSold._(
+        validateStringNotEmpty(input),
+      );
+    }
   }
 
   const UserDisplayNameSold._(this.value);

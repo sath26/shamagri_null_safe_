@@ -39,9 +39,9 @@ class SoldRepository implements ISoldRepository {
   final FirebaseFirestore _firestore;
 
   SoldRepository(this._firestore);
-  String? buyerUserID;
-  String? buyerDisplayName;
-  String? buyerPhotoUrl;
+  String? buyerUserID = "";
+  String? buyerDisplayName = "";
+  String? buyerPhotoUrl = "";
 
   @override
   Future<Either<UserFailure, List<u.User>>> userExistOrFail(
