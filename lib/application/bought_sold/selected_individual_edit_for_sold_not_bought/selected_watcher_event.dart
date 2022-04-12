@@ -18,6 +18,9 @@ abstract class SelectedWatcherEvent with _$SelectedWatcherEvent {
       _EmailChanged;
   const factory SelectedWatcherEvent.emailValidated(String? buyerEmail) =
       _EmailValidated;
+  const factory SelectedWatcherEvent.emailValidNotSignedUpOnly(
+      String? buyerEmail) = _EmailValidNotSignedUpOnly;
+
   const factory SelectedWatcherEvent.buyerUserIdValidated(String? buyerUserId) =
       _BuyerUserIdValidated;
   const factory SelectedWatcherEvent.buyerDisplayNameValidated(

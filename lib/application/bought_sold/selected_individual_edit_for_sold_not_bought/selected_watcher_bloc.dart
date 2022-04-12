@@ -36,6 +36,7 @@ class SelectedWatcherBloc
     on<_CalculateTotalAfterEdit>(_calculateTotalAfterEdit);
     on<_EmailChanged>(_emailChanged);
     on<_EmailValidated>(_emailValidated);
+    on<_EmailValidNotSignedUpOnly>(_emailValidNotSignedUpOnly);
     on<_BuyerUserIdValidated>(_buyerUserIdValidated);
     on<_BuyerDisplayNameValidated>(_buyerDisplayNameValidated);
     on<_BuyerPhotoUrlValidated>(_buyerPhotoUrlValidated);
@@ -101,6 +102,13 @@ class SelectedWatcherBloc
             .copyWith(buyerEmail: EmailAddressBought(e.buyerEmail!, true))));
   }
 
+  _emailValidNotSignedUpOnly(
+      _EmailValidNotSignedUpOnly e, Emitter<SelectedWatcherState> emit) {
+    return emit(state.copyWith(
+        bill: state.bill!
+            .copyWith(buyerEmail: EmailAddressBought(e.buyerEmail!, false))));
+  }
+
   _buyerUserIdValidated(
       _BuyerUserIdValidated e, Emitter<SelectedWatcherState> emit) {
     return emit(state.copyWith(
@@ -145,19 +153,18 @@ class SelectedWatcherBloc
             /* 
             
              */
-            failureOrUnit.fold(
-                (l) {
-                  emit(state.copyWith(
-        bill: state.bill!.copyWith(
-            buyerDisplayName: UserDisplayNameSold("Shamagri User"),
-            buyerEmail: EmailAddressBought(e.buyerEmail!, true),
-            buyerPhotoUrl: UserPhotoUrlSold(""),
-            buyerUserId: UserIdSold("")
-            )));
-                  return logger.wtf(
-                    "failureOrUnit buyerEmail  left    " + l.toString());}, (r) {
+            failureOrUnit.fold((l) {
+              //without event, only state emit didnt work
+              add(SelectedWatcherEvent.emailValidNotSignedUpOnly(e.buyerEmail));
+              add(SelectedWatcherEvent.buyerUserIdValidated(" "));
+              add(SelectedWatcherEvent.buyerDisplayNameValidated(
+                  "Shamagri User"));
+              add(SelectedWatcherEvent.buyerPhotoUrlValidated(' '));
+              return logger
+                  .wtf("failureOrUnit buyerEmail  left    " + l.toString());
+            }, (r) {
               logger.wtf("failureOrUnit buyerEmail  right " + r.toString());
-              if (r.isNotEmpty ) {
+              if (r.isNotEmpty) {
                 logger.v("ok its here " + e.buyerEmail!);
 //todo: call emailCHnaged again for state update
                 // findFailure = "validated";
@@ -267,9 +274,7 @@ class SelectedWatcherBloc
       // ? await _soldRepository.update(state.bill)
       failureOrSuccess = await _soldRepository.create(state.bill!);
     }
-    if(state.bill!.buyerUserId!.failureOrUnit.isLeft()){
-
-    }
+    if (state.bill!.buyerUserId!.failureOrUnit.isLeft()) {}
 
     emit(state.copyWith(
       isSaving: false,

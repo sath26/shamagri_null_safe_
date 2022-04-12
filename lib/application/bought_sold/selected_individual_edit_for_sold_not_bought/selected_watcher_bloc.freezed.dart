@@ -57,6 +57,12 @@ class _$SelectedWatcherEventTearOff {
     );
   }
 
+  _EmailValidNotSignedUpOnly emailValidNotSignedUpOnly(String? buyerEmail) {
+    return _EmailValidNotSignedUpOnly(
+      buyerEmail,
+    );
+  }
+
   _BuyerUserIdValidated buyerUserIdValidated(String? buyerUserId) {
     return _BuyerUserIdValidated(
       buyerUserId,
@@ -129,6 +135,7 @@ mixin _$SelectedWatcherEvent {
         calculateTotalAfterEdit,
     required TResult Function(String? buyerEmail) emailChanged,
     required TResult Function(String? buyerEmail) emailValidated,
+    required TResult Function(String? buyerEmail) emailValidNotSignedUpOnly,
     required TResult Function(String? buyerUserId) buyerUserIdValidated,
     required TResult Function(String? buyerDisplayName)
         buyerDisplayNameValidated,
@@ -155,6 +162,7 @@ mixin _$SelectedWatcherEvent {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -179,6 +187,7 @@ mixin _$SelectedWatcherEvent {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -204,6 +213,8 @@ mixin _$SelectedWatcherEvent {
         calculateTotalAfterEdit,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_EmailValidated value) emailValidated,
+    required TResult Function(_EmailValidNotSignedUpOnly value)
+        emailValidNotSignedUpOnly,
     required TResult Function(_BuyerUserIdValidated value) buyerUserIdValidated,
     required TResult Function(_BuyerDisplayNameValidated value)
         buyerDisplayNameValidated,
@@ -225,6 +236,8 @@ mixin _$SelectedWatcherEvent {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -245,6 +258,8 @@ mixin _$SelectedWatcherEvent {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -351,6 +366,7 @@ class _$_Initialized implements _Initialized {
         calculateTotalAfterEdit,
     required TResult Function(String? buyerEmail) emailChanged,
     required TResult Function(String? buyerEmail) emailValidated,
+    required TResult Function(String? buyerEmail) emailValidNotSignedUpOnly,
     required TResult Function(String? buyerUserId) buyerUserIdValidated,
     required TResult Function(String? buyerDisplayName)
         buyerDisplayNameValidated,
@@ -380,6 +396,7 @@ class _$_Initialized implements _Initialized {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -407,6 +424,7 @@ class _$_Initialized implements _Initialized {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -438,6 +456,8 @@ class _$_Initialized implements _Initialized {
         calculateTotalAfterEdit,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_EmailValidated value) emailValidated,
+    required TResult Function(_EmailValidNotSignedUpOnly value)
+        emailValidNotSignedUpOnly,
     required TResult Function(_BuyerUserIdValidated value) buyerUserIdValidated,
     required TResult Function(_BuyerDisplayNameValidated value)
         buyerDisplayNameValidated,
@@ -462,6 +482,8 @@ class _$_Initialized implements _Initialized {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -485,6 +507,8 @@ class _$_Initialized implements _Initialized {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -585,6 +609,7 @@ class _$_Selected implements _Selected {
         calculateTotalAfterEdit,
     required TResult Function(String? buyerEmail) emailChanged,
     required TResult Function(String? buyerEmail) emailValidated,
+    required TResult Function(String? buyerEmail) emailValidNotSignedUpOnly,
     required TResult Function(String? buyerUserId) buyerUserIdValidated,
     required TResult Function(String? buyerDisplayName)
         buyerDisplayNameValidated,
@@ -614,6 +639,7 @@ class _$_Selected implements _Selected {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -641,6 +667,7 @@ class _$_Selected implements _Selected {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -672,6 +699,8 @@ class _$_Selected implements _Selected {
         calculateTotalAfterEdit,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_EmailValidated value) emailValidated,
+    required TResult Function(_EmailValidNotSignedUpOnly value)
+        emailValidNotSignedUpOnly,
     required TResult Function(_BuyerUserIdValidated value) buyerUserIdValidated,
     required TResult Function(_BuyerDisplayNameValidated value)
         buyerDisplayNameValidated,
@@ -696,6 +725,8 @@ class _$_Selected implements _Selected {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -719,6 +750,8 @@ class _$_Selected implements _Selected {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -835,6 +868,7 @@ class _$_IndividualQuotationEdited implements _IndividualQuotationEdited {
         calculateTotalAfterEdit,
     required TResult Function(String? buyerEmail) emailChanged,
     required TResult Function(String? buyerEmail) emailValidated,
+    required TResult Function(String? buyerEmail) emailValidNotSignedUpOnly,
     required TResult Function(String? buyerUserId) buyerUserIdValidated,
     required TResult Function(String? buyerDisplayName)
         buyerDisplayNameValidated,
@@ -864,6 +898,7 @@ class _$_IndividualQuotationEdited implements _IndividualQuotationEdited {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -891,6 +926,7 @@ class _$_IndividualQuotationEdited implements _IndividualQuotationEdited {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -922,6 +958,8 @@ class _$_IndividualQuotationEdited implements _IndividualQuotationEdited {
         calculateTotalAfterEdit,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_EmailValidated value) emailValidated,
+    required TResult Function(_EmailValidNotSignedUpOnly value)
+        emailValidNotSignedUpOnly,
     required TResult Function(_BuyerUserIdValidated value) buyerUserIdValidated,
     required TResult Function(_BuyerDisplayNameValidated value)
         buyerDisplayNameValidated,
@@ -946,6 +984,8 @@ class _$_IndividualQuotationEdited implements _IndividualQuotationEdited {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -969,6 +1009,8 @@ class _$_IndividualQuotationEdited implements _IndividualQuotationEdited {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -1076,6 +1118,7 @@ class _$_CalculateTotalAfterEdit implements _CalculateTotalAfterEdit {
         calculateTotalAfterEdit,
     required TResult Function(String? buyerEmail) emailChanged,
     required TResult Function(String? buyerEmail) emailValidated,
+    required TResult Function(String? buyerEmail) emailValidNotSignedUpOnly,
     required TResult Function(String? buyerUserId) buyerUserIdValidated,
     required TResult Function(String? buyerDisplayName)
         buyerDisplayNameValidated,
@@ -1105,6 +1148,7 @@ class _$_CalculateTotalAfterEdit implements _CalculateTotalAfterEdit {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -1132,6 +1176,7 @@ class _$_CalculateTotalAfterEdit implements _CalculateTotalAfterEdit {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -1163,6 +1208,8 @@ class _$_CalculateTotalAfterEdit implements _CalculateTotalAfterEdit {
         calculateTotalAfterEdit,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_EmailValidated value) emailValidated,
+    required TResult Function(_EmailValidNotSignedUpOnly value)
+        emailValidNotSignedUpOnly,
     required TResult Function(_BuyerUserIdValidated value) buyerUserIdValidated,
     required TResult Function(_BuyerDisplayNameValidated value)
         buyerDisplayNameValidated,
@@ -1187,6 +1234,8 @@ class _$_CalculateTotalAfterEdit implements _CalculateTotalAfterEdit {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -1210,6 +1259,8 @@ class _$_CalculateTotalAfterEdit implements _CalculateTotalAfterEdit {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -1313,6 +1364,7 @@ class _$_EmailChanged implements _EmailChanged {
         calculateTotalAfterEdit,
     required TResult Function(String? buyerEmail) emailChanged,
     required TResult Function(String? buyerEmail) emailValidated,
+    required TResult Function(String? buyerEmail) emailValidNotSignedUpOnly,
     required TResult Function(String? buyerUserId) buyerUserIdValidated,
     required TResult Function(String? buyerDisplayName)
         buyerDisplayNameValidated,
@@ -1342,6 +1394,7 @@ class _$_EmailChanged implements _EmailChanged {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -1369,6 +1422,7 @@ class _$_EmailChanged implements _EmailChanged {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -1400,6 +1454,8 @@ class _$_EmailChanged implements _EmailChanged {
         calculateTotalAfterEdit,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_EmailValidated value) emailValidated,
+    required TResult Function(_EmailValidNotSignedUpOnly value)
+        emailValidNotSignedUpOnly,
     required TResult Function(_BuyerUserIdValidated value) buyerUserIdValidated,
     required TResult Function(_BuyerDisplayNameValidated value)
         buyerDisplayNameValidated,
@@ -1424,6 +1480,8 @@ class _$_EmailChanged implements _EmailChanged {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -1447,6 +1505,8 @@ class _$_EmailChanged implements _EmailChanged {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -1549,6 +1609,7 @@ class _$_EmailValidated implements _EmailValidated {
         calculateTotalAfterEdit,
     required TResult Function(String? buyerEmail) emailChanged,
     required TResult Function(String? buyerEmail) emailValidated,
+    required TResult Function(String? buyerEmail) emailValidNotSignedUpOnly,
     required TResult Function(String? buyerUserId) buyerUserIdValidated,
     required TResult Function(String? buyerDisplayName)
         buyerDisplayNameValidated,
@@ -1578,6 +1639,7 @@ class _$_EmailValidated implements _EmailValidated {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -1605,6 +1667,7 @@ class _$_EmailValidated implements _EmailValidated {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -1636,6 +1699,8 @@ class _$_EmailValidated implements _EmailValidated {
         calculateTotalAfterEdit,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_EmailValidated value) emailValidated,
+    required TResult Function(_EmailValidNotSignedUpOnly value)
+        emailValidNotSignedUpOnly,
     required TResult Function(_BuyerUserIdValidated value) buyerUserIdValidated,
     required TResult Function(_BuyerDisplayNameValidated value)
         buyerDisplayNameValidated,
@@ -1660,6 +1725,8 @@ class _$_EmailValidated implements _EmailValidated {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -1683,6 +1750,8 @@ class _$_EmailValidated implements _EmailValidated {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -1708,6 +1777,255 @@ abstract class _EmailValidated implements SelectedWatcherEvent {
   @JsonKey(ignore: true)
   _$EmailValidatedCopyWith<_EmailValidated> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$EmailValidNotSignedUpOnlyCopyWith<$Res> {
+  factory _$EmailValidNotSignedUpOnlyCopyWith(_EmailValidNotSignedUpOnly value,
+          $Res Function(_EmailValidNotSignedUpOnly) then) =
+      __$EmailValidNotSignedUpOnlyCopyWithImpl<$Res>;
+  $Res call({String? buyerEmail});
+}
+
+/// @nodoc
+class __$EmailValidNotSignedUpOnlyCopyWithImpl<$Res>
+    extends _$SelectedWatcherEventCopyWithImpl<$Res>
+    implements _$EmailValidNotSignedUpOnlyCopyWith<$Res> {
+  __$EmailValidNotSignedUpOnlyCopyWithImpl(_EmailValidNotSignedUpOnly _value,
+      $Res Function(_EmailValidNotSignedUpOnly) _then)
+      : super(_value, (v) => _then(v as _EmailValidNotSignedUpOnly));
+
+  @override
+  _EmailValidNotSignedUpOnly get _value =>
+      super._value as _EmailValidNotSignedUpOnly;
+
+  @override
+  $Res call({
+    Object? buyerEmail = freezed,
+  }) {
+    return _then(_EmailValidNotSignedUpOnly(
+      buyerEmail == freezed
+          ? _value.buyerEmail
+          : buyerEmail // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_EmailValidNotSignedUpOnly implements _EmailValidNotSignedUpOnly {
+  const _$_EmailValidNotSignedUpOnly(this.buyerEmail);
+
+  @override
+  final String? buyerEmail;
+
+  @override
+  String toString() {
+    return 'SelectedWatcherEvent.emailValidNotSignedUpOnly(buyerEmail: $buyerEmail)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _EmailValidNotSignedUpOnly &&
+            const DeepCollectionEquality()
+                .equals(other.buyerEmail, buyerEmail));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(buyerEmail));
+
+  @JsonKey(ignore: true)
+  @override
+  _$EmailValidNotSignedUpOnlyCopyWith<_EmailValidNotSignedUpOnly>
+      get copyWith =>
+          __$EmailValidNotSignedUpOnlyCopyWithImpl<_EmailValidNotSignedUpOnly>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Option<Sold>? afterSelectSoldOption) initialized,
+    required TResult Function(KtList<SelectedItemPrimitive>? items) selected,
+    required TResult Function(
+            List3Sold<Quotation>? billQuotations, int? quotationIndex)
+        individualQuotationEdited,
+    required TResult Function(KtList<Quotation>? billQuotations)
+        calculateTotalAfterEdit,
+    required TResult Function(String? buyerEmail) emailChanged,
+    required TResult Function(String? buyerEmail) emailValidated,
+    required TResult Function(String? buyerEmail) emailValidNotSignedUpOnly,
+    required TResult Function(String? buyerUserId) buyerUserIdValidated,
+    required TResult Function(String? buyerDisplayName)
+        buyerDisplayNameValidated,
+    required TResult Function(String? buyerPhotoUrl) buyerPhotoUrlValidated,
+    required TResult Function(List3Sold<Quotation>? billQuotations,
+            num? billQuotationRate, Quotation? entry)
+        rateChanged,
+    required TResult Function(List3Sold<Quotation>? billQuotations,
+            num? billQUotationQuantity, Quotation? entry)
+        quantityChanged,
+    required TResult Function() saved,
+    required TResult Function(KtList<SelectedItemPrimitive>? items)
+        calculateTotal,
+    required TResult Function() findBuyer,
+  }) {
+    return emailValidNotSignedUpOnly(buyerEmail);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Option<Sold>? afterSelectSoldOption)? initialized,
+    TResult Function(KtList<SelectedItemPrimitive>? items)? selected,
+    TResult Function(List3Sold<Quotation>? billQuotations, int? quotationIndex)?
+        individualQuotationEdited,
+    TResult Function(KtList<Quotation>? billQuotations)?
+        calculateTotalAfterEdit,
+    TResult Function(String? buyerEmail)? emailChanged,
+    TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
+    TResult Function(String? buyerUserId)? buyerUserIdValidated,
+    TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
+    TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
+    TResult Function(List3Sold<Quotation>? billQuotations,
+            num? billQuotationRate, Quotation? entry)?
+        rateChanged,
+    TResult Function(List3Sold<Quotation>? billQuotations,
+            num? billQUotationQuantity, Quotation? entry)?
+        quantityChanged,
+    TResult Function()? saved,
+    TResult Function(KtList<SelectedItemPrimitive>? items)? calculateTotal,
+    TResult Function()? findBuyer,
+  }) {
+    return emailValidNotSignedUpOnly?.call(buyerEmail);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Option<Sold>? afterSelectSoldOption)? initialized,
+    TResult Function(KtList<SelectedItemPrimitive>? items)? selected,
+    TResult Function(List3Sold<Quotation>? billQuotations, int? quotationIndex)?
+        individualQuotationEdited,
+    TResult Function(KtList<Quotation>? billQuotations)?
+        calculateTotalAfterEdit,
+    TResult Function(String? buyerEmail)? emailChanged,
+    TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
+    TResult Function(String? buyerUserId)? buyerUserIdValidated,
+    TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
+    TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
+    TResult Function(List3Sold<Quotation>? billQuotations,
+            num? billQuotationRate, Quotation? entry)?
+        rateChanged,
+    TResult Function(List3Sold<Quotation>? billQuotations,
+            num? billQUotationQuantity, Quotation? entry)?
+        quantityChanged,
+    TResult Function()? saved,
+    TResult Function(KtList<SelectedItemPrimitive>? items)? calculateTotal,
+    TResult Function()? findBuyer,
+    required TResult orElse(),
+  }) {
+    if (emailValidNotSignedUpOnly != null) {
+      return emailValidNotSignedUpOnly(buyerEmail);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialized value) initialized,
+    required TResult Function(_Selected value) selected,
+    required TResult Function(_IndividualQuotationEdited value)
+        individualQuotationEdited,
+    required TResult Function(_CalculateTotalAfterEdit value)
+        calculateTotalAfterEdit,
+    required TResult Function(_EmailChanged value) emailChanged,
+    required TResult Function(_EmailValidated value) emailValidated,
+    required TResult Function(_EmailValidNotSignedUpOnly value)
+        emailValidNotSignedUpOnly,
+    required TResult Function(_BuyerUserIdValidated value) buyerUserIdValidated,
+    required TResult Function(_BuyerDisplayNameValidated value)
+        buyerDisplayNameValidated,
+    required TResult Function(_BuyerPhotoUrlValidated value)
+        buyerPhotoUrlValidated,
+    required TResult Function(_RateChanged value) rateChanged,
+    required TResult Function(_QuantityChanged value) quantityChanged,
+    required TResult Function(_Saved value) saved,
+    required TResult Function(_CalculateTotal value) calculateTotal,
+    required TResult Function(_FindBuyer value) findBuyer,
+  }) {
+    return emailValidNotSignedUpOnly(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initialized value)? initialized,
+    TResult Function(_Selected value)? selected,
+    TResult Function(_IndividualQuotationEdited value)?
+        individualQuotationEdited,
+    TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
+    TResult Function(_EmailChanged value)? emailChanged,
+    TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
+    TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
+    TResult Function(_BuyerDisplayNameValidated value)?
+        buyerDisplayNameValidated,
+    TResult Function(_BuyerPhotoUrlValidated value)? buyerPhotoUrlValidated,
+    TResult Function(_RateChanged value)? rateChanged,
+    TResult Function(_QuantityChanged value)? quantityChanged,
+    TResult Function(_Saved value)? saved,
+    TResult Function(_CalculateTotal value)? calculateTotal,
+    TResult Function(_FindBuyer value)? findBuyer,
+  }) {
+    return emailValidNotSignedUpOnly?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialized value)? initialized,
+    TResult Function(_Selected value)? selected,
+    TResult Function(_IndividualQuotationEdited value)?
+        individualQuotationEdited,
+    TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
+    TResult Function(_EmailChanged value)? emailChanged,
+    TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
+    TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
+    TResult Function(_BuyerDisplayNameValidated value)?
+        buyerDisplayNameValidated,
+    TResult Function(_BuyerPhotoUrlValidated value)? buyerPhotoUrlValidated,
+    TResult Function(_RateChanged value)? rateChanged,
+    TResult Function(_QuantityChanged value)? quantityChanged,
+    TResult Function(_Saved value)? saved,
+    TResult Function(_CalculateTotal value)? calculateTotal,
+    TResult Function(_FindBuyer value)? findBuyer,
+    required TResult orElse(),
+  }) {
+    if (emailValidNotSignedUpOnly != null) {
+      return emailValidNotSignedUpOnly(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _EmailValidNotSignedUpOnly implements SelectedWatcherEvent {
+  const factory _EmailValidNotSignedUpOnly(String? buyerEmail) =
+      _$_EmailValidNotSignedUpOnly;
+
+  String? get buyerEmail;
+  @JsonKey(ignore: true)
+  _$EmailValidNotSignedUpOnlyCopyWith<_EmailValidNotSignedUpOnly>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1786,6 +2104,7 @@ class _$_BuyerUserIdValidated implements _BuyerUserIdValidated {
         calculateTotalAfterEdit,
     required TResult Function(String? buyerEmail) emailChanged,
     required TResult Function(String? buyerEmail) emailValidated,
+    required TResult Function(String? buyerEmail) emailValidNotSignedUpOnly,
     required TResult Function(String? buyerUserId) buyerUserIdValidated,
     required TResult Function(String? buyerDisplayName)
         buyerDisplayNameValidated,
@@ -1815,6 +2134,7 @@ class _$_BuyerUserIdValidated implements _BuyerUserIdValidated {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -1842,6 +2162,7 @@ class _$_BuyerUserIdValidated implements _BuyerUserIdValidated {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -1873,6 +2194,8 @@ class _$_BuyerUserIdValidated implements _BuyerUserIdValidated {
         calculateTotalAfterEdit,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_EmailValidated value) emailValidated,
+    required TResult Function(_EmailValidNotSignedUpOnly value)
+        emailValidNotSignedUpOnly,
     required TResult Function(_BuyerUserIdValidated value) buyerUserIdValidated,
     required TResult Function(_BuyerDisplayNameValidated value)
         buyerDisplayNameValidated,
@@ -1897,6 +2220,8 @@ class _$_BuyerUserIdValidated implements _BuyerUserIdValidated {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -1920,6 +2245,8 @@ class _$_BuyerUserIdValidated implements _BuyerUserIdValidated {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -2026,6 +2353,7 @@ class _$_BuyerDisplayNameValidated implements _BuyerDisplayNameValidated {
         calculateTotalAfterEdit,
     required TResult Function(String? buyerEmail) emailChanged,
     required TResult Function(String? buyerEmail) emailValidated,
+    required TResult Function(String? buyerEmail) emailValidNotSignedUpOnly,
     required TResult Function(String? buyerUserId) buyerUserIdValidated,
     required TResult Function(String? buyerDisplayName)
         buyerDisplayNameValidated,
@@ -2055,6 +2383,7 @@ class _$_BuyerDisplayNameValidated implements _BuyerDisplayNameValidated {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -2082,6 +2411,7 @@ class _$_BuyerDisplayNameValidated implements _BuyerDisplayNameValidated {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -2113,6 +2443,8 @@ class _$_BuyerDisplayNameValidated implements _BuyerDisplayNameValidated {
         calculateTotalAfterEdit,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_EmailValidated value) emailValidated,
+    required TResult Function(_EmailValidNotSignedUpOnly value)
+        emailValidNotSignedUpOnly,
     required TResult Function(_BuyerUserIdValidated value) buyerUserIdValidated,
     required TResult Function(_BuyerDisplayNameValidated value)
         buyerDisplayNameValidated,
@@ -2137,6 +2469,8 @@ class _$_BuyerDisplayNameValidated implements _BuyerDisplayNameValidated {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -2160,6 +2494,8 @@ class _$_BuyerDisplayNameValidated implements _BuyerDisplayNameValidated {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -2264,6 +2600,7 @@ class _$_BuyerPhotoUrlValidated implements _BuyerPhotoUrlValidated {
         calculateTotalAfterEdit,
     required TResult Function(String? buyerEmail) emailChanged,
     required TResult Function(String? buyerEmail) emailValidated,
+    required TResult Function(String? buyerEmail) emailValidNotSignedUpOnly,
     required TResult Function(String? buyerUserId) buyerUserIdValidated,
     required TResult Function(String? buyerDisplayName)
         buyerDisplayNameValidated,
@@ -2293,6 +2630,7 @@ class _$_BuyerPhotoUrlValidated implements _BuyerPhotoUrlValidated {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -2320,6 +2658,7 @@ class _$_BuyerPhotoUrlValidated implements _BuyerPhotoUrlValidated {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -2351,6 +2690,8 @@ class _$_BuyerPhotoUrlValidated implements _BuyerPhotoUrlValidated {
         calculateTotalAfterEdit,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_EmailValidated value) emailValidated,
+    required TResult Function(_EmailValidNotSignedUpOnly value)
+        emailValidNotSignedUpOnly,
     required TResult Function(_BuyerUserIdValidated value) buyerUserIdValidated,
     required TResult Function(_BuyerDisplayNameValidated value)
         buyerDisplayNameValidated,
@@ -2375,6 +2716,8 @@ class _$_BuyerPhotoUrlValidated implements _BuyerPhotoUrlValidated {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -2398,6 +2741,8 @@ class _$_BuyerPhotoUrlValidated implements _BuyerPhotoUrlValidated {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -2538,6 +2883,7 @@ class _$_RateChanged implements _RateChanged {
         calculateTotalAfterEdit,
     required TResult Function(String? buyerEmail) emailChanged,
     required TResult Function(String? buyerEmail) emailValidated,
+    required TResult Function(String? buyerEmail) emailValidNotSignedUpOnly,
     required TResult Function(String? buyerUserId) buyerUserIdValidated,
     required TResult Function(String? buyerDisplayName)
         buyerDisplayNameValidated,
@@ -2567,6 +2913,7 @@ class _$_RateChanged implements _RateChanged {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -2594,6 +2941,7 @@ class _$_RateChanged implements _RateChanged {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -2625,6 +2973,8 @@ class _$_RateChanged implements _RateChanged {
         calculateTotalAfterEdit,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_EmailValidated value) emailValidated,
+    required TResult Function(_EmailValidNotSignedUpOnly value)
+        emailValidNotSignedUpOnly,
     required TResult Function(_BuyerUserIdValidated value) buyerUserIdValidated,
     required TResult Function(_BuyerDisplayNameValidated value)
         buyerDisplayNameValidated,
@@ -2649,6 +2999,8 @@ class _$_RateChanged implements _RateChanged {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -2672,6 +3024,8 @@ class _$_RateChanged implements _RateChanged {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -2816,6 +3170,7 @@ class _$_QuantityChanged implements _QuantityChanged {
         calculateTotalAfterEdit,
     required TResult Function(String? buyerEmail) emailChanged,
     required TResult Function(String? buyerEmail) emailValidated,
+    required TResult Function(String? buyerEmail) emailValidNotSignedUpOnly,
     required TResult Function(String? buyerUserId) buyerUserIdValidated,
     required TResult Function(String? buyerDisplayName)
         buyerDisplayNameValidated,
@@ -2845,6 +3200,7 @@ class _$_QuantityChanged implements _QuantityChanged {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -2872,6 +3228,7 @@ class _$_QuantityChanged implements _QuantityChanged {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -2903,6 +3260,8 @@ class _$_QuantityChanged implements _QuantityChanged {
         calculateTotalAfterEdit,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_EmailValidated value) emailValidated,
+    required TResult Function(_EmailValidNotSignedUpOnly value)
+        emailValidNotSignedUpOnly,
     required TResult Function(_BuyerUserIdValidated value) buyerUserIdValidated,
     required TResult Function(_BuyerDisplayNameValidated value)
         buyerDisplayNameValidated,
@@ -2927,6 +3286,8 @@ class _$_QuantityChanged implements _QuantityChanged {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -2950,6 +3311,8 @@ class _$_QuantityChanged implements _QuantityChanged {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -3030,6 +3393,7 @@ class _$_Saved implements _Saved {
         calculateTotalAfterEdit,
     required TResult Function(String? buyerEmail) emailChanged,
     required TResult Function(String? buyerEmail) emailValidated,
+    required TResult Function(String? buyerEmail) emailValidNotSignedUpOnly,
     required TResult Function(String? buyerUserId) buyerUserIdValidated,
     required TResult Function(String? buyerDisplayName)
         buyerDisplayNameValidated,
@@ -3059,6 +3423,7 @@ class _$_Saved implements _Saved {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -3086,6 +3451,7 @@ class _$_Saved implements _Saved {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -3117,6 +3483,8 @@ class _$_Saved implements _Saved {
         calculateTotalAfterEdit,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_EmailValidated value) emailValidated,
+    required TResult Function(_EmailValidNotSignedUpOnly value)
+        emailValidNotSignedUpOnly,
     required TResult Function(_BuyerUserIdValidated value) buyerUserIdValidated,
     required TResult Function(_BuyerDisplayNameValidated value)
         buyerDisplayNameValidated,
@@ -3141,6 +3509,8 @@ class _$_Saved implements _Saved {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -3164,6 +3534,8 @@ class _$_Saved implements _Saved {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -3260,6 +3632,7 @@ class _$_CalculateTotal implements _CalculateTotal {
         calculateTotalAfterEdit,
     required TResult Function(String? buyerEmail) emailChanged,
     required TResult Function(String? buyerEmail) emailValidated,
+    required TResult Function(String? buyerEmail) emailValidNotSignedUpOnly,
     required TResult Function(String? buyerUserId) buyerUserIdValidated,
     required TResult Function(String? buyerDisplayName)
         buyerDisplayNameValidated,
@@ -3289,6 +3662,7 @@ class _$_CalculateTotal implements _CalculateTotal {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -3316,6 +3690,7 @@ class _$_CalculateTotal implements _CalculateTotal {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -3347,6 +3722,8 @@ class _$_CalculateTotal implements _CalculateTotal {
         calculateTotalAfterEdit,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_EmailValidated value) emailValidated,
+    required TResult Function(_EmailValidNotSignedUpOnly value)
+        emailValidNotSignedUpOnly,
     required TResult Function(_BuyerUserIdValidated value) buyerUserIdValidated,
     required TResult Function(_BuyerDisplayNameValidated value)
         buyerDisplayNameValidated,
@@ -3371,6 +3748,8 @@ class _$_CalculateTotal implements _CalculateTotal {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -3394,6 +3773,8 @@ class _$_CalculateTotal implements _CalculateTotal {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -3471,6 +3852,7 @@ class _$_FindBuyer implements _FindBuyer {
         calculateTotalAfterEdit,
     required TResult Function(String? buyerEmail) emailChanged,
     required TResult Function(String? buyerEmail) emailValidated,
+    required TResult Function(String? buyerEmail) emailValidNotSignedUpOnly,
     required TResult Function(String? buyerUserId) buyerUserIdValidated,
     required TResult Function(String? buyerDisplayName)
         buyerDisplayNameValidated,
@@ -3500,6 +3882,7 @@ class _$_FindBuyer implements _FindBuyer {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -3527,6 +3910,7 @@ class _$_FindBuyer implements _FindBuyer {
         calculateTotalAfterEdit,
     TResult Function(String? buyerEmail)? emailChanged,
     TResult Function(String? buyerEmail)? emailValidated,
+    TResult Function(String? buyerEmail)? emailValidNotSignedUpOnly,
     TResult Function(String? buyerUserId)? buyerUserIdValidated,
     TResult Function(String? buyerDisplayName)? buyerDisplayNameValidated,
     TResult Function(String? buyerPhotoUrl)? buyerPhotoUrlValidated,
@@ -3558,6 +3942,8 @@ class _$_FindBuyer implements _FindBuyer {
         calculateTotalAfterEdit,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_EmailValidated value) emailValidated,
+    required TResult Function(_EmailValidNotSignedUpOnly value)
+        emailValidNotSignedUpOnly,
     required TResult Function(_BuyerUserIdValidated value) buyerUserIdValidated,
     required TResult Function(_BuyerDisplayNameValidated value)
         buyerDisplayNameValidated,
@@ -3582,6 +3968,8 @@ class _$_FindBuyer implements _FindBuyer {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,
@@ -3605,6 +3993,8 @@ class _$_FindBuyer implements _FindBuyer {
     TResult Function(_CalculateTotalAfterEdit value)? calculateTotalAfterEdit,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_EmailValidated value)? emailValidated,
+    TResult Function(_EmailValidNotSignedUpOnly value)?
+        emailValidNotSignedUpOnly,
     TResult Function(_BuyerUserIdValidated value)? buyerUserIdValidated,
     TResult Function(_BuyerDisplayNameValidated value)?
         buyerDisplayNameValidated,

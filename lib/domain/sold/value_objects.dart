@@ -36,12 +36,21 @@ class EmailAddressBought extends ValueObject<String> {
   // final bool emailExist;
   factory EmailAddressBought(String input, bool emailExist) {
     assert(input != null);
-    return EmailAddressBought._(
-      validateEmailExistence(input, emailExist)
-      // validateEmailAddressBought(input).flatMap(validateEmailExistence(input,emailExist))
-      // validateEmailExistence(input).flatMap(validateEmailAddressBought)
-      ,
-    );
+    if (emailExist) {
+      return EmailAddressBought._(
+        validateEmailExistence(input, emailExist)
+        // validateEmailAddressBought(input).flatMap(validateEmailExistence(input,emailExist))
+        // validateEmailExistence(input).flatMap(validateEmailAddressBought)
+        ,
+      );
+    } else {
+      return EmailAddressBought._(
+        validateEmailAddress(input)
+        // validateEmailAddressBought(input).flatMap(validateEmailExistence(input,emailExist))
+        // validateEmailExistence(input).flatMap(validateEmailAddressBought)
+        ,
+      );
+    }
   }
 
   const EmailAddressBought._(this.value);
